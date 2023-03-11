@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "305228364242",
+    "project_id": "sharehands-1ff0e",
+    "storage_bucket": "sharehands-1ff0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305228364242:android:72ede669f004410f96700b",
+        "android_client_info": {
+          "package_name": "com.sharehands.sharehands_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305228364242-c29oqddmd8i5kfes8ua6s4ar9l3pvgam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharehands.sharehands_frontend",
+            "certificate_hash": "5f309dd6a0e3cd0aa6905e08f6c02ce422c9db14"
+          }
+        },
+        {
+          "client_id": "305228364242-vuvna28p86npq7sjh7bf2knigdc4im99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgDCZrcy6xZ6ZwozwN_v6M1Vyb3hMJytw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305228364242-2imej339go4cqsamrug0ovpe1ci9phrr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
