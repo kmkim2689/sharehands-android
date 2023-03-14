@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendar_monthly"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_leftArrowMask="@drawable/ic_back_dir"
+        app:mcv_rightArrowMask="@drawable/ic_forward_dir"
+        app:mcv_arrowColor="@color/sharehands_green_strong"
+        app:mcv_calendarMode="month"
+        app:mcv_showOtherDates="other_months"
+        app:mcv_allowClickDaysOutsideCurrentMonth="true"
+        app:mcv_selectionColor="@color/sharehands_green_strong" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

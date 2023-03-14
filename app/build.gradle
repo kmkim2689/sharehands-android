@@ -34,6 +34,9 @@ android {
     defaultConfig {
         manifestPlaceholders = [NATIVE_APP_KEY: KAKAO_NATIVE_APP_KEY]
     }
+    viewBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -50,4 +53,6 @@ dependencies {
     // kakao login
     implementation "com.kakao.sdk:v2-all:2.13.0"
 
+    // calendar - materialCalendarView
+    implementation group: 'com.prolificinteractive', name: 'material-calendarview', version: '1.4.3'
 }
