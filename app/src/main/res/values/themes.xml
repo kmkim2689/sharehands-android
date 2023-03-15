@@ -26,4 +26,20 @@
         <item name="android:dateTextAppearance">@style/TextAppearance.AppCompat.Medium</item>
     </style>
 
+    <style name="CalendarViewWeekText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/sharehands_green_medium</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarViewTitleText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/sharehands_green_strong</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="CalendarViewDayText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
