@@ -1,4 +1,4 @@
-package com.sharehands.sharehands_frontend.view.schedule_mgt.calendar_decorator
+package com.sharehands.sharehands_frontend.view.schedule.calendar_decorator
 
 import android.graphics.Color
 import android.text.style.ForegroundColorSpan

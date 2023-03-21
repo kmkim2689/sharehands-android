@@ -13,4 +13,5 @@
     <color name="background_day">#F5F5F5</color>
     <color name="icon_unfilled">#5F6368</color>
     <color name="sharehands_black">#1F2024</color>
+    <color name="sharehands_gray">#D9D9D9</color>
 </resources>

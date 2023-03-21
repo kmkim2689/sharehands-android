@@ -1,4 +1,4 @@
-package com.sharehands.sharehands_frontend.view.schedule_mgt
+package com.sharehands.sharehands_frontend.view.schedule
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

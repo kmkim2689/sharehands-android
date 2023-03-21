@@ -2,10 +2,9 @@
 <layout>
     <data>
         <variable
-            name="schedule_monthly"
-            type="com.sharehands.sharehands_frontend.model.schedule.MonthlySchedule" />
+            name="schedule_daily"
+            type="com.sharehands.sharehands_frontend.model.schedule.DailySchedule" />
     </data>
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,8 +16,7 @@
             android:id="@+id/layout_monthly_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sharehands_toolbar"
-            android:elevation="50dp">
+            android:background="@drawable/sharehands_toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -41,7 +39,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="#00000000"
-                    android:text="월별 계획"
+                    android:text="일별 계획"
                     android:textColor="@color/sharehands_black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -62,7 +60,7 @@
             android:orientation="vertical">
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                android:id="@+id/calendar_monthly"
+                android:id="@+id/calendar_weekly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -74,7 +72,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:mcv_allowClickDaysOutsideCurrentMonth="true"
                 app:mcv_arrowColor="@color/sharehands_green_strong"
-                app:mcv_calendarMode="month"
+                app:mcv_calendarMode="week"
                 app:mcv_headerTextAppearance="@style/CalendarViewTitleText"
                 app:mcv_leftArrowMask="@drawable/ic_back_dir"
                 app:mcv_rightArrowMask="@drawable/ic_forward_dir"
@@ -90,37 +88,17 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"/>
 
-            <LinearLayout
-                android:id="@+id/layout_view_detail"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/tv_schedule_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/cardview_default_elevation">
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="20dp"
+                android:text="x월 xx일"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-
-                <TextView
-                    android:id="@+id/tv_schedule_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="20dp"
-                    android:text="x월의 봉사 계획"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_weight="5"/>
-
-                <TextView
-                    android:id="@+id/tv_view_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자세히 보기 "
-                    android:gravity="end"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="20dp"
-                    android:drawableEnd="@drawable/ic_forward_dir"
-                    />
-            </LinearLayout>
 
 
             <androidx.core.widget.NestedScrollView
@@ -138,36 +116,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_schedules"
+                    <com.github.tlaabs.timetableview.TimetableView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:column_count="2"
+                        app:header_title="@array/daily_timetable_header"/>
 
-                    <ImageView
-                        android:id="@+id/iv_logo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sharehands_logo"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rv_schedules"
-                        android:layout_marginStart="20dp"/>
+                    <!--                <androidx.recyclerview.widget.RecyclerView-->
+                    <!--                    android:id="@+id/rv_daily_schedules"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginStart="20dp"-->
+                    <!--                    android:layout_marginTop="8dp"-->
+                    <!--                    android:layout_marginEnd="20dp"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toTopOf="parent"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
+
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/iv_logo"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:src="@drawable/sharehands_logo"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@id/rv_daily_schedules"-->
+                    <!--                    android:layout_marginStart="20dp"/>-->
 
 
-                    <ImageView
-                        android:id="@+id/iv_logo2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sharehands_logo"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_logo"
-                        android:layout_marginStart="20dp"/>
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/iv_logo2"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:src="@drawable/sharehands_logo"-->
+                    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@id/iv_logo"-->
+                    <!--                    android:layout_marginStart="20dp"/>-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
-package com.sharehands.sharehands_frontend.view.schedule_mgt.calendar_decorator
+package com.sharehands.sharehands_frontend.view.schedule.calendar_decorator
 
 import android.content.Context
+import android.util.Log
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -16,5 +17,6 @@ class TodayDecorator(context: Context): DayViewDecorator {
 
     override fun decorate(view: DayViewFacade?) {
         view?.setSelectionDrawable(drawable)
+        Log.d("today", "decorated")
     }
 }

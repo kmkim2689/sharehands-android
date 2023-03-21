@@ -11,6 +11,8 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+        // 타임테이블 라이브러리 이용을 위하여
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "ShareHands_frontend"
