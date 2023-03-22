@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_shadow_stroke">
+
+    <ImageView
+        android:id="@+id/iv_user_profile"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/frame_preview_profile"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_user_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_user_profile"
+        tools:text="닉네임" />
+
+    <ImageView
+        android:id="@+id/iv_cert_badge"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_cert"
+        app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+        app:layout_constraintStart_toEndOf="@id/tv_user_nickname"
+        app:layout_constraintTop_toTopOf="@id/tv_user_nickname" />
+
+    <ImageView
+        android:id="@+id/iv_view_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:src="@drawable/ic_forward_dir"
+        app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+        app:layout_constraintStart_toEndOf="@id/iv_cert_badge"
+        app:layout_constraintTop_toTopOf="@id/tv_user_nickname"
+        app:tint="@color/text_color" />
+
+    <TextView
+        android:id="@+id/tv_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="나눔레벨"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_nickname" />
+
+    <TextView
+        android:id="@+id/tv_level_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_level"
+        app:layout_constraintStart_toEndOf="@id/tv_level"
+        app:layout_constraintTop_toTopOf="@id/tv_level"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tv_user_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/ic_star_filled"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_level"
+        tools:text="4.9" />
+
+    <FrameLayout
+        android:id="@+id/layout_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:id="@+id/iv_suggest_select"
+            android:layout_width="136dp"
+            android:layout_height="80dp"
+            android:padding="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:src="@drawable/ic_suggest"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_suggest_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:src="@drawable/ic_suggest_cancel"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
