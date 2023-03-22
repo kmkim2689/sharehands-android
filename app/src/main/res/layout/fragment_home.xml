@@ -19,7 +19,9 @@
             android:background="@drawable/sharehands_toolbar"
             android:shadowColor="@color/sharehands_gray"
             android:shadowDy="20"
-            android:shadowRadius="20">
+            android:shadowRadius="20"
+            android:elevation="0dp"
+            app:elevation="32dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

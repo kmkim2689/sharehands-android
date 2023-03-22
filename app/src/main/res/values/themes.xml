@@ -42,4 +42,7 @@
     <style name="CalendarViewDayText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="CustomToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rectangle_shadow_rad40">
+
+    <ImageView
+        android:id="@+id/iv_schedule"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_schedule"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="28dp"
+        android:paddingTop="4dp"
+        android:layout_marginStart="28dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_date"
+        app:layout_constraintTop_toBottomOf="@id/iv_schedule"
+        app:layout_constraintStart_toStartOf="@id/iv_schedule"
+        app:layout_constraintEnd_toEndOf="@id/iv_schedule"
+
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_schedule_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_schedule_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_marginStart="4dp"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_schedule_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_schedule"
+        app:layout_constraintStart_toEndOf="@id/iv_schedule"
+        android:layout_marginStart="20dp"
+        tools:text="봉사 이름"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_schedule_dday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_schedule_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_schedule_title"
+        app:layout_constraintStart_toEndOf="@id/tv_schedule_title"
+        android:text="D-"
+        android:textColor="@color/sharehands_green_strong"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginStart="28dp"/>
+
+    <TextView
+        android:id="@+id/tv_schedule_dday_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_schedule_title"
+        app:layout_constraintBottom_toBottomOf="@id/tv_schedule_title"
+        app:layout_constraintStart_toEndOf="@id/tv_schedule_dday"
+        tools:text="5"
+        android:textColor="@color/sharehands_green_strong"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_location_time"
+        app:layout_constraintStart_toStartOf="@id/tv_schedule_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_schedule_title"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="28dp">
+
+        <TextView
+            android:id="@+id/tv_schedule_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="한국외국어대학교"
+            android:textSize="20sp"
+            android:textColor="@color/text_color"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_schedule_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                tools:text="12:00"/>
+
+            <TextView
+                android:id="@+id/tv_schedule_time_sep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~"
+                android:textColor="@color/text_color"
+                android:layout_marginStart="4dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_schedule_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:layout_marginStart="4dp"
+                tools:text="13:00"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_view_detail"
+        android:layout_width="16dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_forward_dir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="32dp"
+        app:tint="@color/text_color"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
