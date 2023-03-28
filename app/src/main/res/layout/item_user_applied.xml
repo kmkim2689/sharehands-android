@@ -11,7 +11,7 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/frame_preview_profile"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
@@ -56,10 +56,10 @@
         android:id="@+id/tv_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:text="나눔레벨"
         android:textColor="@color/text_color"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
         app:layout_constraintTop_toBottomOf="@id/tv_user_nickname" />
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:textColor="@color/text_color"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/tv_level"
         app:layout_constraintStart_toEndOf="@id/tv_level"
@@ -82,8 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="16dp"
         android:drawableStart="@drawable/ic_star_filled"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -92,49 +92,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_level"
         tools:text="4.9" />
 
-    <FrameLayout
-        android:id="@+id/layout_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+    <ImageView
+        android:id="@+id/btn_accept"
+        android:layout_width="128dp"
+        android:layout_height="72dp"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_review_allow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:src="@drawable/ic_review_allow"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/iv_review_ban"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:src="@drawable/ic_review_ban"
-            android:visibility="gone" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layout_recruit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layout_review"
-        app:layout_constraintStart_toStartOf="@id/layout_review"
-        app:layout_constraintEnd_toEndOf="@id/layout_review">
-
-        <ImageView
-            android:id="@+id/iv_recruit_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_recruit_cancel"
-            android:padding="8dp"
-            android:visibility="visible"/>
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_service_accept"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

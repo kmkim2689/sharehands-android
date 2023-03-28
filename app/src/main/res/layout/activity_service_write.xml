@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:background="@drawable/sharehands_toolbar"
+            app:elevation="0dp"
+            app:layout_insetEdge="start">
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:elevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_go_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back_dir"
+                    app:tint="@color/sharehands_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="모집글 작성"
+                    android:textColor="@color/sharehands_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_photo_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24sp"
+                    android:layout_marginTop="24dp"
+                    android:text="봉사활동을 대표하는 사진을 첨부해주세요."
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_photo_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_photo_title">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_photo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_pic_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_pic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_pic_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_pic_icon">
+
+                        <TextView
+                            android:id="@+id/tv_pic_current_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/sharehands_black"
+                            android:textSize="12sp"
+                            tools:text="1" />
+
+                        <TextView
+                            android:id="@+id/tv_pic_max_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" / 5"
+                            android:textColor="@color/sharehands_black"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_photo_list"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_photo_select"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/layout_photo_select"
+                    app:layout_constraintTop_toTopOf="@id/layout_photo_select" />
+
+                <TextView
+                    android:id="@+id/tv_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="봉사활동의 범주를 선택해주세요."
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/layout_photo_select" />
+
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/ic_spinner"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_category_title" />
+
+                <TextView
+                    android:id="@+id/tv_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="봉사활동의 이름을 정해주세요."
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_category" />
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:maxLength="20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_title" />
+
+                <LinearLayout
+                    android:id="@+id/layout_name_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/edit_name"
+                    app:layout_constraintTop_toBottomOf="@id/edit_name">
+
+                    <TextView
+                        android:id="@+id/tv_name_current_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        tools:text="0" />
+
+                    <TextView
+                        android:id="@+id/tv_name_max_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / 20"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_simple_description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="봉사활동의 개요를 설명해주세요."
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/edit_name" />
+
+                <EditText
+                    android:id="@+id/edit_simple_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/rectangle_shadow_stroke"
+                    android:maxLength="200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_simple_description_title" />
+
+                <LinearLayout
+                    android:id="@+id/layout_simple_description_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/edit_simple_description"
+                    app:layout_constraintTop_toBottomOf="@id/edit_simple_description">
+
+                    <TextView
+                        android:id="@+id/tv_simple_current_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        tools:text="0" />
+
+                    <TextView
+                        android:id="@+id/tv_simple_max_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / 200"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="봉사활동에 대한 정보를 알려주세요."
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/edit_simple_description" />
+
+                <TextView
+                    android:id="@+id/tv_detail_due"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="모집 마감일"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_description_title" />
+
+                <!--                Activity에서 DailyPickerDialog 이용하기-->
+                <View
+                    android:id="@+id/view_detail_due_content"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/border_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_due" />
+
+                <TextView
+                    android:id="@+id/btn_due_date"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/write_button"
+                    android:gravity="center"
+                    android:text="날짜 입력"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/view_detail_due_content"
+                    app:layout_constraintEnd_toEndOf="@id/view_detail_due_content" />
+
+                <TextView
+                    android:id="@+id/tv_due_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_due_date"
+                    app:layout_constraintEnd_toStartOf="@id/btn_due_date"
+                    app:layout_constraintStart_toStartOf="@id/view_detail_due_content" />
+
+                <TextView
+                    android:id="@+id/tv_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="봉사 장소"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/view_detail_due_content" />
+
+                <View
+                    android:id="@+id/view_detail_location"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/border_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_location" />
+
+                <TextView
+                    android:id="@+id/btn_location"
+                    android:layout_width="80dp"
+                    android:layout_height="28dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/write_button"
+                    android:gravity="center"
+                    android:text="장소 입력"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/view_detail_location"
+                    app:layout_constraintEnd_toEndOf="@id/view_detail_location" />
+
+                <TextView
+                    android:id="@+id/tv_service_location"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:ellipsize="marquee"
+                    android:maxLines="1"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_detail_location"
+                    app:layout_constraintEnd_toStartOf="@id/btn_location"
+                    app:layout_constraintStart_toStartOf="@id/view_detail_due_content" />
+
+                <TextView
+                    android:id="@+id/tv_detail_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="봉사 기간"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/view_detail_location" />
+
+                <LinearLayout
+                    android:id="@+id/layout_detail_period"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/border_bottom"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/view_detail_location"
+                    app:layout_constraintStart_toStartOf="@id/view_detail_location"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_period">
+
+                    <TextView
+                        android:id="@+id/tv_start_date_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/btn_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/write_button"
+                        android:gravity="center"
+                        android:text="시작일"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="~"
+                        android:textColor="@color/sharehands_green_strong"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_end_date_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/btn_end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/write_button"
+                        android:gravity="center"
+                        android:text="종료일"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="봉사 시간"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/layout_detail_period" />
+
+                <LinearLayout
+                    android:id="@+id/layout_day_select"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_time">
+
+                    <!-- 버튼 색깔을 투명하게 하는 속성 android:button="@android:color/transparent"-->
+                    <CheckBox
+                        android:id="@+id/checkbox_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="일"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="월"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="화"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="수"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="목"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="금"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/checkbox_day_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="토"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_detail_time"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_bottom"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/view_detail_location"
+                    app:layout_constraintStart_toStartOf="@id/view_detail_location"
+                    app:layout_constraintTop_toBottomOf="@id/layout_day_select">
+
+                    <TextView
+                        android:id="@+id/tv_start_time_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/btn_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/write_button"
+                        android:gravity="center"
+                        android:text="시작시간"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="~"
+                        android:textColor="@color/sharehands_green_strong"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_end_time_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="3"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/btn_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/write_button"
+                        android:gravity="center"
+                        android:text="종료시간"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <GridLayout
+                    android:id="@+id/layout_people_expense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:columnCount="2"
+                    android:orientation="horizontal"
+                    android:rowCount="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_detail_time">
+
+                    <TextView
+                        android:id="@+id/tv_detail_num_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:text="모집 인원"
+                        android:textColor="@color/text_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_expense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:text="예상 비용"
+                        android:textColor="@color/text_color"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_columnWeight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <EditText
+                            android:id="@+id/edit_num_people"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@drawable/border_bottom"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="명"
+                            android:textColor="@color/sharehands_green_strong"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_columnWeight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <EditText
+                            android:id="@+id/edit_expense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@drawable/border_bottom"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="원"
+                            android:textColor="@color/sharehands_green_strong"/>
+                    </LinearLayout>
+                </GridLayout>
+
+                <TextView
+                    android:id="@+id/tv_detail_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginTop="36dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_people_expense"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    android:text="봉사활동에 대해 자세히 설명해주세요."
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/edit_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/rectangle_shadow_stroke"
+                    android:maxLength="200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_description" />
+
+                <LinearLayout
+                    android:id="@+id/layout_detail_description_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/edit_detail_description"
+                    app:layout_constraintTop_toBottomOf="@id/edit_detail_description">
+
+                    <TextView
+                        android:id="@+id/tv_detail_current_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/sharehands_black"
+                        android:textSize="16sp"
+                        tools:text="0" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_max_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / 1000"
+                        android:textColor="@color/sharehands_black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_contact_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginTop="36dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_detail_description_cnt"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    android:text="연락처를 알려주세요."
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_contact_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_title"
+                    android:layout_marginTop="16dp"
+                    android:text="전화번호"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_phone"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_phone_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingTop="8dp"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_phone_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  비공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:layout_marginStart="20dp"
+                        android:paddingTop="8dp"/>
+
+                </RadioGroup>
+
+                <FrameLayout
+                    android:id="@+id/frame_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/radio_phone"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+
+                    <EditText
+                        android:id="@+id/edit_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom"
+                        android:visibility="visible"/>
+
+                    <View
+                        android:id="@+id/edit_phone_blocked"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom_blocked"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_contact_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/frame_phone"
+                    android:layout_marginTop="16dp"
+                    android:text="이메일"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_email"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_email_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingTop="8dp"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_email_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  비공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:layout_marginStart="20dp"
+                        android:paddingTop="8dp"/>
+
+                </RadioGroup>
+
+                <FrameLayout
+                    android:id="@+id/frame_email"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/radio_email"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom"
+                        android:visibility="visible"/>
+
+                    <View
+                        android:id="@+id/edit_email_blocked"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom_blocked"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_contact_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/frame_email"
+                    android:layout_marginTop="16dp"
+                    android:text="이메일"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+
+                <RadioGroup
+                    android:id="@+id/radio_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_etc"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_etc_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingTop="8dp"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_etc_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@android:color/transparent"
+                        android:text="  비공개"
+                        android:textSize="12sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:layout_marginStart="20dp"
+                        android:paddingTop="8dp"/>
+
+                </RadioGroup>
+
+                <FrameLayout
+                    android:id="@+id/frame_etc"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/radio_etc"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+
+                    <EditText
+                        android:id="@+id/edit_etc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom"
+                        android:visibility="visible"/>
+
+                    <View
+                        android:id="@+id/edit_etc_blocked"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bottom_blocked"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
+                
+                <TextView
+                    android:id="@+id/tv_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="모든 항목을 채워주세요."
+                    android:textColor="@color/sharehands_red"
+                    app:layout_constraintTop_toBottomOf="@id/frame_etc"
+                    android:layout_marginTop="56dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    />
+                
+                <FrameLayout
+                    android:id="@+id/frame_btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_warning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/btn_submit_active"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_green"
+                        android:text="작성 완료"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/btn_submit_inactive"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_button_green"
+                        android:backgroundTint="@color/sharehands_gray"
+                        android:text="작성 완료"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:visibility="visible"/>
+
+                </FrameLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
