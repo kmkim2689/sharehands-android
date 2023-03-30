@@ -32,7 +32,8 @@
 
         <activity android:name=".view.schedule.MonthlyCalendarActivity"/>
         <activity android:name=".view.schedule.DailyCalendarActivity"/>
-        <activity android:name=".view.search.ServiceDetailActivity"
+        <activity android:name=".view.search.ServiceDetailActivity"/>
+        <activity android:name=".view.search.RecruitActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

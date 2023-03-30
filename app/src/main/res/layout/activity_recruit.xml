@@ -33,6 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="지원자 확인/모집"
+                    android:textColor="@color/sharehands_black"
                     android:layout_gravity="center"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -187,12 +188,63 @@
                     android:layout_marginEnd="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="88dp"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:background="@color/item_color"
+            app:elevation="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:nestedScrollingEnabled="false">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/btn_apply_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_button_green"
+                    android:elevation="20dp"
+                    android:text="모집 마감하기"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/btn_apply_open"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_button_green"
+                    android:elevation="20dp"
+                    android:text="모집 재개하기"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:backgroundTint="#C0A33A"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

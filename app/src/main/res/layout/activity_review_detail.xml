@@ -188,7 +188,6 @@
                     <RatingBar
                         android:id="@+id/rating_average"
                         android:layout_width="120dp"
-                        android:rating="@{}"
                         android:stepSize="0.5"
                         android:layout_height="16dp"
                         android:isIndicator="false"
