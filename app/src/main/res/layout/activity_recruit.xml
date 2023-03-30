@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:layout_insetEdge="start"
+            app:elevation="0dp"
+            android:background="@drawable/sharehands_toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_go_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_dir"
+                    app:tint="@color/sharehands_black"
+                    android:padding="12dp"/>
+
+                <TextView
+                    android:id="@+id/tv_recruit_applicants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지원자 확인/모집"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+
+           </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_recruited_applicants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="모집한 회원"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/sharehands_green_medium"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/layout_recruit_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tv_recruited_applicants"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_recruited_applicants"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_current_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:text="0"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_unit1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="명"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_slash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" / "
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_max_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:text="0"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_unit2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="명"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recruited_applicants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recruited_applicants"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_recommended_applicants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추천 회원"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/rv_recruited_applicants"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/sharehands_green_medium"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_recommend_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tv_recommended_applicants"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_recommended_applicants"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_current_recommended"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:text="0"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_unit3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="명"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recommended_applicants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommended_applicants"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
