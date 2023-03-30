@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sharehands_green_weak"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/sharehands_logo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/sharehands_ic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            app:layout_constraintBottom_toTopOf="@id/sharehands_logo_title"
+            app:layout_constraintVertical_weight="2"
+            android:layout_marginTop="80dp"/>
+
+        <ImageView
+            android:id="@+id/sharehands_logo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/sharehands_full_char"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/sharehands_logo_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_sharehands_intro"
+            app:layout_constraintVertical_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_sharehands_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="올바른 봉사활동을 위한 길,\n쉐어핸즈와 함께해요"
+            android:textSize="24sp"
+            android:textColor="@color/sharehands_black"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintTop_toBottomOf="@id/sharehands_logo_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_sharehands_start"
+            app:layout_constraintVertical_weight="0.7"/>
+
+        <TextView
+            android:id="@+id/tv_sharehands_start"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="쉐어핸즈 시작하기"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20dp"
+            android:textColor="@color/sharehands_black"
+            app:layout_constraintTop_toBottomOf="@id/tv_sharehands_intro"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_kakao_login"
+            app:layout_constraintVertical_weight="0.3"/>
+
+
+        <TextView
+            android:id="@+id/btn_kakao_login"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_login"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FEF01B"
+            android:text="카카오 로그인"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/sharehands_black"
+            android:drawableStart="@drawable/kakao_logo"
+            app:layout_constraintTop_toBottomOf="@id/tv_sharehands_start"
+            app:layout_constraintBottom_toTopOf="@id/btn_google_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            app:layout_constraintVertical_weight="0.3"/>
+
+        <TextView
+            android:id="@+id/btn_google_login"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/rectangle_login"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            android:text="구글 로그인"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/sharehands_black"
+            android:drawableStart="@drawable/google_logo"
+            app:layout_constraintTop_toBottomOf="@id/btn_kakao_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintVertical_weight="0.3"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

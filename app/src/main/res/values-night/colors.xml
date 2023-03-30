@@ -17,4 +17,5 @@
     <color name="text_color">#FAFAFA</color>
     <color name="item_color">#1F2024</color>
     <color name="sharehands_red">#FF0000</color>
+    <color name="kakao_yellow">#FFFF00</color>
 </resources>
