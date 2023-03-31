@@ -1,6 +1,7 @@
 package com.sharehands.sharehands_frontend.view.signin
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
@@ -30,6 +31,11 @@ class PermissionsAgreeActivity: AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             finish()
+        }
+
+        binding.btnNextActive.setOnClickListener {
+            val intent = Intent(this, UserInfoWriteActivity::class.java)
+            startActivity(intent)
         }
     }
 
