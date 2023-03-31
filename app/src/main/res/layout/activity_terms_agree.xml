@@ -25,19 +25,22 @@
         <TextView
             android:id="@+id/tv_agree_subtitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="28dp"
             android:text="당신의 따뜻한 마음을 응원합니다!"
             android:textColor="@color/sharehands_black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_back" />
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toTopOf="@id/tv_agree_title"
+            app:layout_constraintVertical_weight="0.15"
+            android:layout_marginTop="80dp"/>
 
         <TextView
             android:id="@+id/tv_agree_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:text="쉐어핸즈 회원가입"
             android:textColor="@color/sharehands_black"
@@ -45,114 +48,230 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_check_info"
             app:layout_constraintStart_toStartOf="@id/tv_agree_subtitle"
-            app:layout_constraintTop_toBottomOf="@id/tv_agree_subtitle" />
+            app:layout_constraintTop_toBottomOf="@id/tv_agree_subtitle"
+            app:layout_constraintVertical_weight="0.25"/>
 
         <TextView
             android:id="@+id/tv_check_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:text="서비스 이용 약관을 확인해주세요"
             android:textColor="#ACACAC"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_agree_subtitle"
-            app:layout_constraintTop_toBottomOf="@id/tv_agree_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_agree_title"
+            app:layout_constraintBottom_toTopOf="@id/checkbox_term1_agree"
+            app:layout_constraintVertical_weight="0.15"/>
 
         <CheckBox
             android:id="@+id/checkbox_term1_agree"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
             android:background="@drawable/custom_checkbox"
             android:button="@android:color/transparent"
-            android:textSize="18sp"
             android:labelFor="@id/tv_term1_agree"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/tv_agree_title"
             app:layout_constraintTop_toBottomOf="@id/tv_check_info"
-            app:layout_constraintStart_toStartOf="@id/tv_agree_title"/>
+            app:layout_constraintBottom_toTopOf="@id/checkbox_term2_agree"
+            android:layout_marginTop="32dp"
+            app:layout_constraintVertical_weight="0.2"/>
 
         <TextView
             android:id="@+id/tv_term1_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="[필수] 쉐어핸즈 이용약관 동의"
-            app:layout_constraintTop_toTopOf="@id/checkbox_term1_agree"
+            android:textColor="@color/sharehands_black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_term1_agree"
             app:layout_constraintStart_toEndOf="@id/checkbox_term1_agree"
-            android:textSize="16sp"
-            android:textColor="@color/sharehands_black"
-            android:layout_marginStart="20dp"/>
+            app:layout_constraintTop_toTopOf="@id/checkbox_term1_agree" />
 
         <CheckBox
             android:id="@+id/checkbox_term2_agree"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/custom_checkbox"
             android:button="@android:color/transparent"
-            android:textSize="18sp"
             android:labelFor="@id/tv_term2_agree"
-            android:layout_marginTop="12dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/tv_agree_title"
             app:layout_constraintTop_toBottomOf="@id/checkbox_term1_agree"
-            app:layout_constraintStart_toStartOf="@id/tv_agree_title"/>
+            app:layout_constraintBottom_toTopOf="@id/checkbox_term3_agree"
+            app:layout_constraintVertical_weight="0.2"/>
 
         <TextView
             android:id="@+id/tv_term2_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="[필수] 개인정보 수집 및 이용 동의"
-            app:layout_constraintTop_toTopOf="@id/checkbox_term2_agree"
+            android:textColor="@color/sharehands_black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_term2_agree"
             app:layout_constraintStart_toEndOf="@id/checkbox_term2_agree"
-            android:textSize="16sp"
-            android:textColor="@color/sharehands_black"
-            android:layout_marginStart="20dp"/>
+            app:layout_constraintTop_toTopOf="@id/checkbox_term2_agree" />
 
         <CheckBox
             android:id="@+id/checkbox_term3_agree"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/custom_checkbox"
             android:button="@android:color/transparent"
-            android:textSize="18sp"
             android:labelFor="@id/tv_term3_agree"
-            android:layout_marginTop="12dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/tv_agree_title"
             app:layout_constraintTop_toBottomOf="@id/checkbox_term2_agree"
-            app:layout_constraintStart_toStartOf="@id/tv_agree_title"/>
+            app:layout_constraintBottom_toTopOf="@id/checkbox_term4_agree"
+            app:layout_constraintVertical_weight="0.2"/>
 
         <TextView
             android:id="@+id/tv_term3_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="[선택] 개인정보 제3자 제공 동의"
-            app:layout_constraintTop_toTopOf="@id/checkbox_term3_agree"
+            android:textColor="@color/sharehands_black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_term3_agree"
             app:layout_constraintStart_toEndOf="@id/checkbox_term3_agree"
-            android:textSize="16sp"
-            android:textColor="@color/sharehands_black"
-            android:layout_marginStart="20dp"/>
+            app:layout_constraintTop_toTopOf="@id/checkbox_term3_agree" />
 
         <CheckBox
             android:id="@+id/checkbox_term4_agree"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/custom_checkbox"
             android:button="@android:color/transparent"
-            android:textSize="18sp"
             android:labelFor="@id/tv_term3_agree"
-            android:layout_marginTop="12dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/tv_agree_title"
             app:layout_constraintTop_toBottomOf="@id/checkbox_term3_agree"
-            app:layout_constraintStart_toStartOf="@id/tv_agree_title"/>
+            app:layout_constraintBottom_toTopOf="@id/layout_entire_agree"
+            app:layout_constraintVertical_weight="0.2"/>
 
         <TextView
             android:id="@+id/tv_term4_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="[선택] 이벤트 및 혜택 알림 수신 동의"
-            app:layout_constraintTop_toTopOf="@id/checkbox_term4_agree"
+            android:textColor="@color/sharehands_black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_term4_agree"
             app:layout_constraintStart_toEndOf="@id/checkbox_term4_agree"
+            app:layout_constraintTop_toTopOf="@id/checkbox_term4_agree" />
+
+        <LinearLayout
+            android:id="@+id/layout_entire_agree"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rectangle_login"
+            android:backgroundTint="#A7DACE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="20dp"
+            app:layout_constraintTop_toBottomOf="@id/checkbox_term4_agree"
+            app:layout_constraintBottom_toTopOf="@id/layout_btn_next"
+            android:orientation="horizontal"
+            app:layout_constraintVertical_weight="0.3">
+
+            <CheckBox
+                android:id="@+id/checkbox_entire_agree"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/custom_checkbox"
+                android:button="@android:color/transparent"
+                android:labelFor="@id/tv_term3_agree"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@id/tv_agree_title" />
+
+            <TextView
+                android:id="@+id/tv_entire_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="모든 약관에 동의합니다."
+                android:textColor="@color/sharehands_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toEndOf="@id/checkbox_term4_agree"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_btn_next"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_entire_agree"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintVertical_weight="0.4"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="120dp">
+
+            <TextView
+                android:id="@+id/btn_next_inactive"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="@drawable/rectangle_login"
+                android:elevation="6dp"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/btn_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/btn_next_active"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="@drawable/rectangle_login"
+                android:elevation="6dp"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/sharehands_green_medium"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_btn_next"
+            app:layout_constraintStart_toStartOf="@id/layout_btn_next"
+            android:text="필수 이용 약관에 동의해주세요."
             android:textSize="16sp"
-            android:textColor="@color/sharehands_black"
-            android:layout_marginStart="20dp"/>
+            android:textColor="@color/sharehands_red"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

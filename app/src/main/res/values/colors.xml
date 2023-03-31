@@ -18,4 +18,5 @@
     <color name="item_color">#FFFFFF</color>
     <color name="sharehands_red">#FF0000</color>
     <color name="kakao_yellow">#FFFF00</color>
+    <color name="btn_gray">#E1E1E1</color>
 </resources>
