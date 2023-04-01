@@ -32,7 +32,7 @@ android {
         jvmTarget = '1.8'
     }
     defaultConfig {
-        manifestPlaceholders = [NATIVE_APP_KEY: KAKAO_NATIVE_APP_KEY]
+
     }
     dataBinding {
         enabled true

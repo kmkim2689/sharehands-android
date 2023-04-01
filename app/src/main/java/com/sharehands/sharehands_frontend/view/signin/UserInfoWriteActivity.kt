@@ -1,5 +1,6 @@
 package com.sharehands.sharehands_frontend.view.signin
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -163,6 +164,15 @@ class UserInfoWriteActivity: AppCompatActivity() {
         isValid(nickname, 2, 15, 1, status, nextBtnList)
         isValid(phone, 13, 13, 2, status, nextBtnList)
         isValid(birthday, 8, 8, 3, status, nextBtnList)
+
+        nextBtnActive.setOnClickListener {
+            val intent = Intent(this, UserPreferencesActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
     }
 

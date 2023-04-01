@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sharehands_green_weak">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_info_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="80dp"
+            android:text="나에게 맞는 봉사를 추천받아보세요!"
+            android:textColor="@color/sharehands_black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="관심 분야 선택"
+            android:textColor="@color/sharehands_black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
+            app:layout_constraintTop_toBottomOf="@id/tv_info_subtitle"
+            app:layout_constraintVertical_weight="0.25" />
+
+        <TextView
+            android:id="@+id/tv_interests_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="관심 분야를 선택해주세요. (복수 선택 가능)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_info_title"
+            android:textColor="@color/sharehands_black"
+            app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
+            android:layout_marginTop="52dp"/>
+
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_interests_title"
+            app:singleSelection="false"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp">
+
+            <GridLayout
+                android:id="@+id/layout_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="3"
+                app:layout_constraintTop_toBottomOf="@id/tv_interests_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <CheckBox
+                    android:id="@+id/checkbox_education"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="교육"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_culture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="문화"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_health"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="보건"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_environment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="환경"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_tech"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="기술"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_overseas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="해외"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_campaign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="캠페인"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_disaster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="재난"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkbox_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/interests_checkbox"
+                    android:button="@android:color/transparent"
+                    android:text="기타"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_margin="12dp"/>
+
+
+
+            </GridLayout>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <FrameLayout
+            android:id="@+id/layout_btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="120dp">
+
+            <TextView
+                android:id="@+id/btn_next_inactive"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="@drawable/rectangle_login"
+                android:elevation="6dp"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/btn_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/btn_next_active"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="@drawable/rectangle_login"
+                android:elevation="6dp"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/sharehands_green_medium"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_btn_next"
+            app:layout_constraintStart_toStartOf="@id/layout_btn_next"
+            android:text="관심 분야를 선택해주세요."
+            android:textSize="16sp"
+            android:textColor="@color/sharehands_red"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
