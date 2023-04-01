@@ -83,6 +83,7 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/edit_text"
                     android:maxLength="15"
+                    android:maxLines="1"
                     android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -118,6 +119,7 @@
                     android:background="@drawable/edit_text"
                     android:maxLength="15"
                     android:padding="16dp"
+                    android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
@@ -149,8 +151,10 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
-                    android:padding="16dp"
                     android:background="@drawable/edit_text"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_email" />
@@ -178,18 +182,21 @@
 
                 <EditText
                     android:id="@+id/edit_phone_content"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="56dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/edit_text"
                     android:hint="010-0000-0000"
-                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:inputType="phone"
+                    android:maxLength="13"
                     android:padding="16dp"
                     android:textColor="@color/sharehands_black"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_phone" />
 
                 <TextView
@@ -222,6 +229,7 @@
                     android:background="@drawable/edit_text"
                     android:hint="yyyymmdd"
                     android:maxLength="15"
+                    android:maxLines="1"
                     android:padding="16dp"
                     android:textColor="@color/sharehands_black"
                     android:textSize="16sp"
@@ -252,12 +260,12 @@
 
                 <LinearLayout
                     android:id="@+id/layout_location"
-                    android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_location">
 
@@ -266,23 +274,22 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
                         android:background="@drawable/edit_text"
                         android:padding="16dp"
                         android:text="서울특별시"
                         android:textColor="@color/sharehands_black"
-                        android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:textSize="16sp" />
 
 
                     <Spinner
                         android:id="@+id/spinner_location"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/ic_spinner"
                         android:layout_weight="1"
-                        android:textSize="16sp"
+                        android:background="@drawable/ic_spinner"
                         android:padding="16dp"
-                        />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -293,9 +300,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="80dp"
                     android:text="입력하신 주소는 관심 지역으로 설정됩니다."
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
-                    app:layout_constraintTop_toBottomOf="@id/layout_location"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/layout_location" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -305,17 +312,17 @@
             android:id="@+id/tv_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/scroll_view"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="모든 항목을 채워주세요."
+            android:textColor="@color/sharehands_red"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/layout_btn_next"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="모든 항목을 채워주세요."
-            android:textSize="16sp"
-            android:textColor="@color/sharehands_red"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toBottomOf="@id/scroll_view" />
 
         <FrameLayout
             android:id="@+id/layout_btn_next"
