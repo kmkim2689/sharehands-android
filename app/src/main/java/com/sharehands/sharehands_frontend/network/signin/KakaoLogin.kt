@@ -25,51 +25,73 @@ class KakaoLogin(context: Context) {
     var profileUrl: String? = null
 
     fun login(context: Context): LoginResponse {
-        lateinit var loginResult: LoginResponse
+        Log.d("카카오톡 로그인", "진입")
+        var loginResult = LoginResponse(null, null)
         var accessToken: String? = null
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
-                Log.e(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
+                Log.d(ContentValues.TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
-                Log.i(ContentValues.TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                getKakaoUserInfo()
+                Log.d(ContentValues.TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+                val kakaoLoginResult = getKakaoUserInfo()
+                isLoggedIn = kakaoLoginResult.isLoggedIn
+                email = kakaoLoginResult.email
+                profileUrl = kakaoLoginResult.profileUrl
+
+                // 이거와 같은 코드가 아래(카카오톡으로 로그인하기)에도 있음. 나중에 시간 나면 하나의 함수로 만들기
+                // 서버에 토큰 요청
+//                    val finalResult = requestToken(profileUrl, email)
+//                    accessToken = finalResult.accessToken
+                accessToken = "1111111"
+                if (accessToken != null && isLoggedIn != false) {
+                    loginResult = LoginResponse(email.toString(), accessToken)
+                }
             }
         }
 
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+            Log.d("카카오톡 설치 확인", "설치")
             UserApiClient.instance.loginWithKakaoTalk(context) { token, error ->
+                Log.d("카카오톡 앱", "진입")
                 if (error != null) {
-                    Log.e(ContentValues.TAG, "카카오톡으로 로그인 실패", error)
+                    Log.d("카카오톡으로 로그인 실패", "${error}")
 
                     // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                     // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
                     if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        Log.d("카카오톡 로그인", "취소")
                         return@loginWithKakaoTalk
                     }
 
                     // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                 } else if (token != null) {
-                    Log.i(ContentValues.TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                    Log.d(ContentValues.TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
 
                     // 로그인 성공 시 사용자 정보를 가져오는 코드
                     val kakaoLoginResult = getKakaoUserInfo()
-                    isLoggedIn = getKakaoUserInfo().isLoggedIn
-                    email = getKakaoUserInfo().email
-                    profileUrl = getKakaoUserInfo().profileUrl
+                    isLoggedIn = kakaoLoginResult.isLoggedIn
+                    email = kakaoLoginResult.email
+                    profileUrl = kakaoLoginResult.profileUrl
 
                     // 서버에 토큰 요청
-                    val finalResult = requestToken(profileUrl, email)
-                    accessToken = finalResult.accessToken
-                    loginResult = LoginResponse(email.toString(), accessToken)
+//                    val finalResult = requestToken(profileUrl, email)
+//                    accessToken = finalResult.accessToken
+                    accessToken = "1111111"
+                    if (accessToken != null && isLoggedIn == true) {
+                        loginResult = LoginResponse(email.toString(), accessToken)
+                        Log.d("카카오 로그인 절차 - 카카오톡 로그인", "종료")
+                    }
 //                    context.startActivity(loggedInIntent)
                 }
             }
         } else {
+            Log.d("카카오톡 설치 확인", "미설치")
             UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+            Log.d("카카오 로그인 절차 - 카카오 계정 로그인", "종료")
         }
-
+        Log.d("카카오톡 로그인", "종료")
         return loginResult
     }
 
@@ -82,7 +104,6 @@ class KakaoLogin(context: Context) {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-
                     if (response.isSuccessful) {
                         Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
                         val result = response.body()
@@ -102,13 +123,12 @@ class KakaoLogin(context: Context) {
 
     private fun getKakaoUserInfo(): LoginResult {
 
-        lateinit var result: LoginResult
+        var result = LoginResult(false, null, null)
         UserApiClient.instance.me { user, error ->
             if (error != null) {
-                Log.e(TAG, "사용자 정보 요청 실패", error)
-                result = LoginResult(false, null, null)
+                Log.d(TAG, "사용자 정보 요청 실패", error)
             } else if (user != null) {
-                Log.i(TAG, "사용자 정보 요청 성공")
+                Log.d(TAG, "사용자 정보 요청 성공")
                 val kakaoEmail = user?.kakaoAccount?.email.toString()
                 val kakaoProfileUrl = user?.kakaoAccount?.profile?.profileImageUrl.toString()
                 Log.d("카카오 이메일", kakaoEmail)

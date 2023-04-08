@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
+        android:name=".network.signin.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,8 +21,11 @@
         <activity android:name=".view.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ShareHands_frontend.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -36,21 +40,12 @@
         <activity android:name=".view.schedule.MonthlyCalendarActivity"/>
         <activity android:name=".view.schedule.DailyCalendarActivity"/>
         <activity android:name=".view.search.ServiceDetailActivity"/>
-        <activity android:name=".view.search.RecruitActivity">
-
-        </activity>
+        <activity android:name=".view.search.RecruitActivity"/>
         <activity android:name=".view.signin.SocialLoginActivity"/>
-        <activity android:name=".view.signin.TermsAgreeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".view.signin.TermsAgreeActivity"/>
         <activity android:name=".view.signin.PermissionsAgreeActivity"/>
         <activity android:name=".view.signin.UserInfoWriteActivity"/>
+        <activity android:name=".view.signin.UserPreferencesActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -62,7 +57,7 @@
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
                 <data android:host="oauth"
-                    android:scheme="kakao${NATIVE_APP_KEY}" />
+                    android:scheme="kakaob03a4ceae5d55bdc92ecfbe00ddaf2c1" />
             </intent-filter>
         </activity>
 

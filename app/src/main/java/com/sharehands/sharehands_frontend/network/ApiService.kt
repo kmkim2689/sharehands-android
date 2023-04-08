@@ -7,6 +7,7 @@ import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface ApiService {
@@ -15,6 +16,7 @@ interface ApiService {
     // 1. Login & Sign up
 
     // 구글 로그인
+    @FormUrlEncoded
     @POST ("/login/google")
     fun loginGoogle(
         @Field("profileUrl") profileUrl: String,
@@ -22,6 +24,7 @@ interface ApiService {
     ): Call<LoginResponse>
 
     // 카카오 로그인
+    @FormUrlEncoded
     @POST ("/login/kakao")
     fun loginKakao(
         @Field("profileUrl") profileUrl: String,
