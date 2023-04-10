@@ -1,6 +1,7 @@
 package com.sharehands.sharehands_frontend.view.signin
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,20 +18,30 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ActivityUserInfoWriteBinding
+import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
+import com.sharehands.sharehands_frontend.viewmodel.signin.UserInfoViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class UserInfoWriteActivity: AppCompatActivity() {
-    lateinit var binding: ActivityUserInfoWriteBinding
+    private lateinit var binding: ActivityUserInfoWriteBinding
+    // 뷰모델
+    private lateinit var viewModel: UserInfoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info_write)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info_write)
+        viewModel = ViewModelProvider(this).get(UserInfoViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         // 애니메이션
         val subtitle = binding.tvInfoSubtitle
@@ -61,6 +72,8 @@ class UserInfoWriteActivity: AppCompatActivity() {
         val birthday = binding.editDayOfBirthday
         val address = binding.spinnerLocation
 
+        email.text = SharedPreferencesManager.getInstance(this).getString("email", "이메일 오류")
+
         // 폼 관리(유효성 검사). 이름, 닉네임, 휴대폰, 생일 순서
         val status = arrayListOf<Boolean>(false, false, false, false)
 
@@ -73,8 +86,8 @@ class UserInfoWriteActivity: AppCompatActivity() {
         // 어댑터를 만든다.
         // R.layout.simple_spinner_item과 R.layout.simple_spinner_dropdown_item은 안드로이드에서 기본적으로 제공하는 Spinner 드롭다운 메뉴의 뷰를 정의한 레이아웃 파일
         //
-        //simple_spinner_item : Spinner에서 선택된 항목을 보여줄 때 사용되는 뷰입니다.
-        //simple_spinner_dropdown_item : Spinner에서 항목을 선택할 수 있는 드롭다운 뷰에서 사용되는 뷰입니다.
+        // simple_spinner_item : Spinner에서 선택된 항목을 보여줄 때 사용되는 뷰입니다.
+        // simple_spinner_dropdown_item : Spinner에서 항목을 선택할 수 있는 드롭다운 뷰에서 사용되는 뷰입니다.
 
         val spinnerAdapter = ArrayAdapter.createFromResource(
             this,
@@ -173,6 +186,35 @@ class UserInfoWriteActivity: AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             finish()
         }
+
+        nextBtnActive.setOnClickListener {
+            val userInfoDetail = UserInfoDetail(
+                binding.tvEmailContent.text.toString(),
+                binding.editName.text.toString(),
+                binding.editNickname.text.toString(),
+                binding.editPhoneContent.text.toString(),
+                binding.editDayOfBirthday.text.toString(),
+                district
+            )
+
+            viewModel.postUserInfo(userInfoDetail)
+            viewModel.response.observe(this) {
+                // API 요청 결과 처리
+                if (viewModel.response.value?.accessToken != null) {
+                    Log.d("회원정보 전송 성공", "다음으로")
+                    val intent = Intent(this, UserPreferencesActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.d("회원정보 전송 실패", "네트워크 오류")
+                    binding.apply {
+                        tvWarning.text = "네트워크 오류가 발생했습니다. 다시 시도해보세요."
+                        tvWarning.setTextColor(Color.RED)
+                    }
+                }
+            }
+        }
+
+
 
     }
 

@@ -2,7 +2,18 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="mainPage"
+            type="com.sharehands.sharehands_frontend.model.home.MainPage" />
+        <variable
+            name="suggestion"
+            type="com.sharehands.sharehands_frontend.model.home.Suggestion" />
+        <variable
+            name="popular"
+            type="com.sharehands.sharehands_frontend.model.home.Popular" />
+        <variable
+            name="userRanking"
+            type="com.sharehands.sharehands_frontend.model.home.UserRanking" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

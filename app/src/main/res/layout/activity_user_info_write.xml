@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.sharehands.sharehands_frontend.viewmodel.signin.UserInfoViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,6 +89,7 @@
                     android:maxLength="15"
                     android:maxLines="1"
                     android:padding="16dp"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -95,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="2~15자의 한글 가능"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
@@ -118,8 +124,9 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/edit_text"
                     android:maxLength="15"
-                    android:padding="16dp"
                     android:maxLines="1"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
@@ -130,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="2~15글자의 한글, 영어, 숫자 가능"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_nickname" />
 
@@ -165,6 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="로그인하신 카카오/구글 계정의 이메일입니다."
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_email_content" />
 
@@ -189,11 +198,12 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/edit_text"
                     android:hint="010-0000-0000"
-                    android:maxLines="1"
                     android:inputType="phone"
                     android:maxLength="13"
+                    android:maxLines="1"
                     android:padding="16dp"
                     android:textColor="@color/sharehands_black"
+                    android:textColorHint="@color/btn_gray"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -205,6 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="11자의 숫자로 입력해주세요."
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_phone_content" />
 
@@ -232,6 +243,7 @@
                     android:maxLines="1"
                     android:padding="16dp"
                     android:textColor="@color/sharehands_black"
+                    android:textColorHint="@color/btn_gray"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -243,6 +255,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="예시 : 19981123"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_day_of_birthday" />
 
@@ -289,6 +302,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/ic_spinner"
                         android:padding="16dp"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -300,6 +314,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="80dp"
                     android:text="입력하신 주소는 관심 지역으로 설정됩니다."
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/layout_location" />

@@ -4,6 +4,7 @@ import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
+import com.sharehands.sharehands_frontend.network.signin.UserInterest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -37,6 +38,11 @@ interface ApiService {
         @Body userInfoDetail: UserInfoDetail
     ): Call<PostUserResponse>
 
+    // 관심분야 전송
+    @POST("/my-page/interest")
+    fun postUserInterest(
+        @Body userInterest: UserInterest
+    ): Call<PostUserResponse>
 
     // 2. Home
     // 3. Schedule(not yet...)

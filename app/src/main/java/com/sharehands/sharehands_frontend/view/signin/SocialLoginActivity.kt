@@ -47,7 +47,7 @@ class SocialLoginActivity: AppCompatActivity() {
 
         sharedPreferencesManager = SharedPreferencesManager.getInstance(this)
         // 테스트용 sp 삭제하기
-        sharedPreferencesManager.deleteString()
+//        sharedPreferencesManager.deleteString()
 
         // 구글 로그인
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -77,12 +77,19 @@ class SocialLoginActivity: AppCompatActivity() {
                                         call: Call<LoginResponse>,
                                         response: Response<LoginResponse>
                                     ) {
+                                        Log.d("카카오 로그인 백엔드 서버에 토큰 요청", "요청")
                                         if (response.isSuccessful) {
                                             Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
                                             val result = response.body()
                                             if (result?.accessToken != null && result?.email != null) {
+                                                SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                    .saveString("token", result?.accessToken.toString())
+                                                SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                    .saveString("email", result?.email.toString())
                                                 startActivity(loggedInIntent)
                                             } else if (result?.accessToken == null && result?.email != null) {
+                                                SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                    .saveString("email", result?.email.toString())
                                                 startActivity(joinIntent)
                                             } else {
                                                 Log.d("로그인 실패", "통신 오류")
@@ -128,31 +135,40 @@ class SocialLoginActivity: AppCompatActivity() {
                                 Log.d("카카오 이메일", kakaoEmail)
                                 Log.d("카카오 프로필", kakaoProfileUrl)
                                 // 서버에 토큰 요청
-//                                RetrofitClient.createRetorfitClient().loginKakao(kakaoProfileUrl, kakaoEmail)
-//                                    .enqueue(object : Callback<LoginResponse> {
-//                                        override fun onResponse(
-//                                            call: Call<LoginResponse>,
-//                                            response: Response<LoginResponse>
-//                                        ) {
-//                                            if (response.isSuccessful) {
-//                                                Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
-//                                                val result = response.body()
-//                                                if (result?.accessToken != null && result?.email != null) {
-//                                                    startActivity(loggedInIntent)
-//                                                } else if (result?.accessToken == null && result?.email != null) {
-//                                                    startActivity(joinIntent)
-//                                                } else {
-//                                                    Log.d("로그인 실패", "통신 오류")
-//                                                }
-//                                            } else {
-//                                                Log.d("카카오로 로그인 토큰 받아오기 실패(연결은 ok)", "${response.code()}")
-//                                            }
-//                                        }
-//
-//                                        override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                                            Log.d("카카오로 로그인 토큰 받아오기 실패", "${t.message}")
-//                                        }
-//                                    })
+                                RetrofitClient.createRetorfitClient().loginKakao(kakaoProfileUrl, kakaoEmail)
+                                    .enqueue(object : Callback<LoginResponse> {
+                                        override fun onResponse(
+                                            call: Call<LoginResponse>,
+                                            response: Response<LoginResponse>
+                                        ) {
+                                            if (response.isSuccessful) {
+                                                Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
+                                                val result = response.body()
+                                                if (result?.accessToken != null && result?.email != null) {
+                                                    Log.d("카카오 로그인으로 로그인 성공", "메인 화면으로 이동")
+                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                        .saveString("token", result?.accessToken.toString())
+                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                        .saveString("email", result?.email.toString())
+                                                    startActivity(loggedInIntent)
+                                                } else if (result?.accessToken == null && result?.email != null) {
+                                                    Log.d("카카오 로그인으로 회원가입", "약관 동의로 이동")
+                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                        .saveString("email", result?.email.toString())
+                                                    startActivity(joinIntent)
+                                                } else {
+
+                                                    Log.d("로그인 실패", "통신 오류")
+                                                }
+                                            } else {
+                                                Log.d("카카오로 로그인 토큰 받아오기 실패(연결은 ok)", "${response.code()}")
+                                            }
+                                        }
+
+                                        override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                                            Log.d("카카오로 로그인 토큰 받아오기 실패", "${t.message}")
+                                        }
+                                    })
                             }
                         }
                     }
@@ -184,32 +200,40 @@ class SocialLoginActivity: AppCompatActivity() {
                                         val googleProfileUrl = user.photoUrl.toString()
                                         Log.d("구글 로그인 이메일 가져오기 성공", googleEmail)
                                         Log.d("구글 로그인 프로필 가져오기 성공", googleProfileUrl)
-//                                                RetrofitClient.createRetorfitClient().loginGoogle(googleProfileUrl, googleEmail)
-//                                                    .enqueue(object : Callback<LoginResponse> {
-//                                                        override fun onResponse(
-//                                                            call: Call<LoginResponse>,
-//                                                            response: Response<LoginResponse>
-//                                                        ) {
-//                                                            if (response.isSuccessful) {
-//                                                                Log.d("구글 로그인으로 서버로부터 토큰 받아오기 성공", "${response.body()}")
-//                                                                val result = response.body()
-//                                                                if (result?.accessToken != null && result?.email != null) {
-//                                                                    startActivity(loggedInIntent)
-//                                                                } else if (result?.accessToken == null && result?.email != null) {
-//                                                                    startActivity(signInIntent)
-//                                                                } else {
-//                                                                    Log.d("구글 로그인 실패", "통신 실패")
-//                                                                }
-//                                                            } else {
-//                                                                Log.d("구글 로그인으로 서버로부터 토큰 받아오기 실패(연결은 ok) :", "${response.code()}")
-//                                                            }
-//                                                        }
-//
-//                                                        override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                                                            Log.d("구글 로그인으로 서버로부터 토큰 받아오기 실패 :", "통신 실패")
-//                                                        }
-//
-//                                                    })
+                                                RetrofitClient.createRetorfitClient().loginGoogle(googleProfileUrl, googleEmail)
+                                                    .enqueue(object : Callback<LoginResponse> {
+                                                        override fun onResponse(
+                                                            call: Call<LoginResponse>,
+                                                            response: Response<LoginResponse>
+                                                        ) {
+                                                            if (response.isSuccessful) {
+                                                                Log.d("구글 로그인으로 서버로부터 토큰 받아오기 성공", "${response.body()}")
+                                                                val result = response.body()
+                                                                if (result?.accessToken != null && result?.email != null) {
+                                                                    Log.d("구글 로그인으로 로그인 성공", "메인 화면으로 이동")
+                                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                                        .saveString("token", result?.accessToken.toString())
+                                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                                        .saveString("email", result?.email.toString())
+                                                                    startActivity(loggedInIntent)
+                                                                } else if (result?.accessToken == null && result?.email != null) {
+                                                                    Log.d("구글 로그인으로 회원가입 진행", "약관 동의로 이동")
+                                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                                        .saveString("email", result?.email.toString())
+                                                                    startActivity(joinIntent)
+                                                                } else {
+                                                                    Log.d("구글 로그인 실패", "통신 실패")
+                                                                }
+                                                            } else {
+                                                                Log.d("구글 로그인으로 서버로부터 토큰 받아오기 실패(연결은 ok) :", "${response.code()}")
+                                                            }
+                                                        }
+
+                                                        override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                                                            Log.d("구글 로그인으로 서버로부터 토큰 받아오기 실패 :", "통신 실패")
+                                                        }
+
+                                                    })
                                     }
                                 }
                             }
@@ -242,6 +266,5 @@ class SocialLoginActivity: AppCompatActivity() {
             }
             Log.d("구글 로그인", "종료")
         }
-
     }
 }

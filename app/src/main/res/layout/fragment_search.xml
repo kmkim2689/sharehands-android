@@ -40,7 +40,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/layout_search"
                         android:text="봉사 찾기"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:layout_marginTop="20dp"

@@ -3,12 +3,12 @@ package com.sharehands.sharehands_frontend.network.signin
 import com.google.gson.annotations.SerializedName
 
 data class UserInfoDetail(
+    @SerializedName ("email") val email: String,
     @SerializedName ("name") val name: String,
     @SerializedName ("nickname") val nickname: String,
     @SerializedName ("cellphone") val cellphone: String,
     @SerializedName ("DOB") val dayOfBirthday: String,
-    @SerializedName ("location") val location: String,
-    @SerializedName ("interest") val interest: List<String>
+    @SerializedName ("location") val location: String
 )
 
 /*

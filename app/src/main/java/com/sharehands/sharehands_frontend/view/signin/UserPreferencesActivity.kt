@@ -1,25 +1,34 @@
 package com.sharehands.sharehands_frontend.view.signin
 
 import android.content.Intent
+import android.graphics.Color
+import android.opengl.ETC1.isValid
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ActivityUserPreferencesBinding
+import com.sharehands.sharehands_frontend.network.signin.UserInterest
 import com.sharehands.sharehands_frontend.view.MainActivity
+import com.sharehands.sharehands_frontend.viewmodel.signin.UserInterestViewModel
 
 class UserPreferencesActivity: AppCompatActivity() {
-    lateinit var binding: ActivityUserPreferencesBinding
+    private lateinit var binding: ActivityUserPreferencesBinding
+    private lateinit var viewModel: UserInterestViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_preferences)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_preferences)
+        viewModel = ViewModelProvider(this).get(UserInterestViewModel::class.java)
+        binding.lifecycleOwner = this
 
         var checked = arrayListOf<Int>(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
@@ -60,13 +69,40 @@ class UserPreferencesActivity: AppCompatActivity() {
         isValid(checkboxes, checked, nextButtonActive, nextButtonInactive)
 
         nextButtonActive.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val interestList = ArrayList<String>()
+            for (i in 0..8) {
+                when (i) {
+                    0 -> interestList.add("교육")
+                    1 -> interestList.add("문화")
+                    2 -> interestList.add("보건")
+                    3 -> interestList.add("환경")
+                    4 -> interestList.add("기술")
+                    5 -> interestList.add("해외")
+                    6 -> interestList.add("캠페인")
+                    7 -> interestList.add("재난")
+                    8 -> interestList.add("기타")
+                }
+            }
+
+            val userInterest = UserInterest(interestList)
+            viewModel.postUserInterest(userInterest)
+            viewModel.response.observe(this) {
+                if (viewModel.response.value?.accessToken != null) {
+                    Log.d("회원 관심 전송 성공", "다음으로")
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.d("회원 관심 전송 실패", "네트워크 오류")
+                    binding.tvWarning.text = "네트워크 오류가 발생했습니다. 다시 시도해보세요."
+                    binding.tvWarning.setTextColor(Color.RED)
+                }
+            }
         }
 
         binding.btnBack.setOnClickListener {
             finish()
         }
+
     }
 
     private fun appear(viewList: List<View>, delayTime: Long) {
