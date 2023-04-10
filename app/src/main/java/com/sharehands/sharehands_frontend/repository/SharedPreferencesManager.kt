@@ -27,7 +27,13 @@ class SharedPreferencesManager private constructor(context: Context) {
         return sharedPreferences.getString(key, defaultValue) ?: defaultValue
     }
 
-    fun deleteString() {
+    fun deleteStringByKey(key: String) {
+        sharedPreferences.edit()
+            .remove(key)
+            .apply()
+    }
+
+    fun deleteAllKeys() {
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()

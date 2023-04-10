@@ -187,6 +187,10 @@ class UserInfoWriteActivity: AppCompatActivity() {
             finish()
         }
 
+        nextBtnInactive.setOnClickListener {
+            binding.tvWarning.visibility = View.VISIBLE
+        }
+
         nextBtnActive.setOnClickListener {
             val userInfoDetail = UserInfoDetail(
                 binding.tvEmailContent.text.toString(),
@@ -237,6 +241,7 @@ class UserInfoWriteActivity: AppCompatActivity() {
                         nextBtnList[0].apply {
                             if (visibility == View.INVISIBLE) {
                                 visibility = View.VISIBLE
+                                binding.tvWarning.visibility = View.INVISIBLE
                                 startAnimation(
                                     AnimationUtils.loadAnimation(
                                         this@UserInfoWriteActivity,

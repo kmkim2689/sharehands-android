@@ -68,19 +68,60 @@ class UserPreferencesActivity: AppCompatActivity() {
 
         isValid(checkboxes, checked, nextButtonActive, nextButtonInactive)
 
+        nextButtonInactive.setOnClickListener {
+            binding.tvWarning.visibility = View.VISIBLE
+        }
+
         nextButtonActive.setOnClickListener {
             val interestList = ArrayList<String>()
             for (i in 0..8) {
                 when (i) {
-                    0 -> interestList.add("교육")
-                    1 -> interestList.add("문화")
-                    2 -> interestList.add("보건")
-                    3 -> interestList.add("환경")
-                    4 -> interestList.add("기술")
-                    5 -> interestList.add("해외")
-                    6 -> interestList.add("캠페인")
-                    7 -> interestList.add("재난")
-                    8 -> interestList.add("기타")
+                    0 ->  {
+                        if (checked[i] == 1) {
+                            interestList.add("교육")
+                        }
+
+                    }
+                    1 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("문화")
+                        }
+                    }
+                    2 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("보건")
+                        }
+                    }
+                    3 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("환경")
+                            }
+                    }
+                    4 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("기술")
+                        }
+                    }
+                    5 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("해외")
+                        }
+                    }
+                    6 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("캠페인")
+                        }
+                    }
+                    7 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("재난")
+                        }
+                    }
+                    8 -> {
+                        if (checked[i] == 1) {
+                            interestList.add("기타")
+                        }
+                    }
                 }
             }
 
@@ -110,6 +151,7 @@ class UserPreferencesActivity: AppCompatActivity() {
             for (elem in viewList) {
                 elem.apply {
                     visibility = View.VISIBLE
+                    binding.tvWarning.visibility = View.INVISIBLE
                     startAnimation(
                         AnimationUtils.loadAnimation(
                             this@UserPreferencesActivity,
