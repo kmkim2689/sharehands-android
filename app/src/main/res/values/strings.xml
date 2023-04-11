@@ -47,4 +47,10 @@
         <item>중랑구</item>
         <item>노원구</item>
     </string-array>
+
+    <string-array name="service_order">
+        <item>최신순</item>
+        <item>좋아요순</item>
+        <item>스크랩순</item>
+    </string-array>
 </resources>

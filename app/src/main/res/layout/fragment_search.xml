@@ -94,18 +94,46 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_search_app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/layout_service_tab"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="김기문"/>
+                        app:layout_constraintEnd_toStartOf="@id/spinner_service_category"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        app:tabMode="scrollable"
+                        app:layout_constraintHorizontal_weight="4"
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner_service_category"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/ic_spinner"
+                        android:layout_marginEnd="24dp"
+                        app:layout_constraintStart_toEndOf="@id/layout_service_tab"
+                        app:layout_constraintTop_toTopOf="@id/layout_service_tab"
+                        app:layout_constraintBottom_toBottomOf="@id/layout_service_tab"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2"/>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewpager_service"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@id/layout_service_tab"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
