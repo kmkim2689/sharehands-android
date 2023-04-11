@@ -127,7 +127,6 @@ class UserInfoWriteActivity: AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // 아무것도 선택되지 않는 경우는 발생하지 않으므로 비워둠
             }
-
         }
 
         listOfViews.forEach {

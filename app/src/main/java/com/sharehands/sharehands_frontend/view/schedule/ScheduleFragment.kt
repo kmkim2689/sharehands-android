@@ -34,6 +34,14 @@ class ScheduleFragment : Fragment() {
             startActivity(monthlyCalendarIntent)
         }
 
+        binding.tvServiceToday.setOnClickListener {
+            startActivity(monthlyCalendarIntent)
+        }
+
+        binding.ivServiceToday.setOnClickListener {
+            startActivity(monthlyCalendarIntent)
+        }
+
     }
 
 }

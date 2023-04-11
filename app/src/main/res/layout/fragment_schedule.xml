@@ -145,6 +145,8 @@
                     android:text="오늘 해야 할 봉사"
                     android:textColor="@color/text_color"
                     android:textSize="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_service_today"
                     app:layout_constraintStart_toEndOf="@id/iv_service_today"
@@ -159,6 +161,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_service_today"
                     android:src="@drawable/ic_forward_dir"
                     android:layout_marginStart="8dp"
+                    android:padding="12dp"
                     android:layout_marginTop="2dp"/>
 
 
@@ -193,6 +196,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_check_list"
                     app:layout_constraintStart_toEndOf="@id/iv_check_list"
                     android:text="준비물 체크"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
@@ -207,6 +212,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/rectangle_shadow"
                     android:padding="20dp"
+                    android:paddingBottom="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_check_list" />
@@ -229,6 +235,8 @@
                     app:layout_constraintTop_toTopOf="@id/iv_memo"
                     app:layout_constraintBottom_toBottomOf="@id/iv_memo"
                     android:text="메모"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -247,7 +255,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_memo"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="80dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

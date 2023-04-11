@@ -76,4 +76,7 @@ dependencies {
     // bottom navigation view
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // bottom sheet(height 크기 조절한 뷰)
+    implementation 'com.google.android.material:material:1.8.0-alpha01'
 }

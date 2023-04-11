@@ -23,6 +23,8 @@ class DailyCalendarActivity: AppCompatActivity() {
 
         val timeCalendar = Calendar.getInstance()
         val weeklyCalendar = binding.calendarWeekly
+        weeklyCalendar.setSelectedDate(Calendar.getInstance())
+
 
         weeklyCalendar.addDecorators(WeekdayDecorate(), SundayDecorate(), SaturdayDecorate(), TodayDecorator(this))
         weeklyCalendar.setTitleFormatter {
@@ -59,6 +61,9 @@ class DailyCalendarActivity: AppCompatActivity() {
             weeklyCalendar.addDecorator(selectedDayDecorate)
         }
 
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
     }
 
