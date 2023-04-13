@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="72dp"
             android:background="@drawable/sharehands_toolbar"
-            app:elevation="0dp"
+            app:elevation="24dp"
+            android:elevation="12dp"
             app:layout_insetEdge="start">
 
             <Toolbar
@@ -75,6 +76,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_photo_title">
 
                     <ImageView
+                        android:id="@+id/iv_select_pic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_photo"
@@ -110,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/sharehands_black"
                             android:textSize="12sp"
-                            tools:text="1" />
+                            android:text="0" />
 
                         <TextView
                             android:id="@+id/tv_pic_max_num"
@@ -196,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
-                        tools:text="0" />
+                        android:text="0" />
 
                     <TextView
                         android:id="@+id/tv_name_max_num"
@@ -224,12 +226,18 @@
                 <EditText
                     android:id="@+id/edit_simple_description"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="200dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/rectangle_shadow_stroke"
+                    android:gravity="start"
+                    android:hint="최소 50자, 최대 200자로 작성해주세요."
                     android:maxLength="200"
+                    android:padding="20dp"
+                    android:paddingBottom="32dp"
+                    android:scrollbars="vertical"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_simple_description_title" />
@@ -249,7 +257,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
-                        tools:text="0" />
+                        android:text="0" />
 
                     <TextView
                         android:id="@+id/tv_simple_max_num"
@@ -645,43 +653,43 @@
 
                     <LinearLayout
                         android:layout_columnWeight="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/edit_num_people"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:background="@drawable/border_bottom"/>
+                            android:background="@drawable/border_bottom" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="명"
-                            android:textColor="@color/sharehands_green_strong"/>
+                            android:textColor="@color/sharehands_green_strong" />
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_columnWeight="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/edit_expense"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:background="@drawable/border_bottom"/>
+                            android:background="@drawable/border_bottom" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="원"
-                            android:textColor="@color/sharehands_green_strong"/>
+                            android:textColor="@color/sharehands_green_strong" />
                     </LinearLayout>
                 </GridLayout>
 
@@ -689,13 +697,13 @@
                     android:id="@+id/tv_detail_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:layout_marginTop="36dp"
-                    app:layout_constraintTop_toBottomOf="@id/layout_people_expense"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     android:text="봉사활동에 대해 자세히 설명해주세요."
                     android:textColor="@color/text_color"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/layout_people_expense" />
 
                 <EditText
                     android:id="@+id/edit_detail_description"
@@ -705,7 +713,12 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/rectangle_shadow_stroke"
+                    android:gravity="start"
+                    android:hint="최소 100자, 최대 1000자로 작성해주세요."
                     android:maxLength="200"
+                    android:padding="20dp"
+                    android:paddingBottom="32dp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_detail_description" />
@@ -725,7 +738,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/sharehands_black"
                         android:textSize="16sp"
-                        tools:text="0" />
+                        android:text="0" />
 
                     <TextView
                         android:id="@+id/tv_detail_max_num"
@@ -741,56 +754,58 @@
                     android:id="@+id/tv_contact_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:layout_marginTop="36dp"
-                    app:layout_constraintTop_toBottomOf="@id/layout_detail_description_cnt"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     android:text="연락처를 알려주세요."
                     android:textColor="@color/text_color"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/layout_detail_description_cnt" />
 
                 <TextView
                     android:id="@+id/tv_contact_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_contact_title"
                     android:layout_marginTop="16dp"
                     android:text="전화번호"
                     android:textColor="@color/text_color"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_title" />
 
                 <RadioGroup
                     android:id="@+id/radio_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_contact_phone"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_phone">
 
                     <RadioButton
                         android:id="@+id/radio_phone_open"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@android:color/transparent"
-                        android:text="  공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:drawableStart="@drawable/custom_radio"
-                        android:paddingTop="8dp"/>
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                     <RadioButton
                         android:id="@+id/radio_phone_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@android:color/transparent"
-                        android:text="  비공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:drawableStart="@drawable/custom_radio"
                         android:layout_marginStart="20dp"
-                        android:paddingTop="8dp"/>
+                        android:button="@android:color/transparent"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  비공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                 </RadioGroup>
 
@@ -798,24 +813,24 @@
                     android:id="@+id/frame_phone"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    app:layout_constraintTop_toBottomOf="@id/radio_phone"
                     android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+                    app:layout_constraintTop_toBottomOf="@id/radio_phone">
 
                     <EditText
                         android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
 
                     <View
                         android:id="@+id/edit_phone_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom_blocked"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -824,44 +839,46 @@
                     android:id="@+id/tv_contact_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/frame_phone"
                     android:layout_marginTop="16dp"
                     android:text="이메일"
                     android:textColor="@color/text_color"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/frame_phone" />
 
                 <RadioGroup
                     android:id="@+id/radio_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_contact_email"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_email">
 
                     <RadioButton
                         android:id="@+id/radio_email_open"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@android:color/transparent"
-                        android:text="  공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:drawableStart="@drawable/custom_radio"
-                        android:paddingTop="8dp"/>
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                     <RadioButton
                         android:id="@+id/radio_email_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@android:color/transparent"
-                        android:text="  비공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:drawableStart="@drawable/custom_radio"
                         android:layout_marginStart="20dp"
-                        android:paddingTop="8dp"/>
+                        android:button="@android:color/transparent"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  비공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                 </RadioGroup>
 
@@ -869,72 +886,72 @@
                     android:id="@+id/frame_email"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    app:layout_constraintTop_toBottomOf="@id/radio_email"
                     android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+                    app:layout_constraintTop_toBottomOf="@id/radio_email">
 
                     <EditText
                         android:id="@+id/edit_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
 
                     <View
                         android:id="@+id/edit_email_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom_blocked"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
-
-
 
 
                 <TextView
                     android:id="@+id/tv_contact_etc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/frame_email"
                     android:layout_marginTop="16dp"
                     android:text="기타 연락망"
                     android:textColor="@color/text_color"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/frame_email" />
 
                 <RadioGroup
                     android:id="@+id/radio_etc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_contact_etc"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contact_etc">
 
                     <RadioButton
                         android:id="@+id/radio_etc_open"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@android:color/transparent"
-                        android:text="  공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:drawableStart="@drawable/custom_radio"
-                        android:paddingTop="8dp"/>
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                     <RadioButton
                         android:id="@+id/radio_etc_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@android:color/transparent"
-                        android:text="  비공개"
-                        android:textSize="12sp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:drawableStart="@drawable/custom_radio"
                         android:layout_marginStart="20dp"
-                        android:paddingTop="8dp"/>
+                        android:button="@android:color/transparent"
+                        android:drawableStart="@drawable/custom_radio"
+                        android:paddingStart="2dp"
+                        android:paddingTop="8dp"
+                        android:text="  비공개"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="12sp" />
 
                 </RadioGroup>
 
@@ -942,60 +959,59 @@
                     android:id="@+id/frame_etc"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    app:layout_constraintTop_toBottomOf="@id/radio_etc"
                     android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    app:layout_constraintEnd_toEndOf="@id/layout_detail_period">
+                    app:layout_constraintTop_toBottomOf="@id/radio_etc">
 
                     <EditText
                         android:id="@+id/edit_etc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
 
                     <View
                         android:id="@+id/edit_etc_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom_blocked"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
-                
+
                 <TextView
                     android:id="@+id/tv_warning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="56dp"
                     android:text="모든 항목을 채워주세요."
                     android:textColor="@color/sharehands_red"
-                    app:layout_constraintTop_toBottomOf="@id/frame_etc"
-                    android:layout_marginTop="56dp"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    />
-                
+                    app:layout_constraintTop_toBottomOf="@id/frame_etc" />
+
                 <FrameLayout
                     android:id="@+id/frame_btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_warning"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_warning">
 
                     <TextView
                         android:id="@+id/btn_submit_active"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_button_green"
-                        android:text="작성 완료"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:text="작성 완료"
                         android:textColor="@color/white"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/btn_submit_inactive"
@@ -1003,12 +1019,12 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_button_green"
                         android:backgroundTint="@color/sharehands_gray"
-                        android:text="작성 완료"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:text="작성 완료"
                         android:textColor="@color/white"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
 
                 </FrameLayout>
 

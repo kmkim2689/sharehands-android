@@ -118,6 +118,7 @@
                         android:id="@+id/spinner_service_category"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/ic_spinner"
                         android:layout_marginEnd="24dp"
                         app:layout_constraintStart_toEndOf="@id/layout_service_tab"
