@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sharehands.sharehands_frontend.viewmodel.search.ServiceUploadViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,6 +50,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/item_color"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,6 +129,13 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <ImageView
+                    android:id="@+id/iv_test"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/layout_photo_select"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_photo_list"
                     android:layout_width="0dp"
@@ -181,7 +191,8 @@
                     android:maxLength="20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_title"
+                    android:onTextChanged="@{viewModel.onTextChanged}"/>
 
                 <LinearLayout
                     android:id="@+id/layout_name_cnt"
@@ -233,6 +244,7 @@
                     android:background="@drawable/rectangle_shadow_stroke"
                     android:gravity="start"
                     android:hint="최소 50자, 최대 200자로 작성해주세요."
+                    android:textColorHint="@color/sharehands_gray"
                     android:maxLength="200"
                     android:padding="20dp"
                     android:paddingBottom="32dp"
@@ -485,7 +497,8 @@
                         android:button="@android:color/transparent"
                         android:gravity="center"
                         android:text="일"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textColor="@color/text_color"/>
 
                     <CheckBox
                         android:id="@+id/checkbox_monday"
@@ -495,6 +508,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="월"
                         android:textSize="16sp" />
 
@@ -506,6 +520,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="화"
                         android:textSize="16sp" />
 
@@ -517,6 +532,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="수"
                         android:textSize="16sp" />
 
@@ -528,6 +544,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="목"
                         android:textSize="16sp" />
 
@@ -539,6 +556,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="금"
                         android:textSize="16sp" />
 
@@ -550,6 +568,7 @@
                         android:background="@drawable/checkbox_day_selector"
                         android:button="@android:color/transparent"
                         android:gravity="center"
+                        android:textColor="@color/text_color"
                         android:text="토"
                         android:textSize="16sp" />
 
@@ -559,7 +578,7 @@
                     android:id="@+id/layout_detail_time"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="32dp"
                     android:background="@drawable/border_bottom"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="@id/view_detail_location"
@@ -715,6 +734,7 @@
                     android:background="@drawable/rectangle_shadow_stroke"
                     android:gravity="start"
                     android:hint="최소 100자, 최대 1000자로 작성해주세요."
+                    android:textColorHint="@color/sharehands_gray"
                     android:maxLength="200"
                     android:padding="20dp"
                     android:paddingBottom="32dp"
