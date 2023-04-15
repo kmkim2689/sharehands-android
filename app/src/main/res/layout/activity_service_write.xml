@@ -586,7 +586,7 @@
 
                     <TextView
                         android:id="@+id/tv_start_time_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
@@ -594,19 +594,19 @@
 
                     <TextView
                         android:id="@+id/btn_start_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
-                        android:text="시작시간"
+                        android:text="시작"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="center"
@@ -616,7 +616,7 @@
 
                     <TextView
                         android:id="@+id/tv_end_time_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
@@ -624,13 +624,13 @@
 
                     <TextView
                         android:id="@+id/btn_end_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
-                        android:text="종료시간"
+                        android:text="종료"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />

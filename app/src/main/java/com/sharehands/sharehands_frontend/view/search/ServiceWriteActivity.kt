@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog.show
+import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -63,6 +64,10 @@ class ServiceWriteActivity: AppCompatActivity() {
     private val year = calendar.get(Calendar.YEAR)
     private val month = calendar.get(Calendar.MONTH)
     private val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    // 시간 선택을 위한 timepicker dialog 구현
+    private val tHour = calendar.get(Calendar.HOUR_OF_DAY)
+    private val tMinute = calendar.get(Calendar.MINUTE)
 
     private lateinit var binding: ActivityServiceWriteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -221,6 +226,32 @@ class ServiceWriteActivity: AppCompatActivity() {
                 }
                 viewModel.onChkboxChanged(weekdayChecked)
             }
+        }
+
+        // 시작시간
+        binding.btnStartTime.setOnClickListener {
+            val startTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                var startTime = "$hourOfDay : $minute"
+                binding.tvStartTimeContent.text = startTime
+                viewModel.onDateChanged("start", startTime)
+            }
+
+            val startTimePickerDialog = TimePickerDialog(this, startTimePickerSetting, tHour, tMinute, false)
+            startTimePickerDialog.show()
+
+        }
+
+        binding.btnEndTime.setOnClickListener {
+            Log.d("end버튼", "클릭")
+            val endTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                var endTime = "$hourOfDay : $minute"
+                binding.tvEndTimeContent.text = endTime
+                viewModel.onDateChanged("end", endTime)
+            }
+
+            val endTimePickerDialog = TimePickerDialog(this, endTimePickerSetting, tHour, tMinute, false)
+            endTimePickerDialog.show()
+
         }
 
         // 라디오박스 체크

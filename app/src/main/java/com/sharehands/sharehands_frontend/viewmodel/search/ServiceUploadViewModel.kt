@@ -153,6 +153,13 @@ class ServiceUploadViewModel(): ViewModel() {
 
     }
 
+    fun onTimeChanged(text: String, time: String) {
+        when (text) {
+            "start" -> _startDate.value = time
+            "end" -> _endTime.value = time
+        }
+    }
+
     // xml 파일에서 textwatcher를 사용.(onTextChanged)
     fun onTitleChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         // (Mutable)LiveData의 값을 업데이트하는 메소드 : postValue(변경할 값)
