@@ -3,6 +3,8 @@ package com.sharehands.sharehands_frontend.view.search
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.ProgressDialog.show
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -14,24 +16,27 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.view.*
+import android.view.animation.Animation
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.sharehands.sharehands_frontend.BuildConfig
 import com.sharehands.sharehands_frontend.R
+import com.sharehands.sharehands_frontend.adapter.search.ServicePicRVAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityServiceWriteBinding
+import com.sharehands.sharehands_frontend.model.search.ServicePic
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceUploadViewModel
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -39,6 +44,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,6 +58,12 @@ class ServiceWriteActivity: AppCompatActivity() {
     // 이미지 url을 담는 리스트
     private var imageArrayList = ArrayList<String>()
 
+    // 날짜 선택을 위한 calendar dialog 구현을 위한 변수들
+    private val calendar = Calendar.getInstance()
+    private val year = calendar.get(Calendar.YEAR)
+    private val month = calendar.get(Calendar.MONTH)
+    private val day = calendar.get(Calendar.DAY_OF_MONTH)
+
     private lateinit var binding: ActivityServiceWriteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +72,14 @@ class ServiceWriteActivity: AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ServiceUploadViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        val pictureList = ArrayList<String>()
+        // 사진 리사이클러뷰 어댑터
+        val servicePicRVAdapter = ServicePicRVAdapter(this, pictureList, viewModel)
+
+        // 레이아웃의 리사이클러뷰의 어댑터를 불러왔던 어댑터로 설정
+        binding.rvPhotoList.adapter = servicePicRVAdapter
+        binding.rvPhotoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // 이미지의 경로를 선택하는 Dialog
         val serviceImageDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_get_picture, null)
@@ -80,13 +100,112 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
 
         binding.layoutPhotoSelect.setOnClickListener {
-            serviceImageDialog.show()
-            imageDialogClickEvent(serviceImageDialog, exitImageBtn, selectCamera, selectGallery)
+            if (binding.tvPicCurrentCnt.text.toString().toInt() < 5) {
+                serviceImageDialog.show()
+                imageDialogClickEvent(serviceImageDialog, exitImageBtn, selectCamera, selectGallery)
+            }
         }
+
+        // 카테고리 선택 스피너
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.category,
+            android.R.layout.simple_spinner_item
+        )
+
+        // 드롭다운 레이아웃
+        spinnerAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
+        binding.spinnerCategory.apply {
+            adapter = spinnerAdapter
+            dropDownVerticalOffset = 120
+            onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.onCategoryChanged(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+        }
+
+        // 모집 마감일
+        binding.btnDueDate.setOnClickListener {
+            val dueDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                var dueDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+                binding.tvDueDate.text = dueDate
+                viewModel.onDateChanged("due", dueDate)
+            }
+
+            // 띄워주기 위해 .show()메소드 이용
+            val dueDatePickerDialog = DatePickerDialog(this, dueDatePickerSetting, year, month, day)
+            dueDatePickerDialog.apply {
+                datePicker.minDate = System.currentTimeMillis()
+                show()
+            }
+        }
+
+        // 봉사 장소
+
+        // 봉사 기간
+        val startDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            var startDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+            binding.tvStartDateContent.text = startDate
+            viewModel.onDateChanged("start", startDate)
+        }
+
+        val startDatePickerDialog = DatePickerDialog(this, startDatePickerSetting, year, month, day)
+
+        val endDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            var endDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+            binding.tvEndDateContent.text = endDate
+            viewModel.onDateChanged("end", endDate)
+        }
+
+        val endDatePickerDialog = DatePickerDialog(this, endDatePickerSetting, year, month, day)
+
+        // 시작일
+        binding.btnStartDate.setOnClickListener {
+
+            startDatePickerDialog.apply {
+                datePicker.minDate = System.currentTimeMillis()
+                if (binding.tvEndDateContent != null) {
+//                    datePicker.maxDate =
+                }
+                show()
+            }
+        }
+
+        binding.btnEndDate.setOnClickListener {
+            if (binding.tvStartDateContent != null) {
+                endDatePickerDialog.apply {
+                    // TODO mindate를 startDay 이후로 설정
+//                    val startDateCalendar = Calendar.getInstance()
+//                    startDateCalendar.set(2023, Calendar.MAY, 1)
+//                    val minDate = startDateCalendar.timeInMillis
+//                    datePicker.minDate = minDate
+                    show()
+                }
+            } else {
+                // TODO 시작일을 고르라는 스낵바를 띄우기
+            }
+
+        }
+
+
+
+
 
         binding.ivGoBack.setOnClickListener {
             finish()
         }
+
     }
 
     private fun imageDialogClickEvent(dialog: AlertDialog, exitButton: ImageView, selectCamera: LinearLayout, selectGallery: LinearLayout) {
@@ -114,6 +233,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                     startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
                     Log.d("imageUri - camera", "${imageUri}")
+
                 }
             }
         }
@@ -145,7 +265,6 @@ class ServiceWriteActivity: AppCompatActivity() {
                         Log.d("imageUrl", "${imageUriString}")
                         val imagePath = imageUri?.path
                         Log.d("imagePath", "${imagePath}")
-                        Glide.with(this).load(imageUriString).into(binding.ivTest)
 
                         // 파일로 만들기
                         val imageFile = File(absolutelyPath(pickedImage, this))
@@ -153,6 +272,19 @@ class ServiceWriteActivity: AppCompatActivity() {
                         // 서버로 보낼 이미지 파일
                         val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
                         Log.d("imagePart", "${imagePart}")
+
+                        viewModel.addImage(imageUriString, imagePart)
+
+                        var pictureList = ArrayList<String>()
+                        Log.d("image list", "${pictureList}")
+                        for (i in 0 until viewModel.imageUriList.value!!.size) {
+                            pictureList.add(viewModel.imageUriList.value!![i].imageUri)
+                            Log.d("image List added", "${pictureList}")
+                        }
+
+                        val servicePicRVAdapter = ServicePicRVAdapter(this, pictureList, viewModel)
+                        binding.rvPhotoList.adapter = servicePicRVAdapter
+                        binding.rvPhotoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     }
 
                     // Do something with the image path
@@ -174,13 +306,26 @@ class ServiceWriteActivity: AppCompatActivity() {
                         Log.d("imageUri - gallery", "${imageUriString}")
                         val imagePath = imageUri?.path
                         Log.d("imagePath", "${imagePath}")
-                        Glide.with(this).load(imageUriString).into(binding.ivTest)
                         // 파일로 만들기
                         val imageFile = File(absolutelyPath(selectedImage, this))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일에 해당됨
                         val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
                         Log.d("imagePart", "${imagePart}")
+
+                        viewModel.addImage(imageUriString, imagePart)
+
+                        var pictureList = ArrayList<String>()
+                        Log.d("image list", "${pictureList}")
+                        for (i in 0 until viewModel.imageUriList.value!!.size) {
+                            pictureList.add(viewModel.imageUriList.value!![i].imageUri.toString())
+                            Log.d("image List added", "${pictureList}")
+                        }
+
+                        val servicePicRVAdapter = ServicePicRVAdapter(this, pictureList, viewModel)
+                        binding.rvPhotoList.adapter = servicePicRVAdapter
+                        binding.rvPhotoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
                     }
                 }
             }
@@ -196,4 +341,5 @@ class ServiceWriteActivity: AppCompatActivity() {
         cursor?.close()
         return path!!
     }
+
 }

@@ -53,4 +53,16 @@
         <item>좋아요순</item>
         <item>스크랩순</item>
     </string-array>
+
+    <string-array name="category">
+        <item>교육</item>
+        <item>문화</item>
+        <item>보건</item>
+        <item>환경</item>
+        <item>기술</item>
+        <item>해외</item>
+        <item>캠페인</item>
+        <item>재난</item>
+        <item>기타</item>
+    </string-array>
 </resources>

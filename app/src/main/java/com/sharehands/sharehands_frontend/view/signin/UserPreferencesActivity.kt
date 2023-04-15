@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ActivityUserPreferencesBinding
 import com.sharehands.sharehands_frontend.network.signin.UserInterest
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.viewmodel.signin.UserInterestViewModel
 
@@ -125,19 +126,30 @@ class UserPreferencesActivity: AppCompatActivity() {
                 }
             }
 
-            val userInterest = UserInterest(interestList)
-            viewModel.postUserInterest(userInterest)
-            viewModel.response.observe(this) {
-                if (viewModel.response.value?.accessToken != null) {
-                    Log.d("회원 관심 전송 성공", "다음으로")
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Log.d("회원 관심 전송 실패", "네트워크 오류")
-                    binding.tvWarning.text = "네트워크 오류가 발생했습니다. 다시 시도해보세요."
-                    binding.tvWarning.setTextColor(Color.RED)
+            val sp = SharedPreferencesManager.getInstance(this)
+            val email = sp.getString("email", "null").toString()
+            if (email != "null") {
+                val userInterest = UserInterest(email, interestList)
+                viewModel.postUserInterest(userInterest)
+                viewModel.response.observe(this) {
+                    if (viewModel.response.value?.accessToken != null) {
+                        Log.d("회원 관심 전송 성공", "다음으로")
+                        val token = viewModel.response.value?.accessToken.toString()
+                        // sp에 토큰 집어넣기
+                        sp.saveString("token", token)
+                        Log.d("token", "${sp.getString("token", "error")}")
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Log.d("회원 관심 전송 실패", "네트워크 오류")
+                        binding.tvWarning.text = "네트워크 오류가 발생했습니다. 다시 시도해보세요."
+                        binding.tvWarning.setTextColor(Color.RED)
+                    }
                 }
+            } else {
+                finish()
             }
+
         }
 
         binding.btnBack.setOnClickListener {

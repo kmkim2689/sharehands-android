@@ -41,7 +41,7 @@ interface ApiService {
     @POST("/user/data")
     fun postUserDetail(
         @Body userInfoDetail: UserInfoDetail
-    ): Call<PostUserResponse>
+    ): Call<Void>
 
     // 관심분야 전송
     @POST("/my-page/interest")
@@ -61,21 +61,21 @@ interface ApiService {
         @Part("category") category: RequestBody,
         @Part("name") name: RequestBody,
         @Part("intro") intro: RequestBody,
-        @Part("due") due: RequestBody,
-        @Part("location") location: RequestBody,
+        @Part("applydeadline") applydeadline: RequestBody,
+        @Part("area") area: RequestBody,
         @Part("startDate") startDate: RequestBody,
         @Part("endDate") endDate: RequestBody,
-        @Part("weekday") weekday: RequestBody,
+        @Part("dow") dow: RequestBody,
         @Part("startTime") startTime: RequestBody,
         @Part("endTime") endTime: RequestBody,
-        @Part("maxNum") maxNum: RequestBody,
-        @Part("expense") expense: RequestBody,
-        @Part("detailDesc") detailDesc: RequestBody,
+        @Part("recruitNum") recruitNum: RequestBody,
+        @Part("cost") cost: RequestBody,
+        @Part("content") content: RequestBody,
         @Part("tel") tel: RequestBody,
         @Part("email") email: RequestBody,
         @Part("contactEtc") contactEtc: RequestBody,
-        @Part imageList: ArrayList<MultipartBody.Part>
-    ): Call<Unit>
+        @Part("photoList") photoList: ArrayList<MultipartBody.Part>
+    ): Call<Void>
 
     // 5. My Page
 
@@ -83,5 +83,5 @@ interface ApiService {
     @POST("/user/my-page/edit")
     fun editUserInfo(
         @Body userInfoEdit: UserInfoEdit
-    ): Call<Unit> // 자료형을 Unit으로 설정함으로써, 아무것도 안 받아올 수 있음
+    ): Call<Void>
 }

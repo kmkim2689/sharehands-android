@@ -203,7 +203,7 @@ class UserInfoWriteActivity: AppCompatActivity() {
             viewModel.postUserInfo(userInfoDetail)
             viewModel.response.observe(this) {
                 // API 요청 결과 처리
-                if (viewModel.response.value?.accessToken != null) {
+                if (viewModel.response.value == "success") {
                     Log.d("회원정보 전송 성공", "다음으로")
                     val intent = Intent(this, UserPreferencesActivity::class.java)
                     startActivity(intent)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,7 +9,7 @@
             type="com.sharehands.sharehands_frontend.viewmodel.search.ServiceUploadViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -72,8 +73,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_photo_select"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
                     android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     app:layout_constraintTop_toBottomOf="@id/tv_photo_title">
@@ -92,7 +93,7 @@
                         android:id="@+id/iv_pic_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="20dp"
                         android:src="@drawable/ic_pic"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/sharehands_black"
                             android:textSize="12sp"
-                            android:text="0" />
+                            android:text="@{viewModel.numOfImages}" />
 
                         <TextView
                             android:id="@+id/tv_pic_max_num"
@@ -129,17 +130,10 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_test"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/layout_photo_select"/>
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_photo_list"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="80dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="24dp"
                     app:layout_constraintBottom_toBottomOf="@id/layout_photo_select"
@@ -188,11 +182,15 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
+                    android:maxLines="1"
                     android:maxLength="20"
+                    android:hint="  최소 5자, 최대 20자로 작성해주세요."
+                    android:textSize="16sp"
+                    android:textColorHint="@color/sharehands_gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_name_title"
-                    android:onTextChanged="@{viewModel.onTextChanged}"/>
+                    android:onTextChanged="@{(s, start, before, count) -> viewModel.onTitleChanged(s, start, before, count)}"/>
 
                 <LinearLayout
                     android:id="@+id/layout_name_cnt"
@@ -209,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
-                        android:text="0" />
+                        android:text="@{viewModel.titleCount}" />
 
                     <TextView
                         android:id="@+id/tv_name_max_num"
@@ -252,7 +250,8 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_simple_description_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_simple_description_title"
+                    android:onTextChanged="@{(s, start, before, count) -> viewModel.onIntroChanged(s, start, before, count)}"/>
 
                 <LinearLayout
                     android:id="@+id/layout_simple_description_cnt"
@@ -269,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
-                        android:text="0" />
+                        android:text="@{viewModel.introCount}" />
 
                     <TextView
                         android:id="@+id/tv_simple_max_num"
@@ -415,27 +414,27 @@
 
                     <TextView
                         android:id="@+id/tv_start_date_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/btn_start_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
-                        android:text="시작일"
+                        android:text="시작"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="center"
@@ -445,21 +444,21 @@
 
                     <TextView
                         android:id="@+id/tv_end_date_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/btn_end_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
-                        android:text="종료일"
+                        android:text="종료"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -677,9 +676,12 @@
 
                         <EditText
                             android:id="@+id/edit_num_people"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:maxLength="5"
                             android:background="@drawable/border_bottom" />
 
                         <TextView
@@ -698,9 +700,12 @@
 
                         <EditText
                             android:id="@+id/edit_expense"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
+                            android:maxLines="1"
+                            android:maxLength="7"
+                            android:inputType="numberDecimal"
                             android:background="@drawable/border_bottom" />
 
                         <TextView
@@ -735,13 +740,14 @@
                     android:gravity="start"
                     android:hint="최소 100자, 최대 1000자로 작성해주세요."
                     android:textColorHint="@color/sharehands_gray"
-                    android:maxLength="200"
+                    android:maxLength="1000"
                     android:padding="20dp"
                     android:paddingBottom="32dp"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_description" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_description"
+                    android:onTextChanged="@{(s, start, before, count) -> viewModel.onDetailChanged(s, start, before, count)}"/>
 
                 <LinearLayout
                     android:id="@+id/layout_detail_description_cnt"
@@ -756,16 +762,16 @@
                         android:id="@+id/tv_detail_current_cnt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/sharehands_black"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp"
-                        android:text="0" />
+                        android:text="@{viewModel.detailCount}" />
 
                     <TextView
                         android:id="@+id/tv_detail_max_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" / 1000"
-                        android:textColor="@color/sharehands_black"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -843,7 +849,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:maxLines="1"/>
 
                     <View
                         android:id="@+id/edit_phone_blocked"
@@ -916,7 +923,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:maxLines="1"/>
 
                     <View
                         android:id="@+id/edit_email_blocked"
@@ -989,7 +997,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:maxLines="1"/>
 
                     <View
                         android:id="@+id/edit_etc_blocked"
@@ -1007,6 +1016,7 @@
                     android:layout_marginTop="56dp"
                     android:text="모든 항목을 채워주세요."
                     android:textColor="@color/sharehands_red"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
                     app:layout_constraintTop_toBottomOf="@id/frame_etc" />
 
@@ -1031,7 +1041,8 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:onClick="@{() -> viewModel.upload()}"/>
 
                     <TextView
                         android:id="@+id/btn_submit_inactive"
