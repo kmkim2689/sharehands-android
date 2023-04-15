@@ -198,7 +198,130 @@ class ServiceWriteActivity: AppCompatActivity() {
 
         }
 
+        // 봉사 요일 선택
+        val chkSun = binding.checkboxSunday
+        val chkMon = binding.checkboxMonday
+        val chkTue = binding.checkboxTuesday
+        val chkWed = binding.checkboxWednesday
+        val chkThu = binding.checkboxThursday
+        val chkFri = binding.checkboxFriday
+        val chkSat = binding.checkboxSaturday
 
+        val chkboxList = listOf<CheckBox>(chkSun, chkMon, chkTue, chkWed, chkThu, chkFri, chkSat)
+        val weekdayChecked = arrayListOf<Int>(0, 0, 0, 0, 0, 0, 0)
+        for ((i, elem) in chkboxList.withIndex()) {
+            elem.setOnClickListener {
+                if (elem.isChecked) {
+                    weekdayChecked[i] = 1
+                    Log.d("게시글 작성 weekday list", "${weekdayChecked}")
+
+                } else {
+                    weekdayChecked[i] = 0
+                    Log.d("게시글 작성 weekday list", "${weekdayChecked}")
+                }
+                viewModel.onChkboxChanged(weekdayChecked)
+            }
+        }
+
+        // 라디오박스 체크
+        val radioPhoneOpen = binding.radioPhoneOpen
+        val radioPhoneClose = binding.radioPhoneClose
+        val radioEmailOpen = binding.radioEmailOpen
+        val radioEmailClose = binding.radioEmailClose
+        val radioEtcOpen = binding.radioEtcOpen
+        val radioEtcClose = binding.radioEtcClose
+
+        var closedArray = arrayListOf<Int>(0, 0, 0)
+
+        radioPhoneOpen.setOnClickListener {
+            binding.editPhone.visibility = View.VISIBLE
+            binding.editPhoneBlocked.visibility = View.GONE
+            Log.d("라디오 공개 체크", "전화")
+            if (closedArray[0] == 1) {
+                closedArray[0] = 0
+            }
+            Log.d("라디오 비공개수", "${closedArray}")
+        }
+
+
+        radioPhoneClose.setOnClickListener {
+            if (closedArray.count { it == 1 } < 2) {
+                binding.editPhone.text = null
+                binding.editPhone.visibility = View.GONE
+                binding.editPhoneBlocked.visibility = View.VISIBLE
+                viewModel.onRadioBlocked("phone")
+                Log.d("라디오 비공개 체크", "전화")
+                closedArray[0] = 1
+                Log.d("라디오 비공개수", "${closedArray}")
+            } else {
+                if (closedArray[0] != 1) {
+                    radioPhoneClose.isChecked = false
+                    radioPhoneOpen.isChecked = true
+                    Log.d("라디오 비공개수", "${closedArray}")
+                }
+
+            }
+
+        }
+
+
+        radioEmailOpen.setOnClickListener {
+            binding.editEmail.visibility = View.VISIBLE
+            binding.editEmailBlocked.visibility = View.GONE
+            Log.d("라디오 공개 체크", "이메일")
+            if (closedArray[1] == 1) {
+                closedArray[1] = 0
+            }
+            Log.d("라디오 비공개수", "${closedArray}")
+        }
+
+        radioEmailClose.setOnClickListener {
+            if (closedArray.count { it == 1 } < 2) {
+                binding.editEmail.text = null
+                binding.editEmail.visibility = View.GONE
+                binding.editEmailBlocked.visibility = View.VISIBLE
+                viewModel.onRadioBlocked("email")
+                Log.d("라디오 비공개 체크", "이메일")
+                closedArray[1] = 1
+                Log.d("라디오 비공개수", "${closedArray}")
+            } else {
+                if (closedArray[1] != 1) {
+                    radioEmailClose.isChecked = false
+                    radioEmailOpen.isChecked = true
+                    Log.d("라디오 비공개수", "${closedArray}")
+                }
+
+            }
+        }
+
+        radioEtcOpen.setOnClickListener {
+            binding.editEtc.visibility = View.VISIBLE
+            binding.editEtcBlocked.visibility = View.GONE
+            Log.d("라디오 공개 체크", "기타")
+            if (closedArray[2] == 1) {
+                closedArray[2] = 0
+            }
+            Log.d("라디오 비공개수", "${closedArray}")
+        }
+
+        radioEtcClose.setOnClickListener {
+            if (closedArray.count { it == 1 } < 2) {
+                binding.editEtc.text = null
+                binding.editEtc.visibility = View.GONE
+                binding.editEtcBlocked.visibility = View.VISIBLE
+                viewModel.onRadioBlocked("etc")
+                Log.d("라디오 비공개 체크", "이메일")
+                closedArray[2] = 1
+                Log.d("라디오 비공개수", "${closedArray}")
+            } else {
+                if (closedArray[2] != 1) {
+                    radioEtcClose.isChecked = false
+                    radioEtcOpen.isChecked = true
+                    Log.d("라디오 비공개수", "${closedArray}")
+                }
+
+            }
+        }
 
 
 
@@ -278,7 +401,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         var pictureList = ArrayList<String>()
                         Log.d("image list", "${pictureList}")
                         for (i in 0 until viewModel.imageUriList.value!!.size) {
-                            pictureList.add(viewModel.imageUriList.value!![i].imageUri)
+                            pictureList.add(viewModel.imageUriList.value!![i])
                             Log.d("image List added", "${pictureList}")
                         }
 
@@ -318,7 +441,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         var pictureList = ArrayList<String>()
                         Log.d("image list", "${pictureList}")
                         for (i in 0 until viewModel.imageUriList.value!!.size) {
-                            pictureList.add(viewModel.imageUriList.value!![i].imageUri.toString())
+                            pictureList.add(viewModel.imageUriList.value!![i])
                             Log.d("image List added", "${pictureList}")
                         }
 

@@ -682,7 +682,8 @@
                             android:inputType="numberDecimal"
                             android:maxLines="1"
                             android:maxLength="5"
-                            android:background="@drawable/border_bottom" />
+                            android:background="@drawable/border_bottom"
+                            android:onTextChanged="@{(s, start, before, count) -> viewModel.onMaxNumChanged(s, start, before, count)}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -706,7 +707,8 @@
                             android:maxLines="1"
                             android:maxLength="7"
                             android:inputType="numberDecimal"
-                            android:background="@drawable/border_bottom" />
+                            android:background="@drawable/border_bottom"
+                            android:onTextChanged="@{(s, start, before, count) -> viewModel.onExpenseChanged(s, start, before, count)}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -817,6 +819,7 @@
                         android:paddingStart="2dp"
                         android:paddingTop="8dp"
                         android:text="  공개"
+                        android:checked="true"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="12sp" />
 
@@ -850,6 +853,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
                         android:visibility="visible"
+                        android:inputType="numberDecimal"
+                        android:onTextChanged="@{(s, start, before, count) -> viewModel.onPhoneChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
                     <View
@@ -891,6 +896,7 @@
                         android:paddingStart="2dp"
                         android:paddingTop="8dp"
                         android:text="  공개"
+                        android:checked="true"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="12sp" />
 
@@ -924,6 +930,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
                         android:visibility="visible"
+                        android:inputType="textEmailAddress"
+                        android:onTextChanged="@{(s, start, before, count) -> viewModel.onEmailChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
                     <View
@@ -965,6 +973,7 @@
                         android:paddingStart="2dp"
                         android:paddingTop="8dp"
                         android:text="  공개"
+                        android:checked="true"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="12sp" />
 
@@ -998,6 +1007,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/border_bottom"
                         android:visibility="visible"
+                        android:inputType="text"
+                        android:onTextChanged="@{(s, start, before, count) -> viewModel.onEtcChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
                     <View
@@ -1055,7 +1066,8 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:onClick="@{() -> viewModel.onInactiveClick()}"/>
 
                 </FrameLayout>
 
