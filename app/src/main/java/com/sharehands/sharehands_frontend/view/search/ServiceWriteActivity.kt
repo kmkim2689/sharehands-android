@@ -38,11 +38,18 @@ import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicePicRVAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityServiceWriteBinding
 import com.sharehands.sharehands_frontend.model.search.ServicePic
+import com.sharehands.sharehands_frontend.network.search.location.KakaoMapApiService
+import com.sharehands.sharehands_frontend.network.search.location.KakaoMapClient
+import com.sharehands.sharehands_frontend.network.search.location.KakaoMapData
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceUploadViewModel
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 import java.io.File
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
@@ -157,6 +164,10 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
 
         // 봉사 장소
+        binding.btnLocation.setOnClickListener {
+            val locationIntent = Intent(this, LocationSearchActivity::class.java)
+            startActivity(locationIntent)
+        }
 
         // 봉사 기간
         val startDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -187,6 +198,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             }
         }
 
+        // 종료일
         binding.btnEndDate.setOnClickListener {
             if (binding.tvStartDateContent != null) {
                 endDatePickerDialog.apply {
