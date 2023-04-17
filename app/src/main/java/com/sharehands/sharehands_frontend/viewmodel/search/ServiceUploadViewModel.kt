@@ -155,9 +155,13 @@ class ServiceUploadViewModel(): ViewModel() {
 
     fun onTimeChanged(text: String, time: String) {
         when (text) {
-            "start" -> _startDate.value = time
+            "start" -> _startTime.value = time
             "end" -> _endTime.value = time
         }
+    }
+
+    fun onAreaChanged(text: String) {
+        _area.value = text
     }
 
     // xml 파일에서 textwatcher를 사용.(onTextChanged)
@@ -199,6 +203,7 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("title text count", "${count}")
         _expense.value = s.toString()
     }
+
 
     fun onChkboxChanged(weekdayChecked: ArrayList<Int>) {
         val weekdayList = ArrayList<String>()

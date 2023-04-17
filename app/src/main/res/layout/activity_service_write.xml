@@ -335,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:textColor="@color/text_color"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/btn_due_date"
                     app:layout_constraintEnd_toStartOf="@id/btn_due_date"
                     app:layout_constraintStart_toStartOf="@id/view_detail_due_content" />
@@ -379,13 +379,15 @@
                 <TextView
                     android:id="@+id/tv_service_location"
                     android:layout_width="0dp"
-                    android:layout_height="28dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:ellipsize="marquee"
                     android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:scrollbars="horizontal"
                     android:textColor="@color/text_color"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/view_detail_location"
                     app:layout_constraintEnd_toStartOf="@id/btn_location"
                     app:layout_constraintStart_toStartOf="@id/view_detail_due_content" />
@@ -590,7 +592,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
-                        android:textSize="20sp" />
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/btn_start_time"
@@ -610,6 +614,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="~"
                         android:textColor="@color/sharehands_green_strong"
                         android:textSize="20sp" />
@@ -618,9 +624,10 @@
                         android:id="@+id/tv_end_time_content"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="3"
-                        android:textSize="20sp" />
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/btn_end_time"
@@ -630,6 +637,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
+                        android:layout_marginStart="8dp"
                         android:text="종료"
                         android:textColor="@color/white"
                         android:textSize="12sp"

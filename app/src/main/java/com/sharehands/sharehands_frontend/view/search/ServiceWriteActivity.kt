@@ -23,6 +23,7 @@ import android.util.Log
 import android.view.*
 import android.view.animation.Animation
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -164,10 +165,23 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
 
         // 봉사 장소
+        val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                // 결과 처리 코드
+                val derivedLocation = data?.getStringExtra("location").toString()
+                Log.d("reserved address data", derivedLocation)
+                binding.tvServiceLocation.text = derivedLocation
+                viewModel.onAreaChanged(derivedLocation)
+            }
+        }
+
         binding.btnLocation.setOnClickListener {
             val locationIntent = Intent(this, LocationSearchActivity::class.java)
-            startActivity(locationIntent)
+            activityResultLauncher.launch(locationIntent)
         }
+
+
 
         // 봉사 기간
         val startDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -191,9 +205,6 @@ class ServiceWriteActivity: AppCompatActivity() {
 
             startDatePickerDialog.apply {
                 datePicker.minDate = System.currentTimeMillis()
-                if (binding.tvEndDateContent != null) {
-//                    datePicker.maxDate =
-                }
                 show()
             }
         }
@@ -245,7 +256,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             val startTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 var startTime = "$hourOfDay : $minute"
                 binding.tvStartTimeContent.text = startTime
-                viewModel.onDateChanged("start", startTime)
+                viewModel.onTimeChanged("start", startTime)
             }
 
             val startTimePickerDialog = TimePickerDialog(this, startTimePickerSetting, tHour, tMinute, false)
@@ -258,7 +269,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             val endTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 var endTime = "$hourOfDay : $minute"
                 binding.tvEndTimeContent.text = endTime
-                viewModel.onDateChanged("end", endTime)
+                viewModel.onTimeChanged("end", endTime)
             }
 
             val endTimePickerDialog = TimePickerDialog(this, endTimePickerSetting, tHour, tMinute, false)
@@ -373,6 +384,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
 
     }
+
 
     private fun imageDialogClickEvent(dialog: AlertDialog, exitButton: ImageView, selectCamera: LinearLayout, selectGallery: LinearLayout) {
         exitButton.setOnClickListener {
