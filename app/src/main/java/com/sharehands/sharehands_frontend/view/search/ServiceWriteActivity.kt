@@ -22,6 +22,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -85,6 +86,10 @@ class ServiceWriteActivity: AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ServiceUploadViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        // 버튼
+        val buttonActive = binding.btnSubmitActive
+        val buttonInactive = binding.btnSubmitInactive
 
         val pictureList = ArrayList<String>()
         // 사진 리사이클러뷰 어댑터
@@ -377,7 +382,44 @@ class ServiceWriteActivity: AppCompatActivity() {
             }
         }
 
+        // 다 채워졌으면 active button
+        viewModel.isValid.observe(this) {
+            if (viewModel.isValid.value == true) {
+                if (buttonActive.visibility == View.INVISIBLE) {
+                    buttonActive.visibility = View.VISIBLE
+                    buttonInactive.visibility = View.INVISIBLE
+                    buttonActive.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this@ServiceWriteActivity,
+                            R.anim.fade_in
+                        )
+                    )
+                }
+            } else {
+                if (buttonInactive.visibility == View.INVISIBLE) {
+                    buttonActive.visibility = View.INVISIBLE
+                    buttonInactive.visibility = View.VISIBLE
+                    buttonInactive.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this@ServiceWriteActivity,
+                            R.anim.fade_in
+                        )
+                    )
+                }
 
+            }
+        }
+
+//        binding.btnSubmitInactive.setOnClickListener {
+//            Log.d("비활성화 클릭", "경고메시지")
+//            binding.tvWarning.visibility = View.VISIBLE
+//            binding.tvWarning.startAnimation(
+//                AnimationUtils.loadAnimation(
+//                    this@ServiceWriteActivity,
+//                    R.anim.fade_in
+//                )
+//            )
+//        }
 
         binding.ivGoBack.setOnClickListener {
             finish()

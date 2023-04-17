@@ -1,5 +1,6 @@
 package com.sharehands.sharehands_frontend.viewmodel.search
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -8,10 +9,15 @@ import androidx.lifecycle.ViewModel
 import com.sharehands.sharehands_frontend.model.search.ServicePic
 import com.sharehands.sharehands_frontend.model.search.ServicePicPart
 import com.sharehands.sharehands_frontend.model.search.ServiceUpload
+import com.sharehands.sharehands_frontend.view.search.ServiceWriteActivity
 import okhttp3.MultipartBody
 
 class ServiceUploadViewModel(): ViewModel() {
 
+    // 제출할 수 있는지 여부
+    private var _isValid = MutableLiveData<Boolean>()
+    val isValid: LiveData<Boolean>
+        get() = _isValid
 
     // 사진 추가/삭제하는 족족 화면에 보낼 사진 목록을 띄워주도록 하기 위함.(기기 내 uri의 리스트 관찰)
     private var _imageUriList = MutableLiveData<ArrayList<String>>()
@@ -108,6 +114,7 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("imagePartList에 사진 추가", "${imagePartList.value}")
 
         _numOfImages.value = imageUriList.value!!.size.toString()
+        isValid()
     }
 
     // TODO 사진 삭제하는 메소드
@@ -117,6 +124,7 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("imageUriList ${position+1}번째 사진 삭제", "${imageUriList.value}")
         Log.d("imagePartList ${position+1}번째 사진 삭제", "${imagePartList.value}")
         _numOfImages.value = imageUriList.value!!.size.toString()
+        isValid()
     }
 
 
@@ -151,6 +159,7 @@ class ServiceUploadViewModel(): ViewModel() {
             "start" -> _startDate.value = date
             "end" -> _endDate.value = date
         }
+        isValid()
 
     }
 
@@ -159,10 +168,12 @@ class ServiceUploadViewModel(): ViewModel() {
             "start" -> _startTime.value = time
             "end" -> _endTime.value = time
         }
+        isValid()
     }
 
     fun onAreaChanged(text: String) {
         _area.value = text
+        isValid()
     }
 
     // xml 파일에서 textwatcher를 사용.(onTextChanged)
@@ -172,7 +183,12 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("changed text", "${s.toString()}")
         Log.d("title text count", "${count}")
         titleCount.value = s.length.toString()
-        _title.value = s.toString()
+        if (s.length == 0) {
+            _title.value = ""
+        } else {
+            _title.value = s.toString()
+        }
+        isValid()
     }
 
     fun onIntroChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -180,7 +196,13 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("changed text", "${s.toString()}")
         Log.d("title text count", "${count}")
         introCount.value = s.length.toString()
-        _intro.value = s.toString()
+
+        if (s.length == 0) {
+            _intro.value = ""
+        } else {
+            _intro.value = s.toString()
+        }
+        isValid()
     }
 
     fun onDetailChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -188,21 +210,39 @@ class ServiceUploadViewModel(): ViewModel() {
         Log.d("changed text", "${s.toString()}")
         Log.d("title text count", "${count}")
         detailCount.value = s.length.toString()
-        _detail.value = s.toString()
+
+        if (s.length == 0) {
+            _detail.value = ""
+        } else {
+            _detail.value = s.toString()
+        }
+        isValid()
     }
 
     fun onMaxNumChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 //        maxNum.postValue(s.toString())
         Log.d("changed text", "${s.toString()}")
         Log.d("title text count", "${count}")
-        _maxNum.value = s.toString()
+        if (s.length == 0) {
+            _maxNum.value = ""
+        } else {
+            _maxNum.value = s.toString()
+        }
+
+        isValid()
     }
 
     fun onExpenseChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 //        expense.postValue(s.toString())
         Log.d("changed text", "${s.toString()}")
         Log.d("title text count", "${count}")
-        _expense.value = s.toString()
+        if (s.length == 0) {
+            _expense.value = ""
+        } else {
+            _expense.value = s.toString()
+        }
+
+        isValid()
     }
 
 
@@ -250,6 +290,7 @@ class ServiceUploadViewModel(): ViewModel() {
 
         Log.d("게시글 작성 weekdayList", "${weekdayList}")
         _weekdayList.value = weekdayList
+        isValid()
     }
 
     fun onRadioBlocked(contact: String) {
@@ -258,24 +299,40 @@ class ServiceUploadViewModel(): ViewModel() {
             "email" -> _email.value = "비공개"
             "etc" -> _etc.value = "비공개"
         }
+        isValid()
     }
 
     fun onPhoneChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         Log.d("changed text", "${s}")
         Log.d("tel text count", "${count}")
-        _tel.value = s.toString()
+        if (s.length == 0) {
+            _tel.value = ""
+        } else {
+            _tel.value = s.toString()
+        }
+        isValid()
     }
 
     fun onEmailChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         Log.d("changed text", "${s}")
         Log.d("email text count", "${count}")
-        _email.value = s.toString()
+        if (s.length == 0) {
+            _email.value = ""
+        } else {
+            _email.value = s.toString()
+        }
+        isValid()
     }
 
     fun onEtcChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         Log.d("changed text", "${s}")
         Log.d("etc count", "${count}")
-        _etc.value = s.toString()
+        if (s.length == 0) {
+            _etc.value = ""
+        } else {
+            _etc.value = s.toString()
+        }
+        isValid()
     }
 
     fun onInactiveClick() {
@@ -304,5 +361,39 @@ class ServiceUploadViewModel(): ViewModel() {
     // TODO 확인 버튼 클릭 시 동작을 정의
     fun upload() {
 
+    }
+
+    fun isValid() {
+        if (imagePartList.value?.size != 0
+            && category.value != null
+            && title.value != null
+            && title.value != ""
+            && intro.value != null
+            && intro.value != ""
+            && due.value != null
+            && area.value != null
+            && startDate.value != null
+            && endDate.value != null
+            && weekdayList.value?.size != 0
+            && startTime.value != null
+            && endTime.value != null
+            && maxNum.value != null
+            && maxNum.value != ""
+            && expense.value != null
+            && expense.value != ""
+            && detail.value != null
+            && detail.value != ""
+            && tel.value != null
+            && tel.value != ""
+            && email.value != null
+            && email.value != ""
+            && etc.value != null
+            && etc.value != "") {
+            _isValid.value = true
+            Log.d("충족 여부", "true")
+        } else {
+            _isValid.value = false
+            Log.d("충족 여부", "false")
+        }
     }
 }

@@ -1007,7 +1007,9 @@
                     android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="@id/layout_detail_period"
                     app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    app:layout_constraintTop_toBottomOf="@id/radio_etc">
+                    app:layout_constraintTop_toBottomOf="@id/radio_etc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="12dp">
 
                     <EditText
                         android:id="@+id/edit_etc"
@@ -1028,61 +1030,71 @@
 
                 </FrameLayout>
 
-                <TextView
-                    android:id="@+id/tv_warning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="56dp"
-                    android:text="모든 항목을 채워주세요."
-                    android:textColor="@color/sharehands_red"
-                    android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="@id/tv_photo_title"
-                    app:layout_constraintTop_toBottomOf="@id/frame_etc" />
-
-                <FrameLayout
-                    android:id="@+id/frame_btn_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_warning">
-
-                    <TextView
-                        android:id="@+id/btn_submit_active"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ic_button_green"
-                        android:gravity="center"
-                        android:text="작성 완료"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        android:onClick="@{() -> viewModel.upload()}"/>
-
-                    <TextView
-                        android:id="@+id/btn_submit_inactive"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ic_button_green"
-                        android:backgroundTint="@color/sharehands_gray"
-                        android:gravity="center"
-                        android:text="작성 완료"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="visible"
-                        android:onClick="@{() -> viewModel.onInactiveClick()}"/>
-
-                </FrameLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            app:elevation="20dp"
+            android:background="@color/item_color"
+            android:nestedScrollingEnabled="false">
+
+            <TextView
+                android:id="@+id/tv_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모든 항목을 채워주세요."
+                android:textColor="@color/sharehands_red"
+                android:visibility="gone"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"/>
+
+            <FrameLayout
+                android:id="@+id/frame_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/btn_submit_active"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_button_green"
+                    android:gravity="center"
+                    android:text="작성 완료"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    android:onClick="@{() -> viewModel.upload()}"/>
+
+                <TextView
+                    android:id="@+id/btn_submit_inactive"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_button_green"
+                    android:backgroundTint="@color/sharehands_gray"
+                    android:gravity="center"
+                    android:text="작성 완료"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    android:onClick="@{() -> viewModel.onInactiveClick()}"/>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
