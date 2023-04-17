@@ -17,6 +17,6 @@ class WeekdayDecorate: DayViewDecorator {
     }
 
     override fun decorate(view: DayViewFacade?) {
-        view?.addSpan(ForegroundColorSpan(Color.BLACK))
+        view?.addSpan(ForegroundColorSpan(Color.GRAY))
     }
 }

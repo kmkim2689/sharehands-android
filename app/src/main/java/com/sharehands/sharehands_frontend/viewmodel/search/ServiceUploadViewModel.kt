@@ -116,6 +116,7 @@ class ServiceUploadViewModel(): ViewModel() {
         _imagePartList.value!!.removeAt(position)
         Log.d("imageUriList ${position+1}번째 사진 삭제", "${imageUriList.value}")
         Log.d("imagePartList ${position+1}번째 사진 삭제", "${imagePartList.value}")
+        _numOfImages.value = imageUriList.value!!.size.toString()
     }
 
 

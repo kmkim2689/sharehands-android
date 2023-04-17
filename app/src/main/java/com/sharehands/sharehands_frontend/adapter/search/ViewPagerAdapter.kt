@@ -8,7 +8,7 @@ import com.sharehands.sharehands_frontend.view.search.*
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle){
     override fun getItemCount(): Int {
-        return 6
+        return 7
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -18,7 +18,8 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): 
             2 -> SearchCultureFragment()
             3 -> SearchHealthFragment()
             4 -> SearchEnvironmentFragment()
-            5 -> SearchEtcFragment()
+            5 -> SearchTechFragment()
+            6 -> SearchEtcFragment()
             else -> throw IllegalStateException("Invalid position $position")
         }
     }

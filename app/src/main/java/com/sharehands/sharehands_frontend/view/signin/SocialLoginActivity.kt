@@ -54,6 +54,7 @@ class SocialLoginActivity: AppCompatActivity() {
 
         val loggedInIntent = Intent(this, MainActivity::class.java)
         val joinIntent = Intent(this, TermsAgreeActivity::class.java)
+        val interestsIntent = Intent(this, UserPreferencesActivity::class.java)
 
         binding.btnKakaoLogin.setOnClickListener {
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -83,10 +84,16 @@ class SocialLoginActivity: AppCompatActivity() {
                                             val result = response.body()
                                             if (result?.accessToken != null && result?.email != null) {
                                                 SharedPreferencesManager.getInstance(this@SocialLoginActivity)
-                                                    .saveString("token", result?.accessToken.toString())
-                                                SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                     .saveString("email", result?.email.toString())
-                                                startActivity(loggedInIntent)
+                                                if (result?.accessToken == "memberDetails") {
+                                                    startActivity(joinIntent)
+                                                } else if (result?.accessToken == "interests") {
+                                                    startActivity(interestsIntent)
+                                                } else {
+                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                        .saveString("token", result?.accessToken.toString())
+                                                    startActivity(loggedInIntent)
+                                                }
                                             } else if (result?.accessToken == null && result?.email != null) {
                                                 SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                     .saveString("email", result?.email.toString())

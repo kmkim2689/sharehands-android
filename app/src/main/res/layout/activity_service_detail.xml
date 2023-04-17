@@ -281,7 +281,7 @@
                     android:layout_marginTop="8dp"
                     android:drawableStart="@drawable/ic_clock"
                     android:drawablePadding="8dp"
-                    android:drawableTint="@color/sharehands_green_strong"
+                    android:drawableTint="@color/sharehands_green_medium"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"

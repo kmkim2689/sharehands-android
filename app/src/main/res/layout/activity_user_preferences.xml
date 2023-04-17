@@ -167,7 +167,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/checkbox_disaster"
-                app:layout_constraintEnd_toStartOf="@id/checkbox_overseas"
+                app:layout_constraintEnd_toStartOf="@id/checkbox_etc"
                 app:layout_constraintStart_toEndOf="@id/checkbox_environment"
                 app:layout_constraintTop_toBottomOf="@id/checkbox_culture" />
 
@@ -186,6 +186,7 @@
                 android:textColor="@color/sharehands_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/checkbox_overseas"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/checkbox_tech"
@@ -203,6 +204,7 @@
                 android:button="@android:color/transparent"
                 android:gravity="center"
                 android:text="캠페인"
+                android:visibility="gone"
                 android:textColor="@color/sharehands_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -222,6 +224,7 @@
                 android:button="@android:color/transparent"
                 android:gravity="center"
                 android:text="재난"
+                android:visibility="gone"
                 android:textColor="@color/sharehands_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -247,8 +250,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/checkbox_disaster"
-                app:layout_constraintTop_toBottomOf="@id/checkbox_overseas" />
+                app:layout_constraintStart_toEndOf="@id/checkbox_tech"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_health" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

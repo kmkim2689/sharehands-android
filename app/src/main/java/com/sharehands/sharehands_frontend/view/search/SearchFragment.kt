@@ -59,7 +59,10 @@ class SearchFragment : Fragment() {
                     tab.text = "환경"
                 }
                 5 -> {
-                    tab.text = "기타"
+                    tab.text = "기술"
+                }
+                6 -> {
+                    tab.text= "기타"
                 }
 
             }
