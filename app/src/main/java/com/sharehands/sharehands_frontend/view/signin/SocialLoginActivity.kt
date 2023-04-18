@@ -152,12 +152,17 @@ class SocialLoginActivity: AppCompatActivity() {
                                                 Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
                                                 val result = response.body()
                                                 if (result?.accessToken != null && result?.email != null) {
-                                                    Log.d("카카오 로그인으로 로그인 성공", "메인 화면으로 이동")
-                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
-                                                        .saveString("token", result?.accessToken.toString())
                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                         .saveString("email", result?.email.toString())
-                                                    startActivity(loggedInIntent)
+                                                    if (result?.accessToken == "memberDetails") {
+                                                        startActivity(joinIntent)
+                                                    } else if (result?.accessToken == "interests") {
+                                                        startActivity(interestsIntent)
+                                                    } else {
+                                                        SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                            .saveString("token", result?.accessToken.toString())
+                                                        startActivity(loggedInIntent)
+                                                    }
                                                 } else if (result?.accessToken == null && result?.email != null) {
                                                     Log.d("카카오 로그인으로 회원가입", "약관 동의로 이동")
                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)
@@ -217,12 +222,17 @@ class SocialLoginActivity: AppCompatActivity() {
                                                                 Log.d("구글 로그인으로 서버로부터 토큰 받아오기 성공", "${response.body()}")
                                                                 val result = response.body()
                                                                 if (result?.accessToken != null && result?.email != null) {
-                                                                    Log.d("구글 로그인으로 로그인 성공", "메인 화면으로 이동")
-                                                                    SharedPreferencesManager.getInstance(this@SocialLoginActivity)
-                                                                        .saveString("token", result?.accessToken.toString())
                                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                                         .saveString("email", result?.email.toString())
-                                                                    startActivity(loggedInIntent)
+                                                                    if (result?.accessToken == "memberDetails") {
+                                                                        startActivity(joinIntent)
+                                                                    } else if (result?.accessToken == "interests") {
+                                                                        startActivity(interestsIntent)
+                                                                    } else {
+                                                                        SharedPreferencesManager.getInstance(this@SocialLoginActivity)
+                                                                            .saveString("token", result?.accessToken.toString())
+                                                                        startActivity(loggedInIntent)
+                                                                    }
                                                                 } else if (result?.accessToken == null && result?.email != null) {
                                                                     Log.d("구글 로그인으로 회원가입 진행", "약관 동의로 이동")
                                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)

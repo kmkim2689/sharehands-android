@@ -252,6 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:drawableStart="@drawable/ic_location"
+                    android:drawableTint="@color/sharehands_green_medium"
                     android:drawablePadding="8dp"
                     android:textSize="16sp"
                     android:textColor="@color/text_color"

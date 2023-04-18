@@ -6,13 +6,27 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sharehands.sharehands_frontend.model.search.ServicePic
 import com.sharehands.sharehands_frontend.model.search.ServicePicPart
 import com.sharehands.sharehands_frontend.model.search.ServiceUpload
+import com.sharehands.sharehands_frontend.network.RetrofitClient
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.search.ServiceWriteActivity
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ServiceUploadViewModel(): ViewModel() {
+
+    // 통신 성공 여부
+    private var _isSuccessful = MutableLiveData<Boolean>()
+    val isSuccessful: LiveData<Boolean>
+        get() = _isSuccessful
 
     // 제출할 수 있는지 여부
     private var _isValid = MutableLiveData<Boolean>()
@@ -359,7 +373,52 @@ class ServiceUploadViewModel(): ViewModel() {
     }
 
     // TODO 확인 버튼 클릭 시 동작을 정의
-    fun upload() {
+    fun upload(token: String) {
+        if (token != "null") {
+            viewModelScope.launch {
+                try {
+                    RetrofitClient.createRetorfitClient().uploadService(
+                        token,
+                        category.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        title.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        intro.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        due.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        area.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        startDate.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        endDate.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        weekdayList.value!!.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
+                        startTime.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        endTime.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        maxNum.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        expense.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        detail.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        tel.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        email.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        etc.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        imagePartList.value!!
+                    )
+                        .enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.isSuccessful) {
+                                    _isSuccessful.value = true
+                                    Log.d("게시글 upload 성공", "${response.code()}")
+                                } else {
+                                    _isSuccessful.value = false
+                                    Log.d("게시글 업로드 실패", "통신 가능")
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                Log.d("게시글 업로드 실패", "통신 오류")
+                                _isSuccessful.value = false
+                            }
+
+                        })
+                } catch (e: Exception) {
+                    Log.d("예외 발생", "${e}")
+                }
+            }
+        }
 
     }
 

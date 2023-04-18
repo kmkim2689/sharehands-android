@@ -63,7 +63,19 @@
         <activity android:name=".view.signin.UserInfoWriteActivity"/>
         <activity android:name=".view.signin.UserPreferencesActivity"/>
         <activity android:name=".view.search.ServiceWriteActivity"/>
+        <activity android:name=".view.search.SearchResultActivity"/>
+        <activity android:name=".view.search.ReviewWriteActivity"/>
+        <activity android:name=".view.search.ReviewDetailActivity"/>
         <activity android:name=".view.search.LocationSearchActivity"/>
+        <activity android:name=".view.mypage.RecruitedServiceActivity"/>
+        <activity android:name=".view.mypage.AppliedServiceActivity"/>
+        <activity android:name=".view.mypage.ParticipatedServiceActivity"/>
+        <activity android:name=".view.mypage.ScrapedServiceActivity"/>
+        <activity android:name=".view.mypage.SuggestedServiceActivity"/>
+        <activity android:name=".view.mypage.NoticeActivity"/>
+        <activity android:name=".view.mypage.AppInfoActivity"/>
+        <activity android:name=".view.mypage.FAQActivity"/>
+        <activity android:name=".view.mypage.ContactActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

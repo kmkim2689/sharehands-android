@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
+    <data>
 
-    <ImageView
-        android:id="@+id/iv_service_mgt"
-        android:layout_width="360dp"
-        android:layout_height="360dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/rectangle_service_mgt"/>
+    </data>
 
-    <TextView
-        android:id="@+id/tv_service_mgt"
-        android:layout_width="match_parent"
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_service_mgt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="20dp"
-        tools:text="모집한\n봉사"
-        android:gravity="center"
-        android:textColor="@color/sharehands_green_strong"
-        android:textStyle="bold"
-        android:textSize="24dp"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_service_mgt"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_service_mgt"
+            android:padding="12dp"
+
+            android:background="@drawable/rectangle_service_mgt"/>
+
+        <TextView
+            android:id="@+id/tv_service_mgt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_service_mgt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/sharehands_green_strong"
+            android:textSize="12sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
