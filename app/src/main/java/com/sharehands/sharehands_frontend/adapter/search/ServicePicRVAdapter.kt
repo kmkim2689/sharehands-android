@@ -30,7 +30,7 @@ class ServicePicRVAdapter(private val context: ServiceWriteActivity, private var
             binding.ivUploadedPic.clipToOutline = true
             binding.ivUploadedPic.scaleType = ImageView.ScaleType.CENTER_CROP
 
-            // 삭제 시 리스트에서 빼기
+            // 삭제 시 리스트에서 빼
             binding.btnDeletePic.setOnClickListener {
                 Log.d("image position", position.toString())
                 pictureList.removeAt(position)
