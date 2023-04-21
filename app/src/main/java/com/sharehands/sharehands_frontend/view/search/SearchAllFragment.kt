@@ -15,4 +15,14 @@ class SearchAllFragment: Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_search_all, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
 }
