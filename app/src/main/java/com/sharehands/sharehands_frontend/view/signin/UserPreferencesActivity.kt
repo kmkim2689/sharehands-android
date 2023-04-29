@@ -126,10 +126,13 @@ class UserPreferencesActivity: AppCompatActivity() {
                 }
             }
 
+            Log.d("관심 list", "${interestList}")
+
             val sp = SharedPreferencesManager.getInstance(this)
             val email = sp.getString("email", "null").toString()
             if (email != "null") {
                 val userInterest = UserInterest(email, interestList)
+                Log.d("회원 관심 post 내용", "${userInterest}")
                 viewModel.postUserInterest(userInterest)
                 viewModel.response.observe(this) {
                     if (viewModel.response.value?.accessToken != null) {

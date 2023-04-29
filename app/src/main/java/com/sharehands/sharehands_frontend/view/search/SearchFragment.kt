@@ -37,13 +37,13 @@ class SearchFragment : Fragment() {
         val tabLayout = binding.layoutServiceTab
         val orderSpinner = binding.spinnerServiceCategory
 
-        // ViewPager 어댑터를 설정하는 코드
+        // ViewPager 어댑터 설정
         val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> {
-                    // 탭의 이름을 설정
+                    // 탭 이름 설정
                     tab.text = "전체"
                 }
                 1 -> {
@@ -112,7 +112,6 @@ class SearchFragment : Fragment() {
             val intent = Intent(requireContext(), ServiceWriteActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     override fun onResume() {

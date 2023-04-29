@@ -44,7 +44,7 @@ interface ApiService {
     ): Call<Void>
 
     // 관심분야 전송
-    @POST("/my-page/interest")
+    @POST("/user/data/interests")
     fun postUserInterest(
         @Body userInterest: UserInterest
     ): Call<PostUserResponse>

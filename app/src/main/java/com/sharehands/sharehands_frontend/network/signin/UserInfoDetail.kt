@@ -7,7 +7,7 @@ data class UserInfoDetail(
     @SerializedName ("name") val name: String,
     @SerializedName ("nickname") val nickname: String,
     @SerializedName ("cellphone") val cellphone: String,
-    @SerializedName ("DOB") val dayOfBirthday: String,
+    @SerializedName ("dob") val dayOfBirthday: String,
     @SerializedName ("location") val location: String
 )
 

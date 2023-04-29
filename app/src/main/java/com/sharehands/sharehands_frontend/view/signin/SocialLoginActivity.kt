@@ -83,6 +83,7 @@ class SocialLoginActivity: AppCompatActivity() {
                                             Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
                                             val result = response.body()
                                             if (result?.accessToken != null && result?.email != null) {
+                                                Log.d("카카오 로그인 서버로부터 받는 accessToken", "${result?.accessToken}")
                                                 SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                     .saveString("email", result?.email.toString())
                                                 if (result?.accessToken == "memberDetails") {
@@ -152,6 +153,7 @@ class SocialLoginActivity: AppCompatActivity() {
                                                 Log.d("카카오로 로그인 토큰 받아오기 성공", "${response.body()}")
                                                 val result = response.body()
                                                 if (result?.accessToken != null && result?.email != null) {
+                                                    Log.d("카카오 로그인 서버로부터 받는 accessToken", "${result?.accessToken}")
                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                         .saveString("email", result?.email.toString())
                                                     if (result?.accessToken == "memberDetails") {
@@ -169,7 +171,6 @@ class SocialLoginActivity: AppCompatActivity() {
                                                         .saveString("email", result?.email.toString())
                                                     startActivity(joinIntent)
                                                 } else {
-
                                                     Log.d("로그인 실패", "통신 오류")
                                                 }
                                             } else {

@@ -36,18 +36,21 @@
         </provider>
 
         <activity android:name=".view.SplashActivity"
-            android:theme="@style/Theme.ShareHands_frontend.SplashScreen">
-
-        </activity>
-
-        <activity
-            android:name=".view.MainActivity"
+            android:theme="@style/Theme.ShareHands_frontend.SplashScreen"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -76,6 +79,7 @@
         <activity android:name=".view.mypage.AppInfoActivity"/>
         <activity android:name=".view.mypage.FAQActivity"/>
         <activity android:name=".view.mypage.ContactActivity"/>
+        <activity android:name=".view.mypage.WithdrawActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

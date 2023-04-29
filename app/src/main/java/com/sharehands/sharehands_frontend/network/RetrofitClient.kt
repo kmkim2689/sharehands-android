@@ -1,5 +1,7 @@
 package com.sharehands.sharehands_frontend.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,6 +12,9 @@ object RetrofitClient {
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }).build())
         .build()
 
     // 여기서 상속을 받는 ApiService 인터페이스는, get, post 등 서버와 통신하기 위한 메소드들을 정의해놓은 인터페이스를 의미한다.

@@ -34,6 +34,7 @@ class UserInfoViewModel: ViewModel() {
                                 Log.d("회원정보 post 성공", "${response.code()}")
                                 _response.value = "success"
                             } else {
+
                                 Log.d("회원정보 post 실패", "${response.code()}")
                                 _response.value = "fail"
                             }
