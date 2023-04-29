@@ -7,6 +7,7 @@ import android.app.DatePickerDialog
 import android.app.ProgressDialog.show
 import android.app.TimePickerDialog
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,6 +15,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -54,6 +56,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.create
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.util.*
@@ -64,7 +67,9 @@ class ServiceWriteActivity: AppCompatActivity() {
     private val CAMERA_REQUEST_CODE = 101
     private val GALLERY_REQUEST_CODE = 201
     private var imageUri: Uri? = null
+    lateinit var photoURI: Uri
     private var imageUriString: String = ""
+    lateinit var currentPhotoPath: String
     private lateinit var viewModel: ServiceUploadViewModel
     // 이미지 url을 담는 리스트
     private var imageArrayList = ArrayList<String>()
@@ -87,6 +92,17 @@ class ServiceWriteActivity: AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ServiceUploadViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            }
+        }
 
         // 버튼
         val buttonActive = binding.btnSubmitActive
@@ -455,27 +471,7 @@ class ServiceWriteActivity: AppCompatActivity() {
 
         selectCamera.setOnClickListener {
             dialog.dismiss()
-            // 카메라 어플로 넘어가는 인텐트를 마련
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            /*
-            resolveActivity(packageManager) != null is a condition that checks if there is at least one activity in the package (identified by packageManager) that can handle a specific intent.
-
-            In Android programming, an intent is a message that can be used to request an action from another component of the same or another application. An activity, on the other hand, is a user interface component that represents a single screen with a user interface.
-
-            resolveActivity() is a method of the PackageManager class that returns the ActivityInfo object that describes the activity that can handle the intent. If there is no activity that can handle the intent, resolveActivity() returns null.
-
-            Therefore, resolveActivity(packageManager) != null checks whether there is at least one activity that can handle the intent specified in the package identified by packageManager. If this condition is true, it means that there is an activity that can handle the intent, and the code can proceed to launch the activity. If it is false, it means that there is no activity that can handle the intent, and the code should handle the error or provide an alternative solution.
-            */
-            if (takePictureIntent.resolveActivity(packageManager) != null) {
-                val photoFile = createImageFile()
-                photoFile?.let {
-                    imageUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", it)
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
-                    Log.d("imageUri - camera", "${imageUri}")
-
-                }
-            }
+            takePictureFullSize()
         }
 
         selectGallery.setOnClickListener {
@@ -486,11 +482,16 @@ class ServiceWriteActivity: AppCompatActivity() {
 
     }
 
-    private fun createImageFile(): File? {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        Log.d("imageFileName", "JPEG_${timeStamp}_.jpg, ${storageDir}")
-        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED
+            && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "Permisson: " + permissions[0] + " was " + grantResults[0])
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -498,16 +499,12 @@ class ServiceWriteActivity: AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 CAMERA_REQUEST_CODE -> {
-                    val pickedImage: Uri? = data?.data
-                    if (pickedImage != null) {
-                        imageUri = pickedImage
-                        imageUriString = pickedImage.toString()
-                        Log.d("imageUrl", "${imageUriString}")
-                        val imagePath = imageUri?.path
+                    Log.d("imageUri", "${photoURI}")
+                    if (photoURI != null) {
+                        imageUriString = photoURI.toString()
+                        val imagePath = photoURI?.path
                         Log.d("imagePath", "${imagePath}")
-
-                        // 파일로 만들기
-                        val imageFile = File(absolutelyPath(pickedImage, this))
+                        val imageFile = File(imagePath)
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일
                         val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
@@ -525,10 +522,11 @@ class ServiceWriteActivity: AppCompatActivity() {
                         val servicePicRVAdapter = ServicePicRVAdapter(this, pictureList, viewModel)
                         binding.rvPhotoList.adapter = servicePicRVAdapter
                         binding.rvPhotoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
                     }
 
-                    // Do something with the image path
                 }
+
                 GALLERY_REQUEST_CODE -> {
                     val selectedImage = data?.data
                     val projection = arrayOf(MediaStore.Images.Media.DATA)
@@ -579,7 +577,67 @@ class ServiceWriteActivity: AppCompatActivity() {
         cursor?.moveToFirst()
         val path = cursor?.getString(columnIndex!!)
         cursor?.close()
+        Log.d("image path", "${path}")
         return path!!
+    }
+
+    private fun takePictureFullSize() {
+        photoURI = Uri.EMPTY
+        val fullSizePictureIntent = getPictureIntent_App_Specific(applicationContext)
+        fullSizePictureIntent.resolveActivity(packageManager)?.also {
+            startActivityForResult(fullSizePictureIntent, CAMERA_REQUEST_CODE)
+        }
+    }
+
+    /**
+     * 카메라 호출할 Intent 생성
+     */
+    fun getPictureIntent_App_Specific(context: Context): Intent {
+
+        val fullSizeCaptureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        //1) File 생성 - 촬영 사진이 저장 될
+        //photoFile 경로 = /storage/emulated/0/Android/data/패키지명/files/Pictures/
+        val photoFile: File? = try {
+            createImageFile(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES))
+
+        } catch (ex: IOException) {
+            // Error occurred while creating the File
+            ex.printStackTrace()
+            null
+        }
+        Log.d("image file", "${photoFile}")
+
+        photoFile?.also {
+            //2) 생성된 File로 부터 Uri 생성 (by FileProvider)
+            //URI 형식 EX) content://com.example.img.fileprovider/cameraImg/JPEG_20211124_202832_6573897384086993610.jpg
+            photoURI = FileProvider.getUriForFile(
+                context,
+                BuildConfig.APPLICATION_ID + ".fileprovider",
+                it
+            )
+
+            //3) 생성된 Uri를 Intent에 Put
+            fullSizeCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+        }
+        return fullSizeCaptureIntent
+    }
+
+
+    /**
+     * 빈 파일 생성
+     */
+    @Throws(IOException::class)
+    private fun createImageFile(storageDir: File?): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            Log.i("syTest", "Created File AbsolutePath : $absolutePath")
+        }
     }
 
 }
