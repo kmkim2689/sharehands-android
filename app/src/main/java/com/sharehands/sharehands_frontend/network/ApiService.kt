@@ -57,24 +57,9 @@ interface ApiService {
     @Multipart
     @POST("/service/new-service")
     fun uploadService(
-        @Header("accessToken") accessToken: String,
-        @Part("category") category: RequestBody,
-        @Part("name") name: RequestBody,
-        @Part("intro") intro: RequestBody,
-        @Part("applydeadline") applydeadline: RequestBody,
-        @Part("area") area: RequestBody,
-        @Part("startDate") startDate: RequestBody,
-        @Part("endDate") endDate: RequestBody,
-        @Part("dow") dow: RequestBody,
-        @Part("startTime") startTime: RequestBody,
-        @Part("endTime") endTime: RequestBody,
-        @Part("recruitNum") recruitNum: RequestBody,
-        @Part("cost") cost: RequestBody,
-        @Part("content") content: RequestBody,
-        @Part("tel") tel: RequestBody,
-        @Part("email") email: RequestBody,
-        @Part("contactEtc") contactEtc: RequestBody,
-        @Part("photoList") photoList: ArrayList<MultipartBody.Part>
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Part("createServiceDto") createServiceDto: RequestBody,
+        @Part files: ArrayList<MultipartBody.Part>
     ): Call<Void>
 
     // 5. My Page

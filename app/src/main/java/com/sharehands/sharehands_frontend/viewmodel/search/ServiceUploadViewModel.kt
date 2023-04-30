@@ -14,12 +14,17 @@ import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.search.ServiceWriteActivity
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Multipart
+import java.util.logging.Level.parse
 
 class ServiceUploadViewModel(): ViewModel() {
 
@@ -375,26 +380,33 @@ class ServiceUploadViewModel(): ViewModel() {
     // TODO 확인 버튼 클릭 시 동작을 정의
     fun upload(token: String) {
         if (token != "null") {
+            val dow = weekdayList.value!!.joinToString(",")
+            val jsonObject = JSONObject(
+                "{\"category\":\"${category.value!!}\", " +
+                        "\"title\":\"${title.value!!}\"," +
+                        "\"introduce\":\"${intro.value!!}\"," +
+                        "\"applyDeadline\":\"${due.value!!}\"," +
+                        "\"area\":\"${area.value!!}\"," +
+                        "\"startDate\":\"${startDate.value!!}\"," +
+                        "\"endDate\":\"${endDate.value!!}\"," +
+                        "\"DOW\":\"${dow}\"," +
+                        "\"startTime\":\"${startTime.value!!}\"," +
+                        "\"endTime\":\"${endTime.value!!}\"," +
+                        "\"recruitNum\":\"${maxNum.value!!}\"," +
+                        "\"cost\":\"${expense.value!!}\"," +
+                        "\"content\":\"${detail.value!!}\"," +
+                        "\"tel\":\"${tel.value!!}\"," +
+                        "\"email\":\"${email.value!!}\"," +
+                        "\"extra\":\"${etc.value!!}\"}"
+            ).toString()
+
+            val jsonBody = jsonObject.toRequestBody("application/json".toMediaTypeOrNull())
+
             viewModelScope.launch {
                 try {
                     RetrofitClient.createRetorfitClient().uploadService(
                         token,
-                        category.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        title.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        intro.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        due.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        area.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        startDate.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        endDate.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        weekdayList.value!!.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
-                        startTime.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        endTime.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        maxNum.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        expense.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        detail.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        tel.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        email.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
-                        etc.value!!.toRequestBody("text/plain".toMediaTypeOrNull()),
+                        jsonBody,
                         imagePartList.value!!
                     )
                         .enqueue(object : Callback<Void> {
@@ -405,10 +417,31 @@ class ServiceUploadViewModel(): ViewModel() {
                                 } else {
                                     _isSuccessful.value = false
                                     Log.d("게시글 업로드 실패", "통신 가능")
+
                                 }
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
+                                val result = ServiceUpload(
+                                    category.value,
+                                    title.value,
+                                    intro.value,
+                                    due.value,
+                                    area.value,
+                                    startDate.value,
+                                    endDate.value,
+                                    weekdayList.value,
+                                    startTime.value,
+                                    endTime.value,
+                                    maxNum.value,
+                                    expense.value,
+                                    detail.value,
+                                    tel.value,
+                                    email.value,
+                                    etc.value,
+                                    imagePartList.value
+                                )
+                                Log.d("봉사활동 게시글 채워진 것들", "${result}")
                                 Log.d("게시글 업로드 실패", "통신 오류")
                                 _isSuccessful.value = false
                             }
