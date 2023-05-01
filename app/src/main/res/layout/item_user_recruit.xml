@@ -10,8 +10,8 @@
         android:id="@+id/iv_user_profile"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/frame_preview_profile"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
@@ -25,7 +25,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/text_color"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/iv_user_profile"
         app:layout_constraintTop_toTopOf="@id/iv_user_profile"
@@ -59,7 +59,7 @@
         android:layout_marginTop="4dp"
         android:text="나눔레벨"
         android:textColor="@color/text_color"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
         app:layout_constraintTop_toBottomOf="@id/tv_user_nickname" />
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:textColor="@color/text_color"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/tv_level"
         app:layout_constraintStart_toEndOf="@id/tv_level"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:drawableStart="@drawable/ic_star_filled"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -96,10 +96,10 @@
         android:id="@+id/layout_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/iv_review_allow"
@@ -119,22 +119,6 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/layout_recruit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layout_review"
-        app:layout_constraintStart_toStartOf="@id/layout_review"
-        app:layout_constraintEnd_toEndOf="@id/layout_review">
-
-        <ImageView
-            android:id="@+id/iv_recruit_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_recruit_cancel"
-            android:padding="8dp"
-            android:visibility="visible"/>
-    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
