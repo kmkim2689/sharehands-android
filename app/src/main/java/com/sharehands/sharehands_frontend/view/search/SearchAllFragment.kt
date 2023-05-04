@@ -1,5 +1,6 @@
 package com.sharehands.sharehands_frontend.view.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,10 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchRVAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchAllBinding
 import com.sharehands.sharehands_frontend.view.MainActivity
+import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
 
 class SearchAllFragment: Fragment() {
@@ -30,20 +33,28 @@ class SearchAllFragment: Fragment() {
     // 네트워크 통신중 여부
     var isLoading = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_all, container, false)
+        viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchViewModel::class.java)
+        binding.lifecycleOwner = MainActivity()
+        binding.viewModel = viewModel
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(MainActivity()).get(ServiceSearchViewModel::class.java)
-        binding.lifecycleOwner = MainActivity()
-        binding.viewModel = viewModel
+
+        adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
         val recyclerView = binding.rvResultAll
         getServices()
         recyclerView.adapter = adapter
@@ -83,10 +94,13 @@ class SearchAllFragment: Fragment() {
         if (isSuccessful) {
             Handler().postDelayed({
                 if (::adapter.isInitialized) {
-                    adapter.notifyDataSetChanged()
+                    adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
+                    binding.rvResultAll.adapter = adapter
+                    binding.rvResultAll.layoutManager = layoutManager
                     page++
+                    Log.d("봉사활동 서비스 목록", viewModel.servicesList.value.toString())
                 } else {
-                    adapter = ServicesSearchRVAdapter(MainActivity(), viewModel, viewModel.servicesList.value)
+                    adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
                     binding.rvResultAll.adapter = adapter
                     binding.rvResultAll.layoutManager = layoutManager
                 }
@@ -96,10 +110,37 @@ class SearchAllFragment: Fragment() {
         } else {
             Log.d("네트워크 통신 이뤄지지 않음, 네트워크 통신 성공 여부", "${isSuccessful}")
             // TODO 스낵바 띄우기. 로그인하세요
+
+            // TODO 아래 핸들러 코드 삭제할 것.
+//            Handler().postDelayed({
+//                if (::adapter.isInitialized) {
+//                    adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
+//                    binding.rvResultAll.adapter = adapter
+//                    binding.rvResultAll.layoutManager = layoutManager
+//                    page++
+//                    Log.d("봉사활동 서비스 목록", viewModel.servicesList.value.toString())
+//                } else {
+//                    adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
+//                    binding.rvResultAll.adapter = adapter
+//                    binding.rvResultAll.layoutManager = layoutManager
+//                }
+//                isLoading = false
+//                binding.progressAll.visibility = View.GONE
+//            }, 1000)
+//            showSnackbar("서비스 이용을 위해 로그인이 필요합니다.")
+
         }
 
-            // 어댑터가 초기화 안됐으면 초기화하고, 초기화 되어있으면 adapter.notifyDataSetChanged 호출.
+//            // 어댑터가 초기화 안됐으면 초기화하고, 초기화 되어있으면 adapter.notifyDataSetChanged 호출.
 
     }
-
+//    private fun showSnackbar(text: String) {
+//        val snackbar = Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG)
+//            .setAction("로그인") {
+//                val intent = Intent(requireContext(), SocialLoginActivity::class.java)
+//                startActivity(intent)
+//                MainActivity().finish()
+//            }
+//        snackbar.show()
+//    }
 }

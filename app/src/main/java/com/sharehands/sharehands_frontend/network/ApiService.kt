@@ -1,8 +1,8 @@
 package com.sharehands.sharehands_frontend.network
 
-import com.sharehands.sharehands_frontend.model.search.ServiceItem
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
+import com.sharehands.sharehands_frontend.network.search.SearchResult
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
 import com.sharehands.sharehands_frontend.network.signin.UserInterest
@@ -63,7 +63,7 @@ interface ApiService {
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
         @Query("category") category: Int,
         @Query("sort") sort: Int
-    ): Call<List<ServiceItem>>
+    ): Call<SearchResult>
 
     // 봉사활동 목록 스크롤시 불러오기
     @GET("/service")
@@ -72,7 +72,30 @@ interface ApiService {
         @Query("category") category: Int,
         @Query("sort") sort: Int,
         @Query("last") last: Int
-    ): Call<List<ServiceItem>>
+    ): Call<SearchResult>
+
+    // 봉사활동 검색 결과
+    @GET("/service/search")
+    fun getSearchResult(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("keyword") keyword: String
+    ): Call<SearchResult>
+
+    // 지원하기
+    @POST("/service/{workId}/apply")
+    fun applyService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Path("workId") workId: Int
+    ): Call<Void>
+
+    // 취소하기
+    @POST("/service/{workId}/cancel")
+    fun cancelApplyService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Path("workId") workId: Int
+    ): Call<Void>
+
+    // 모집글 호출하기
 
     // 5. My Page
 

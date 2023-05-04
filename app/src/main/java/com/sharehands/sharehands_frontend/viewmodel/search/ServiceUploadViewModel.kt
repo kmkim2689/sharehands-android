@@ -380,7 +380,9 @@ class ServiceUploadViewModel(): ViewModel() {
     // TODO 확인 버튼 클릭 시 동작을 정의
     fun upload(token: String) {
         if (token != "null") {
+            Log.d("게시글 token", "${token}")
             val dow = weekdayList.value!!.joinToString(",")
+            Log.d("게시글 dow", "${dow}")
             val jsonObject = JSONObject(
                 "{\"category\":\"${category.value!!}\", " +
                         "\"title\":\"${title.value!!}\"," +
@@ -401,6 +403,9 @@ class ServiceUploadViewModel(): ViewModel() {
             ).toString()
 
             val jsonBody = jsonObject.toRequestBody("application/json".toMediaTypeOrNull())
+
+            Log.d("게시글 업로드 json body", jsonBody.toString())
+            Log.d("게시글 업로드 imagepart list", imagePartList.value!!.toString())
 
             viewModelScope.launch {
                 try {

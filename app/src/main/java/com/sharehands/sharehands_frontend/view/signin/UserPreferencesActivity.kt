@@ -12,8 +12,10 @@ import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ActivityUserPreferencesBinding
 import com.sharehands.sharehands_frontend.network.signin.UserInterest
@@ -141,6 +143,7 @@ class UserPreferencesActivity: AppCompatActivity() {
                         // sp에 토큰 집어넣기
                         sp.saveString("token", token)
                         Log.d("token", "${sp.getString("token", "error")}")
+                        showSnackbar("회원가입이 완료되었습니다.")
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -216,5 +219,10 @@ class UserPreferencesActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showSnackbar(text: String) {
+        val snackbar = Snackbar.make(binding.constraintLayout, text, Snackbar.LENGTH_SHORT)
+        snackbar.show()
     }
 }

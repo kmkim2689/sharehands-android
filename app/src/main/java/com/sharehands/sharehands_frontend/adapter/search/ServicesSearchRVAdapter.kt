@@ -1,27 +1,108 @@
 package com.sharehands.sharehands_frontend.adapter.search
 
 import android.content.Context
+import android.content.Intent
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ItemServiceSearchBinding
-import com.sharehands.sharehands_frontend.model.search.ServiceItem
+import com.sharehands.sharehands_frontend.network.RetrofitClient
+import com.sharehands.sharehands_frontend.network.search.ServiceList
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
+import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
+import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
+import retrofit2.Call
+import javax.security.auth.callback.Callback
 
-class ServicesSearchRVAdapter(private val context: MainActivity, private val viewModel: ViewModel, private val serviceList: ArrayList<ServiceItem>?): RecyclerView.Adapter<ServicesSearchRVAdapter.ServicesSearchViewHolder>() {
+class ServicesSearchRVAdapter(private val context: MainActivity, private val viewModel: ServiceSearchViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceItem, position: Int) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchViewModel) {
+            val token = SharedPreferencesManager.getInstance(context)
+                .getString("token", "null")
+            val btnApply = binding.ivApplyQuick
+            val btnCancel = binding.ivApplyCancel
+            // TODO int로 보내야하는가?
+            val serviceId = current.workId.toInt()
+            // 스낵바 띄울 액티비티
+            val mainActivity = (context as MainActivity).findViewById<ConstraintLayout>(R.id.layout_main_activity)
+
             Glide.with(context)
-                .load(current.thumbnail)
+                .load(current.imageUrl)
                 .into(binding.ivServicePreviewThumbnail)
-            // TODO 나머지 요소들 값 설정하기
-            // TODO 지원하기/취소하기 버튼 클릭 이벤트 설정하기
+
+            Glide.with(context)
+                .load(current.profileUrl)
+                .into(binding.ivServicePreviewUser)
+
+            binding.tvServicePreviewUser.text = current.nickName
+            binding.tvPreviewTitle.text = current.workName
+            val locationList = current.location.split(" ")
+            if (locationList.size >= 2) {
+                val district = locationList[1]
+                binding.tvPreviewLocation.text = district
+            }
+            binding.tvPreviewPeriod.text = current.date
+            binding.tvPreviewPeople.text = current.maxNum
+            binding.tvPreviewDay.text = current.dow
+
+            val isApplied = current.userApplied
+
+            if (isApplied) {
+                btnApply.visibility = View.GONE
+                btnCancel.visibility = View.VISIBLE
+            } else {
+                btnApply.visibility = View.VISIBLE
+                btnCancel.visibility = View.GONE
+            }
+
             // TODO 봉사활동 클릭 이벤트 설정하기
+            btnApply.setOnClickListener {
+                val applyResult = viewModel.applyService(token, serviceId)
+                if (applyResult) {
+                    btnApply.visibility = View.GONE
+                    btnCancel.visibility = View.VISIBLE
+                    val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
+                    snackbarApplySuccess.show()
+                } else {
+                    val snackbarApplyFail = Snackbar.make(mainActivity, "네트워크 문제로 지원에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                    snackbarApplyFail.show()
+                }
+            }
+
+            btnCancel.setOnClickListener {
+                val cancelResult = viewModel.cancelService(token, serviceId)
+                if (cancelResult) {
+                    btnApply.visibility = View.VISIBLE
+                    btnCancel.visibility = View.GONE
+                    val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
+                    snackbarCancelSuccess.show()
+                } else {
+                    val snackbarCancelFail = Snackbar.make(mainActivity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                    snackbarCancelFail.show()
+                }
+            }
+
+            itemView.setOnClickListener {
+                Log.d("클릭된 봉사활동 아이디", serviceId.toString())
+                val intent = Intent(itemView.context, ServiceDetailActivity::class.java)
+                intent.putExtra("serviceId", serviceId)
+                itemView.context.startActivity(intent)
+            }
+
+
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServicesSearchViewHolder {
@@ -30,10 +111,12 @@ class ServicesSearchRVAdapter(private val context: MainActivity, private val vie
     }
 
     override fun onBindViewHolder(holder: ServicesSearchViewHolder, position: Int) {
-        holder.bind(context, serviceList!![position], position)
+        holder.bind(context, serviceList!![position], position, viewModel)
     }
 
     override fun getItemCount(): Int {
         return serviceList!!.size
     }
+
+
 }

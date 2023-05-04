@@ -7,6 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     // TODO : Set Base URL after Decided
+// 정식aws   "http://52.79.137.238:8080"
+// local db    "http://127.0.0.1:8080"
     private const val BASE_URL = "http://52.79.137.238:8080"
 
     private val retrofit = Retrofit.Builder()

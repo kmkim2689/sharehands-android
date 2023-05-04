@@ -37,6 +37,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.BuildConfig
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicePicRVAdapter
@@ -436,10 +437,13 @@ class ServiceWriteActivity: AppCompatActivity() {
                 viewModel.isSuccessful.observe(this) {
                     if (viewModel.isSuccessful.value == true) {
                         Log.d("게시글 작성 완료", "${viewModel.isSuccessful.value}")
+                        showSnackbar("게시글 작성이 완료되었습니다.")
                         finish()
                     } else {
                         Log.d("게시글 작성 실패", "${viewModel.isSuccessful.value}")
-                        // TODO 토스트 띄우기
+                        // TODO 스낵바 띄우기
+                        showSnackbar("네트워크 오류가 발생하였습니다. 다시 시도해보세요.")
+
                         binding.apply {
                             tvWarning.text = "네트워크 오류가 발생했습니다. 다시 시도해보세요."
                             tvWarning.setTextColor(Color.RED)
@@ -449,16 +453,16 @@ class ServiceWriteActivity: AppCompatActivity() {
             }
         }
 
-//        binding.btnSubmitInactive.setOnClickListener {
-//            Log.d("비활성화 클릭", "경고메시지")
-//            binding.tvWarning.visibility = View.VISIBLE
-//            binding.tvWarning.startAnimation(
-//                AnimationUtils.loadAnimation(
-//                    this@ServiceWriteActivity,
-//                    R.anim.fade_in
-//                )
-//            )
-//        }
+        binding.btnSubmitInactive.setOnClickListener {
+            Log.d("비활성화 클릭", "경고메시지")
+            binding.tvWarning.visibility = View.VISIBLE
+            binding.tvWarning.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this@ServiceWriteActivity,
+                    R.anim.fade_in
+                )
+            )
+        }
 
         binding.ivGoBack.setOnClickListener {
             finish()
@@ -643,4 +647,9 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
     }
 
+//    스낵바 띄우기
+    private fun showSnackbar(text: String) {
+        val snackbar = Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_SHORT)
+        snackbar.show()
+    }
 }

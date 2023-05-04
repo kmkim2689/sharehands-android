@@ -10,7 +10,7 @@ data class ServiceUpload(
     var area: String?,
     var startDate: String?,
     var endDate: String?,
-    var DOW: ArrayList<String>?,
+    var dow: ArrayList<String>?,
     var startTime: String?,
     var endTime: String?,
     var recruitNum: String?,
