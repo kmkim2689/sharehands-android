@@ -3,6 +3,7 @@ package com.sharehands.sharehands_frontend.network
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
 import com.sharehands.sharehands_frontend.network.search.SearchResult
+import com.sharehands.sharehands_frontend.network.search.ServiceContent
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
 import com.sharehands.sharehands_frontend.network.signin.UserInterest
@@ -96,6 +97,11 @@ interface ApiService {
     ): Call<Void>
 
     // 모집글 호출하기
+    @GET("/service/{workId}")
+    fun getService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Path("workId") workId: Int
+    ): Call<ServiceContent>
 
     // 5. My Page
 

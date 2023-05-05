@@ -1,5 +1,6 @@
 package com.sharehands.sharehands_frontend.viewmodel.search
 
+import android.opengl.ETC1.isValid
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,11 +26,33 @@ class ServiceSearchViewModel: ViewModel() {
     val servicesList: LiveData<ArrayList<ServiceList>>
         get() = _servicesList
 
-
-
     private var _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
+
+    private var _searchKeyword = MutableLiveData<String>()
+    val searchKeyword: LiveData<String>
+        get() = _searchKeyword
+
+    // 검색 키워드
+    fun onSearchKeywordChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        Log.d("changed text", "${s}")
+        Log.d("keyword text count", "${count}")
+        if (s.length == 0) {
+            _searchKeyword.value = ""
+        } else {
+            _searchKeyword.value = s.toString()
+        }
+    }
+
+    fun searchKeyword(): Boolean {
+        try {
+            return searchKeyword.value?.length!! >= 2
+        } catch (e: NullPointerException) {
+            return false
+        }
+
+    }
 
     // 네트워크 통신
     fun loadServices(category: Int, sort: Int, page: Int): Boolean {
@@ -60,12 +83,12 @@ class ServiceSearchViewModel: ViewModel() {
                             } else {
                                 Log.d("봉사활동 목록 GET 실패", "${response.code()}")
                                 // TODO 더미데이터 코드 제거할것
-                                _servicesList.value!!.apply {
-                                    add(ServiceList(1, "https://tago.kr/images/sub/TG300-D02_img01.png", "https://image.ajunews.com//content/image/2021/09/13/20210913143050976154.jpg",
-                                        "케이엠", true, "봉사갑시다", "동대문구", "10명", "2022. 01. 01 ~ 2022. 03. 03", "화, 목"))
-                                    add(ServiceList(2, "https://tago.kr/images/sub/TG300-D02_img01.png", "https://image.ajunews.com//content/image/2021/09/13/20210913143050976154.jpg",
-                                        "케이엔", true, "봉사2", "동대문구", "10명", "2022. 01. 01 ~ 2022. 03. 03", "화, 목"))
-                                }
+//                                _servicesList.value!!.apply {
+//                                    add(ServiceList(1, "https://tago.kr/images/sub/TG300-D02_img01.png", "https://image.ajunews.com//content/image/2021/09/13/20210913143050976154.jpg",
+//                                        "케이엠", true, "봉사갑시다", "동대문구", "10명", "2022. 01. 01 ~ 2022. 03. 03", "화, 목"))
+//                                    add(ServiceList(2, "https://tago.kr/images/sub/TG300-D02_img01.png", "https://image.ajunews.com//content/image/2021/09/13/20210913143050976154.jpg",
+//                                        "케이엔", true, "봉사2", "동대문구", "10명", "2022. 01. 01 ~ 2022. 03. 03", "화, 목"))
+//                                }
                             }
                         }
 

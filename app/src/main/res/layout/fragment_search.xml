@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel" />
     </data>
 
     <RelativeLayout
@@ -66,11 +68,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:hint="@string/search_description"
+                            android:onTextChanged="@{(s, start, before, count) -> viewModel.onSearchKeywordChanged(s, start, before, count)}"
                             android:textColorHint="@color/sharehands_gray"
                             android:textColor="@color/text_color"
                             android:layout_marginStart="24dp"
                             android:textSize="16sp"
                             android:maxLines="1"
+                            android:inputType="text"
                             android:background="@null"
                             android:layout_weight="9"
                             />

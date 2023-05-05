@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchRVAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchAllBinding
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
@@ -56,7 +57,21 @@ class SearchAllFragment: Fragment() {
 
         adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
         val recyclerView = binding.rvResultAll
-        getServices()
+        val isLoadingSuccessful = getServices()
+
+        val token = SharedPreferencesManager.getInstance(context as MainActivity).getString("token", "null")
+        if (token == "null") {
+            Snackbar.make(requireActivity().findViewById(R.id.layout_main_activity), "서비스 이용을 위하여 로그인이 필요합니다.", Snackbar.LENGTH_SHORT)
+                .setAction("로그인", View.OnClickListener { view ->
+                    val intent = Intent(requireContext(), SocialLoginActivity::class.java)
+                    startActivity(intent)
+                })
+                .show()
+        }
+
+        if (!isLoadingSuccessful) {
+            Snackbar.make(requireActivity().findViewById(R.id.layout_main_activity), "네트워크 통신 오류가 발생하였습니다.", Snackbar.LENGTH_SHORT).show()
+        }
         recyclerView.adapter = adapter
         layoutManager = LinearLayoutManager(MainActivity())
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -84,7 +99,7 @@ class SearchAllFragment: Fragment() {
 
     }
 
-    fun getServices() {
+    fun getServices(): Boolean {
         isLoading = true
         // 당장 데이터 가져오는 것을 요청한 직후에는 프로그레스 바가 보여야 함
         binding.progressAll.visibility = View.VISIBLE
@@ -107,10 +122,11 @@ class SearchAllFragment: Fragment() {
                 isLoading = false
                 binding.progressAll.visibility = View.GONE
             }, 1000)
+            return true
         } else {
             Log.d("네트워크 통신 이뤄지지 않음, 네트워크 통신 성공 여부", "${isSuccessful}")
             // TODO 스낵바 띄우기. 로그인하세요
-
+            return false
             // TODO 아래 핸들러 코드 삭제할 것.
 //            Handler().postDelayed({
 //                if (::adapter.isInitialized) {

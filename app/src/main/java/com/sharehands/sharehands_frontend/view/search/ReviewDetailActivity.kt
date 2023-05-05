@@ -12,5 +12,7 @@ class ReviewDetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_detail)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review_detail)
+
+
     }
 }

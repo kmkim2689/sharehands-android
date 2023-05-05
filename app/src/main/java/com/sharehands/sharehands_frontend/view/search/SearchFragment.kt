@@ -9,15 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ViewPagerAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchBinding
+import com.sharehands.sharehands_frontend.view.MainActivity
+import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
 
 class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
+    lateinit var viewModel: ServiceSearchViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,6 +33,9 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+        viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchViewModel::class.java)
+        binding.lifecycleOwner = MainActivity()
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -112,11 +120,24 @@ class SearchFragment : Fragment() {
             val intent = Intent(requireContext(), ServiceWriteActivity::class.java)
             startActivity(intent)
         }
+
+        binding.ivSearchService.setOnClickListener {
+            val isSuccess = viewModel.searchKeyword()
+            if (isSuccess) {
+                // 화면 이동하기
+                val intent = Intent(requireContext(), SearchResultActivity::class.java)
+                intent.putExtra("keyword", viewModel.searchKeyword.value)
+                Log.d("봉사활동 search keyword", viewModel.searchKeyword.value.toString())
+                startActivity(intent)
+            } else {
+                // 스낵바 띄우기
+                Snackbar.make(requireView(), "2글자 이상 입력해주세요.", Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-
 
     }
 

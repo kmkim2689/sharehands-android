@@ -86,6 +86,9 @@ class ServiceWriteActivity: AppCompatActivity() {
     private val tMinute = calendar.get(Calendar.MINUTE)
 
     private lateinit var binding: ActivityServiceWriteBinding
+
+    // TODO 생명주기 관리하기
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_write)
@@ -165,7 +168,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
+
                 }
 
             }

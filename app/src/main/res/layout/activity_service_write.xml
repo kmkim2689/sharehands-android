@@ -185,6 +185,7 @@
                     android:layout_marginEnd="24dp"
                     android:maxLines="1"
                     android:maxLength="20"
+                    android:inputType="text"
                     android:hint="  최소 5자, 최대 20자로 작성해주세요."
                     android:textSize="16sp"
                     android:textColorHint="@color/sharehands_gray"
@@ -441,7 +442,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="center"
-                        android:text="~"
+                        android:text=" ~"
                         android:textColor="@color/sharehands_green_strong"
                         android:textSize="20sp" />
 
@@ -593,7 +594,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="3"
-                        android:layout_marginStart="8dp"
                         android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
@@ -615,9 +615,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:gravity="center"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="~"
+                        android:text=" ~"
                         android:textColor="@color/sharehands_green_strong"
                         android:textSize="20sp" />
 
@@ -625,7 +623,6 @@
                         android:id="@+id/tv_end_time_content"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
                         android:layout_weight="3"
                         android:textColor="@color/text_color"
                         android:textSize="16sp" />
@@ -638,7 +635,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/write_button"
                         android:gravity="center"
-                        android:layout_marginStart="8dp"
                         android:text="종료"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -866,10 +862,14 @@
                         android:onTextChanged="@{(s, start, before, count) -> viewModel.onPhoneChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
-                    <View
+                    <TextView
                         android:id="@+id/edit_phone_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="비공개"
+                        android:textColor="@color/text_color"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
                         android:background="@drawable/border_bottom_blocked"
                         android:visibility="gone" />
 
@@ -943,10 +943,14 @@
                         android:onTextChanged="@{(s, start, before, count) -> viewModel.onEmailChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
-                    <View
+                    <TextView
                         android:id="@+id/edit_email_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="비공개"
+                        android:textColor="@color/text_color"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
                         android:background="@drawable/border_bottom_blocked"
                         android:visibility="gone" />
 
@@ -1022,10 +1026,14 @@
                         android:onTextChanged="@{(s, start, before, count) -> viewModel.onEtcChanged(s, start, before, count)}"
                         android:maxLines="1"/>
 
-                    <View
+                    <TextView
                         android:id="@+id/edit_etc_blocked"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="비공개"
+                        android:textColor="@color/text_color"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
                         android:background="@drawable/border_bottom_blocked"
                         android:visibility="gone" />
 
