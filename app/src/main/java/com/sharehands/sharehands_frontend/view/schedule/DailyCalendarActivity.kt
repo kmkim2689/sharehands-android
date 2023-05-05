@@ -63,7 +63,8 @@ class DailyCalendarActivity: AppCompatActivity() {
                 // TODO schedule의 아이디를 담는 arraylist도 별도로 만들어 관리하는 것이 필요할듯
 
                 val intent = Intent(this@DailyCalendarActivity, ServiceDetailActivity::class.java)
-                intent.putExtra("id", "아이디")
+                // TODO 서비스 아이디 넘겨주는 것 바꿔놓기
+                intent.putExtra("serviceId", 1)
                 startActivity(intent)
             }
 

@@ -5,63 +5,65 @@ import com.google.gson.annotations.SerializedName
 
 data class ServiceContent(
     @SerializedName("applydeadline")
-    val applydeadline: String,
+    val applydeadline: String?,
     @SerializedName("area")
-    val area: String,
+    val area: String?,
     @SerializedName("author")
-    val author: Boolean,
+    val author: Boolean?,
     @SerializedName("category")
     val category: String?,
     @SerializedName("contactEtc")
-    val contactEtc: String,
+    val contactEtc: String?,
     @SerializedName("content")
-    val content: String,
+    val content: String?,
     @SerializedName("cost")
-    val cost: Int,
+    val cost: Int?,
     @SerializedName("didApply")
-    val didApply: Boolean,
+    val didApply: Boolean?,
     @SerializedName("didLike")
-    val didLike: Boolean,
+    val didLike: Boolean?,
     @SerializedName("didScrap")
-    val didScrap: Boolean,
+    val didScrap: Boolean?,
     @SerializedName("dow")
-    val dow: String,
+    val dow: String?,
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("endDate")
-    val endDate: String,
+    val endDate: String?,
     @SerializedName("endTime")
-    val endTime: String,
+    val endTime: String?,
     @SerializedName("hitCnt")
-    val hitCnt: Long,
+    val hitCnt: Long?,
     @SerializedName("intro")
-    val intro: String,
+    val intro: String?,
     @SerializedName("level")
-    val level: Int,
+    val level: Int?,
     @SerializedName("likeCnt")
-    val likeCnt: Long,
+    val likeCnt: Long?,
     @SerializedName("nickname")
-    val nickname: String,
+    val nickname: String?,
     @SerializedName("photoList")
-    val photoList: List<String>,
+    val photoList: List<String>?,
     @SerializedName("profileUrl")
-    val profileUrl: String,
+    val profileUrl: String?,
     @SerializedName("recruitNum")
-    val recruitNum: Int,
+    val recruitNum: Int?,
     @SerializedName("reviewLists")
     val reviewLists: List<Review>?,
     @SerializedName("scrapCnt")
-    val scrapCnt: Long,
+    val scrapCnt: Long?,
     @SerializedName("startDate")
-    val startDate: String,
+    val startDate: String?,
     @SerializedName("startTime")
     val startTime: String?,
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("tel")
-    val tel: String,
+    val tel: String?,
     @SerializedName("userId")
-    val userId: Long,
+    val userId: Long?,
     @SerializedName("userRate")
-    val userRate: Double
+    val userRate: Double?,
+    @SerializedName("workTitle")
+    val workTitle: String?
 )
