@@ -517,7 +517,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         val imageFile = File(imagePath)
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일
-                        val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+                        val imagePart = MultipartBody.Part.createFormData("files", imageFile.name, requestFile)
                         Log.d("imagePart", "${imagePart}")
 
                         viewModel.addImage(imageUriString, imagePart)
@@ -558,7 +558,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         val imageFile = File(absolutelyPath(selectedImage, this))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일에 해당됨
-                        val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+                        val imagePart = MultipartBody.Part.createFormData("files", imageFile.name, requestFile)
                         Log.d("imagePart", "${imagePart}")
 
                         viewModel.addImage(imageUriString, imagePart)

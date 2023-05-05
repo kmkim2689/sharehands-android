@@ -2,8 +2,7 @@ package com.sharehands.sharehands_frontend.network
 
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
-import com.sharehands.sharehands_frontend.network.search.SearchResult
-import com.sharehands.sharehands_frontend.network.search.ServiceContent
+import com.sharehands.sharehands_frontend.network.search.*
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
 import com.sharehands.sharehands_frontend.network.signin.UserInterest
@@ -82,6 +81,31 @@ interface ApiService {
         @Query("keyword") keyword: String
     ): Call<SearchResult>
 
+
+    // 모집글 호출하기
+    @GET("/service/{workId}")
+    fun getService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Path("workId") workId: Int
+    ): Call<ServiceContent>
+
+    // 작성자 프로필 호출
+    // TODO 1 method (query or path)
+    // TODO 2 parameter (userId or authorId?)
+    @GET("/user")
+    fun getUserProfile(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Int
+    ): Call<UserProfile>
+
+    // 지원자 명단 호출
+    // TODO query parameter(serviceId or workId?)
+    @GET("/applicants")
+    fun getApplicants(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("serviceId") serviceId: Int
+    ): Call<RecruitData>
+
     // 지원하기
     @POST("/service/{workId}/apply")
     fun applyService(
@@ -96,14 +120,32 @@ interface ApiService {
         @Path("workId") workId: Int
     ): Call<Void>
 
-    // 모집글 호출하기
-    @GET("/service/{workId}")
-    fun getService(
+    // 리뷰 허용하기
+    // TODO url(not exists...)
+
+    // 리뷰 리스트 3개 호출 -> 제거대상?
+    // TODO method(query or path)
+    // TODO Url(???)
+//    @GET("/service")
+//    fun getReviewsPreview(
+//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+//
+//    ): Call<>
+
+    // 리뷰 불러오기 초기
+    @GET("/review/all")
+    fun getReviews(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Path("workId") workId: Int
-    ): Call<ServiceContent>
+        @Query("workId") workId: Int
+    ): Call<ReviewDetail>
 
-
+    // 리뷰 불러오기 스크롤
+    @GET("/review/all")
+    fun getReviewsAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("workId") workId: Int,
+        @Query("last") last: Int
+    ): Call<ReviewDetail>
 
     // 5. My Page
 
