@@ -100,8 +100,8 @@ class SearchAllFragment: Fragment() {
                         viewModel.servicesList.observe(viewLifecycleOwner) {
                             Log.d("current cnt", "${viewModel.searchResult.value?.serviceList?.size!!}")
                             Log.d("total cnt", "${total}")
-                            if (viewModel.searchResult.value?.workCounter!! > total) {
-
+                            if ((viewModel.searchResult.value?.workCounter!! / 10).toInt() + 1 > page) {
+                                page++
                                 getServices(token, context)
                             }
                         }
@@ -136,7 +136,7 @@ class SearchAllFragment: Fragment() {
                         adapter = ServicesSearchRVAdapter(contextActivity as MainActivity, viewModel, viewModel.servicesList.value)
                         binding.rvResultAll.adapter = adapter
                         binding.rvResultAll.layoutManager = layoutManager
-                        page++
+//                        page++
                         Log.d("봉사활동 서비스 목록", viewModel.servicesList.value.toString())
                     } else {
                         adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
