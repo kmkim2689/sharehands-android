@@ -89,7 +89,7 @@
                     android:maxLength="15"
                     android:maxLines="1"
                     android:padding="16dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -126,7 +126,7 @@
                     android:maxLength="15"
                     android:maxLines="1"
                     android:padding="16dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
@@ -161,7 +161,7 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/edit_text"
                     android:padding="16dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -202,7 +202,7 @@
                     android:maxLength="13"
                     android:maxLines="1"
                     android:padding="16dp"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textColorHint="@color/btn_gray"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +242,7 @@
                     android:maxLength="15"
                     android:maxLines="1"
                     android:padding="16dp"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textColorHint="@color/btn_gray"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -291,7 +291,7 @@
                         android:background="@drawable/edit_text"
                         android:padding="16dp"
                         android:text="서울특별시"
-                        android:textColor="@color/sharehands_black"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
 
@@ -302,7 +302,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/ic_spinner"
                         android:padding="16dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
 
                 </LinearLayout>

@@ -12,24 +12,33 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServiceImageVPAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityServiceDetailBinding
+import com.sharehands.sharehands_frontend.network.RetrofitClient
+import com.sharehands.sharehands_frontend.network.search.ServiceContent
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.ProgressDialog
 import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceDetailViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ServiceDetailActivity:AppCompatActivity() {
     lateinit var binding: ActivityServiceDetailBinding
     lateinit var viewModel: ServiceDetailViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_detail)
         binding = DataBindingUtil.setContentView<ActivityServiceDetailBinding>(this, R.layout.activity_service_detail)
 
         val viewModel = ViewModelProvider(this).get(ServiceDetailViewModel::class.java)
+        var userId: Long = 0
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
@@ -82,31 +91,103 @@ class ServiceDetailActivity:AppCompatActivity() {
         }
 
         if (token != "null" && serviceId != 0) {
-            val isSuccessful = viewModel.showContents(token, serviceId)
-            if (isSuccessful) {
-                Log.d("봉사활동 상세 화면 불러오기", "성공")
-
-                // TODO 테스트용 imageurl 리스트(아래 세 줄 코드) 삭제
-                // TODO 네트워크 통신 성공 시 viewpager adapter 초기화하고 할당하기
-                val imageUrls = ArrayList<String>()
-                imageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Elon_Musk_Royal_Society.jpg/225px-Elon_Musk_Royal_Society.jpg")
-                imageUrls.add("https://ichef.bbci.co.uk/news/640/cpsprodpb/D42F/production/_116391345_tes1.png")
-
-                val viewPagerAdapter = ServiceImageVPAdapter(this,
-                    viewModel.contents.value?.photoList!!
-                )
-                viewPager.adapter = viewPagerAdapter
-                // TODO 위의 dismiss와 충돌 시 해결방안
-            } else {
-                Log.d("봉사활동 상세 화면 불러오기", "실패")
-                val snackbar = makeSnackbar("네트워크 문제가 발생하였습니다. 다시 시도해보세요.")
-                snackbar.show()
+            viewModel.showContents(token, serviceId)
+            if (viewModel.contents.value?.author == true) {
 
             }
+//            RetrofitClient.createRetorfitClient().getService(token, serviceId)
+//                .enqueue(object : Callback<ServiceContent> {
+//                    override fun onResponse(
+//                        call: Call<ServiceContent>,
+//                        response: Response<ServiceContent>
+//                    ) {
+//                        if (response.isSuccessful) {
+//                            if (response.code() == 200) {
+//                                val result = response.body()
+//                                Log.d("봉사활동 상세 불러오기 데이터 result 변수", "${result}")
+//                                val photoList = result?.photoList
+//                                val viewPagerAdapter = ServiceImageVPAdapter(this@ServiceDetailActivity,
+//                                    photoList
+//                                )
+//                                viewPager.adapter = viewPagerAdapter
+//                            } else {
+//                                Log.d("봉사활동 상세 데이터 불러오기 실패", response.code().toString())
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<ServiceContent>, t: Throwable) {
+//                        Log.d("봉사활동 상세 데이터 불러오기 실패", t.message.toString())
+//                    }
+//                })
 
         }
 
+        viewModel.isAuthor.observe(this) {
+            if (viewModel.isAuthor.value == true) {
+                binding.btnApplyCancel.visibility = View.GONE
+                binding.btnApply.visibility = View.GONE
+                binding.btnRecruit.visibility = View.VISIBLE
+            } else {
+                if (viewModel.contents.value?.didApply == true) {
+                    Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                    binding.btnApplyCancel.visibility = View.VISIBLE
+                    binding.btnApply.visibility = View.INVISIBLE
+                    binding.btnRecruit.visibility = View.GONE
+                } else {
+                    Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                    binding.btnApplyCancel.visibility = View.INVISIBLE
+                    binding.btnApply.visibility = View.VISIBLE
+                    binding.btnRecruit.visibility = View.GONE
+                }
+            }
+        }
 
+        viewModel.photoList.observe(this) {
+            val photoList = viewModel.photoList?.value
+            if (photoList != null) {
+                val viewPagerAdapter = ServiceImageVPAdapter(this@ServiceDetailActivity,
+                    photoList
+                )
+                viewPager.adapter = viewPagerAdapter
+            }
+
+
+            Glide.with(this)
+                .load(viewModel.contents.value?.profileUrl.toString())
+                .into(binding.ivUserProfile)
+        }
+
+        binding.btnApply.setOnClickListener {
+            viewModel.apply(token, serviceId)
+            viewModel.isSuccessful.observe(this) {
+                if (viewModel.isSuccessful.value == true) {
+                    val snackbar = makeSnackbar("봉사활동에 지원하였습니다.")
+                    snackbar.show()
+                    binding.btnApply.visibility = View.INVISIBLE
+                    binding.btnApplyCancel.visibility = View.VISIBLE
+                } else {
+                    val snackbar = makeSnackbar("네트워크 오류가 발생하였습니다.")
+                    snackbar.show()
+
+                }
+            }
+        }
+
+        binding.btnApplyCancel.setOnClickListener {
+            viewModel.cancelApply(token, serviceId)
+            viewModel.isSuccessful.observe(this) {
+                if (viewModel.isSuccessful.value == true) {
+                    val snackbar = makeSnackbar("봉사활동에 지원을 취소하였습니다.")
+                    snackbar.show()
+                    binding.btnApply.visibility = View.VISIBLE
+                    binding.btnApplyCancel.visibility = View.INVISIBLE
+                } else {
+                    val snackbar = makeSnackbar("네트워크 오류가 발생하였습니다.")
+                    snackbar.show()
+                }
+            }
+        }
     }
 
 

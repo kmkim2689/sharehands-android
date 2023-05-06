@@ -80,6 +80,7 @@
         <activity android:name=".view.mypage.FAQActivity"/>
         <activity android:name=".view.mypage.ContactActivity"/>
         <activity android:name=".view.mypage.WithdrawActivity"/>
+        <activity android:name=".view.mypage.UserInfoActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

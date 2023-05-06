@@ -37,7 +37,7 @@ data class ServiceContent(
     @SerializedName("intro")
     val intro: String?,
     @SerializedName("level")
-    val level: Int?,
+    val level: Long,
     @SerializedName("likeCnt")
     val likeCnt: Long?,
     @SerializedName("nickname")

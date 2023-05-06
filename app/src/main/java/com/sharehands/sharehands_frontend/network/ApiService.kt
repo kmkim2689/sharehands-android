@@ -2,6 +2,10 @@ package com.sharehands.sharehands_frontend.network
 
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
+import com.sharehands.sharehands_frontend.network.mypage.MyPageDetail
+import com.sharehands.sharehands_frontend.network.mypage.MyPageInitial
+import com.sharehands.sharehands_frontend.network.mypage.RecruitedService
+import com.sharehands.sharehands_frontend.network.mypage.RecruitedServices
 import com.sharehands.sharehands_frontend.network.search.*
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
@@ -81,6 +85,14 @@ interface ApiService {
         @Query("keyword") keyword: String
     ): Call<SearchResult>
 
+    // 봉사활동 검색 결과 스크롤
+    @GET("/service/search")
+    fun getSearchResultAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("keyword") keyword: String,
+        @Query("last") last: Int
+    ): Call<SearchResult>
+
 
     // 모집글 호출하기
     @GET("/service/{workId}")
@@ -92,10 +104,10 @@ interface ApiService {
     // 작성자 프로필 호출
     // TODO 1 method (query or path)
     // TODO 2 parameter (userId or authorId?)
-    @GET("/user")
+    @GET("/profile")
     fun getUserProfile(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Query("userId") userId: Int
+        @Query("userId") userId: Long
     ): Call<UserProfile>
 
     // 지원자 명단 호출
@@ -110,14 +122,14 @@ interface ApiService {
     @POST("/service/{workId}/apply")
     fun applyService(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Path("workId") workId: Int
+        @Path("workId") workId: Long
     ): Call<Void>
 
     // 취소하기
     @POST("/service/{workId}/cancel")
     fun cancelApplyService(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Path("workId") workId: Int
+        @Path("workId") workId: Long
     ): Call<Void>
 
     // 리뷰 허용하기
@@ -147,11 +159,74 @@ interface ApiService {
         @Query("last") last: Int
     ): Call<ReviewDetail>
 
+    // 좋아요
+    @POST("/manage/like")
+    fun postLike(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        // 이거 Long임?
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 좋아요 취소
+    @POST("/manage/unlike")
+    fun cancelLike(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        // 이거 Long임?
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 스크랩
+    @POST("/manage/scrap")
+    fun postScrap(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        // 이거 Long임?
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 스크랩 취소
+    @POST("/manage/unscrap")
+    fun cancelScrap(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        // 이거 Long임?
+        @Query("workId") workId: Long
+    ): Call<Void>
+
     // 5. My Page
 
+    // 마이페이지 초기화면
+    @GET("/my-page/preview")
+    fun viewMyPage(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<MyPageInitial>
+
+    // 내 정보 호출하기
+    @GET("/my-page")
+    fun viewMyPageDetail(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<MyPageDetail>
+
     // 회원정보 수정
-    @POST("/user/my-page/edit")
+    @POST("/my-page/edit")
     fun editUserInfo(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
         @Body userInfoEdit: UserInfoEdit
     ): Call<Void>
+
+    // 모집한 봉사
+    @POST("/my-page/recruit-list")
+    fun getRecruitList(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<RecruitedServices>
+
+    // 지원한 봉사
+    @POST("/my-page/apply-list")
+    fun getAppliedList(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<RecruitedServices>
+
+    // 완료한 봉사
+//    @POST("/my-page/participate-list")
+//    fun getCompleteList(
+//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+//    ): Call<CompletedServices>
 }

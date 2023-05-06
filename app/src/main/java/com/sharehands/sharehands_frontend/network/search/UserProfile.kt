@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class UserProfile(
     @SerializedName ("appliedWork") val appliedWork: Int,
-    @SerializedName ("avgrate") val avgrate: String,
-    @SerializedName ("isAuthor") val isAuthor: Boolean,
-    @SerializedName ("level") val level: String,
+    @SerializedName ("avgRate") val avgRate: Double,
+    @SerializedName ("author") val author: Boolean,
+    @SerializedName ("level") val level: Long,
     @SerializedName ("location") val location: String,
     @SerializedName ("managedWork") val managedWork: Int,
     @SerializedName ("nickname") val nickname: String,

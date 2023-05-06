@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sharehands.sharehands_frontend.viewmodel.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -103,7 +105,10 @@
                                     android:id="@+id/tv_user_nickname"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="10dp"
+                                    android:gravity="center"
+                                    android:text="@{viewModel.result.nickname}"
                                     android:textColor="@color/sharehands_black"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
@@ -111,27 +116,28 @@
 
                             </FrameLayout>
 
-                            <FrameLayout
-                                android:id="@+id/frame_cert_badge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp">
+<!--                            <FrameLayout-->
+<!--                                android:id="@+id/frame_cert_badge"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="8dp">-->
 
-                                <ImageView
-                                    android:id="@+id/iv_cert_badge"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_cert"
-                                    android:visibility="gone" />
+<!--                                <ImageView-->
+<!--                                    android:id="@+id/iv_cert_badge"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:src="@drawable/ic_cert"-->
+<!--                                    android:visibility="gone" />-->
 
-                            </FrameLayout>
+<!--                            </FrameLayout>-->
 
                             <ImageView
                                 android:id="@+id/iv_view_user_info"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_forward_dir"
-                                app:tint="@color/sharehands_black" />
+                                app:tint="@color/sharehands_black"
+                                android:padding="8dp"/>
 
                         </LinearLayout>
 
@@ -152,7 +158,7 @@
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
-                                tools:text="나눔레벨" />
+                                tools:text="@{`나눔레벨 `+viewModel.result.level}" />
 
                             <TextView
                                 android:id="@+id/tv_user_level_num"
@@ -310,7 +316,7 @@
                                     android:layout_marginBottom="20dp"
                                     android:gravity="center"
                                     android:textStyle="bold"
-                                    android:text="참여한\n봉사"
+                                    android:text="완료한\n봉사"
                                     android:layout_marginTop="8dp"
                                     android:textColor="@color/sharehands_green_strong"
                                     android:textSize="12sp"/>

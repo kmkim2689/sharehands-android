@@ -33,10 +33,10 @@ class SearchResultActivity: AppCompatActivity() {
 
             if (resultKeyword != null && resultKeyword.length >= 2) {
                 binding.editSearch.setText("$resultKeyword")
-                viewModel.searchKeyword(token, resultKeyword)
+                val isSuccessful = viewModel.searchKeyword(token, resultKeyword)
+                Log.d("봉사활동 검색 결과 성공 여부", "${isSuccessful}")
             }
         }
-
     }
 
     override fun onResume() {
