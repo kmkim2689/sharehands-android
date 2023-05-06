@@ -152,49 +152,47 @@ class ServiceSearchViewModel: ViewModel() {
         }
     }
 
-//    fun applyService(token: String, serviceId: Int): Boolean {
-//        var applyResult = false
-//        RetrofitClient.createRetorfitClient().applyService(token, serviceId.toLong())
-//            .enqueue(object : Callback<Void> {
-//                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                    if (response.isSuccessful) {
-//                        if (response.code() == 200) {
-//                            applyResult = true
-//                        }
-//                        Log.d("봉사활동 신청 결과 코드", "${response.code()}")
-//                    } else {
-//                        Log.d("봉사활동 신청 실패", "${response.code()}")
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<Void>, t: Throwable) {
-//                    Log.d("봉사활동 신청 실패 - 네트워크 오류", "${t.message}")
-//                }
-//
-//            })
-//        return applyResult
-//    }
-//
-//    fun cancelService(token: String, serviceId: Int): Boolean {
-//        var cancelResult = false
-//        RetrofitClient.createRetorfitClient().cancelApplyService(token, serviceId.toLong())
-//            .enqueue(object : Callback<Void> {
-//                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                    if (response.isSuccessful) {
-//                        if (response.code() == 200) {
-//                            cancelResult = true
-//                        }
-//                        Log.d("봉사활동 신청 취소 결과 코드", "${response.code()}")
-//                    } else {
-//                        Log.d("봉사활동 신청 취소 실패", "${response.code()}")
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<Void>, t: Throwable) {
-//                    Log.d("봉사활동 신청 취소 실패 - 네트워크 오류", "${t.message}")
-//                }
-//
-//            })
-//        return cancelResult
-//    }
+    fun applyService(token: String, serviceId: Int) {
+        RetrofitClient.createRetorfitClient().applyService(token, serviceId.toLong())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.d("지원 성공", "${response.code()}")
+                        _isSuccessful.value = true
+                    } else {
+                        Log.d("지원 실패", "${response.code()}")
+                        _isSuccessful.value = false
+                    }
+
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("지원 실패", "${t.message}")
+                    _isSuccessful.value = false
+                }
+
+            })
+
+    }
+
+    fun cancelService(token: String, serviceId: Int) {
+        RetrofitClient.createRetorfitClient().cancelApplyService(token, serviceId.toLong())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.d("지원 취소 성공", "${response.code()}")
+                        _isSuccessful.value = true
+                    } else {
+                        Log.d("지원 취소 실패", "${response.code()}")
+                        _isSuccessful.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("지원 취소 실패", "${t.message}")
+                    _isSuccessful.value = false
+                }
+
+            })
+    }
 }

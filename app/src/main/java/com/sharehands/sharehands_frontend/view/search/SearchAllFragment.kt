@@ -60,7 +60,7 @@ class SearchAllFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Fragment 왔다갔다 했을 때 오류뜨는 이슈 해결 방법 : context를 미리 선언해놓고 그것을 사용한다.
+        // Fragment 왔다갔다 했을 때 오류뜨는 이슈 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
         adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
         val recyclerView = binding.rvResultAll
