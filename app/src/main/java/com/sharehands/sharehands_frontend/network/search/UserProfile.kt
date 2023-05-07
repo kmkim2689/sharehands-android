@@ -11,5 +11,6 @@ data class UserProfile(
     @SerializedName ("location") val location: String,
     @SerializedName ("managedWork") val managedWork: Int,
     @SerializedName ("nickname") val nickname: String,
-    @SerializedName ("participatedWork") val participatedWork: Int
+    @SerializedName ("participatedWork") val participatedWork: Int,
+    @SerializedName ("profileUrl") val profileUrl: String
 )

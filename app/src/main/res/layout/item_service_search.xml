@@ -20,7 +20,7 @@
             android:background="@drawable/frame_preview_thumbnail"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
             />
@@ -61,11 +61,15 @@
 
         <TextView
             android:id="@+id/tv_preview_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/btn_frame"
             app:layout_constraintStart_toStartOf="@id/iv_service_preview_user"
             app:layout_constraintTop_toBottomOf="@id/iv_service_preview_user"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             tools:text="봉사활동명"
             android:textColor="@color/text_color"
             android:textStyle="bold"
@@ -145,8 +149,10 @@
             app:layout_constraintTop_toBottomOf="@id/layout_info1"
             app:layout_constraintStart_toStartOf="@id/tv_preview_title"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp">
 
             <ImageView
                 android:id="@+id/iv_preview_people"
@@ -201,11 +207,11 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/btn_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_service_preview_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp">
             <ImageView
                 android:id="@+id/iv_apply_quick"

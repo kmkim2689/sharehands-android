@@ -2,6 +2,8 @@ package com.sharehands.sharehands_frontend.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -9,6 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sharehands.sharehands_frontend.R
+import com.sharehands.sharehands_frontend.view.home.HomeFragment
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,5 +24,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         bottomNavigationView.setupWithNavController(navController)
+
+        bottomNavigationView.setOnClickListener(View.OnClickListener { v: View? ->
+
+        })
     }
 }

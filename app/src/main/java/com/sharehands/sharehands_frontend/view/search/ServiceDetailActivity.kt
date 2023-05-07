@@ -111,9 +111,22 @@ class ServiceDetailActivity:AppCompatActivity() {
 
         if (token != "null" && serviceId != 0) {
             viewModel.showContents(token, serviceId)
-            if (viewModel.contents.value?.author == true) {
+            viewModel.photoList.observe(this) {
+                val photoList = viewModel.photoList?.value
+                if (photoList != null) {
+                    val viewPagerAdapter = ServiceImageVPAdapter(this@ServiceDetailActivity,
+                        photoList
+                    )
+                    viewPager.adapter = viewPagerAdapter
+                }
 
+
+                Glide.with(this)
+                    .load(viewModel.contents.value?.profileUrl.toString())
+                    .into(binding.ivUserProfile)
             }
+
+
 //            RetrofitClient.createRetorfitClient().getService(token, serviceId)
 //                .enqueue(object : Callback<ServiceContent> {
 //                    override fun onResponse(
@@ -200,20 +213,6 @@ class ServiceDetailActivity:AppCompatActivity() {
             }
         }
 
-        viewModel.photoList.observe(this) {
-            val photoList = viewModel.photoList?.value
-            if (photoList != null) {
-                val viewPagerAdapter = ServiceImageVPAdapter(this@ServiceDetailActivity,
-                    photoList
-                )
-                viewPager.adapter = viewPagerAdapter
-            }
-
-
-            Glide.with(this)
-                .load(viewModel.contents.value?.profileUrl.toString())
-                .into(binding.ivUserProfile)
-        }
 
         binding.btnApply.setOnClickListener {
             viewModel.apply(token, serviceId)
@@ -277,6 +276,36 @@ class ServiceDetailActivity:AppCompatActivity() {
             }
         }
 
+        binding.ivLikeUnfilled.setOnClickListener {
+            viewModel.postLike(token, serviceId)
+            viewModel.isSuccessful.observe(this) {
+                if (viewModel.isSuccessful.value == true) {
+                    val snackbar = makeSnackbar("게시글에 좋아요를 눌렀습니다.")
+                    snackbar.show()
+                    binding.ivLikeUnfilled.visibility = View.GONE
+                    binding.ivLikeFilled.visibility = View.VISIBLE
+                } else {
+                    val snackbar = makeSnackbar("네트워크 오류가 발생하였습니다.")
+                    snackbar.show()
+                }
+            }
+        }
+
+        binding.ivLikeFilled.setOnClickListener {
+            viewModel.cancelLike(token, serviceId)
+            viewModel.isSuccessful.observe(this) {
+                if (viewModel.isSuccessful.value == true) {
+                    val snackbar = makeSnackbar("게시글 좋아요를 취소하였습니다.")
+                    snackbar.show()
+                    binding.ivLikeUnfilled.visibility = View.VISIBLE
+                    binding.ivLikeFilled.visibility = View.GONE
+                } else {
+                    val snackbar = makeSnackbar("네트워크 오류가 발생하였습니다.")
+                    snackbar.show()
+                }
+            }
+        }
+
 
     }
 
@@ -327,6 +356,11 @@ class ProfileDialog(private val context: AppCompatActivity) {
         binding.tvNumRecruited.text = userProfile.managedWork.toString()
         binding.tvNumApplied.text = userProfile.appliedWork.toString()
         binding.tvNumParticipated.text = userProfile.participatedWork.toString()
+        Log.d("profile profile url", "${userProfile.profileUrl}")
+        Glide.with(context)
+            .load(userProfile.profileUrl)
+            .into(binding.ivDialogUserProfile)
+
 
         // TODO 프로필 URL 호출하기
 

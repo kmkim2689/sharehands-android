@@ -69,7 +69,7 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
 //            // TODO 봉사활동 클릭 이벤트 설정하기
             btnApply.setOnClickListener {
                 viewModel.applyService(token, serviceId)
-                if (viewModel.isSuccessful.value == true) {
+                if (viewModel.isApplySuccessful.value == true) {
                     Log.d("success", "true")
                     btnApply.visibility = View.GONE
                     btnCancel.visibility = View.VISIBLE
@@ -88,7 +88,7 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
 
             btnCancel.setOnClickListener {
                 viewModel.cancelService(token, serviceId)
-                if (viewModel.isSuccessful.value == true) {
+                if (viewModel.isCancelSuccessful.value == true) {
                     Log.d("success", "true")
                     btnApply.visibility = View.VISIBLE
                     btnCancel.visibility = View.GONE

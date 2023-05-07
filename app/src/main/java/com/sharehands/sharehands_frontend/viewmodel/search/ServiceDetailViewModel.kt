@@ -67,6 +67,10 @@ class ServiceDetailViewModel:ViewModel() {
     val completed: LiveData<String>
         get() = _completed
 
+    private var _profileUrl = MutableLiveData<String>()
+    val profileUrl: LiveData<String>
+        get() = _profileUrl
+
     fun showContents(token: String, serviceId: Int) {
         Log.d("봉사활동 상세 불러오기 아이디", "${serviceId}")
         RetrofitClient.createRetorfitClient().getService(token, serviceId)
@@ -86,6 +90,7 @@ class ServiceDetailViewModel:ViewModel() {
                             _isSuccessful.value = true
                             _isLiked.value = result.didLike!!
                             _isScraped.value = result.didScrap!!
+                            _photoList.value = result.photoList!!
                         } else {
                             Log.d("봉사활동 상세 데이터 불러오기 실패", response.code().toString())
                             _isSuccessful.value = false
@@ -198,6 +203,7 @@ class ServiceDetailViewModel:ViewModel() {
                             _recruited.value = result.appliedWork.toString()
                             _applied.value=  result.appliedWork.toString()
                             _completed.value = result.participatedWork.toString()
+                            _profileUrl.value = result.profileUrl.toString()
                         } else {
                             _isSuccessful.value = false
                         }
@@ -212,6 +218,44 @@ class ServiceDetailViewModel:ViewModel() {
                     _isSuccessful.value = false
                 }
 
+            })
+    }
+
+    fun postLike(token: String, serviceId: Int) {
+        RetrofitClient.createRetorfitClient().postLike(token, serviceId.toLong())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.d("좋아요 성공", "${response.code()}")
+                        _isSuccessful.value = true
+                    } else {
+                        Log.d("좋아요 실패", "${response.code()}")
+                        _isSuccessful.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("좋아요 실패", "${t.message}")
+                }
+            })
+    }
+
+    fun cancelLike(token: String, serviceId: Int) {
+        RetrofitClient.createRetorfitClient().cancelLike(token, serviceId.toLong())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.d("좋아요 취소 성공", "${response.code()}")
+                        _isSuccessful.value = true
+                    } else {
+                        Log.d("좋아요 취소 실패", "${response.code()}")
+                        _isSuccessful.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("좋아요 취소 실패", "${t.message}")
+                }
             })
     }
 }

@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchRVAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchAllBinding
+import com.sharehands.sharehands_frontend.network.search.ServiceList
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
@@ -32,6 +33,7 @@ class SearchAllFragment: Fragment() {
     private lateinit var viewModel: ServiceSearchViewModel
     private var sort = 1
     private val category = 1
+    var itemCount = 0
     // 페이지 초기화
     var page = 1
     // 네트워크 통신중 여부
@@ -40,6 +42,7 @@ class SearchAllFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
     }
 
     override fun onCreateView(
@@ -47,22 +50,19 @@ class SearchAllFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_all, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchViewModel::class.java)
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
-        return binding.root
 
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Fragment 왔다갔다 했을 때 오류뜨는 이슈 해결 방법 : context를 미리 선언해놓고 사용한다.
+        // Fragment 왔다갔다 했을 때 오류뜨는 이슈 및 중복해서 나타나는 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
-        adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
+
+        viewModel._servicesList.value = ArrayList<ServiceList>()
+        adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+        binding.rvResultAll.adapter = adapter
+
+
         val recyclerView = binding.rvResultAll
 
         val token = SharedPreferencesManager.getInstance(context as MainActivity).getString("token", "null")
@@ -77,41 +77,81 @@ class SearchAllFragment: Fragment() {
 
 
         getServices(token, context)
+        viewModel.count.observe(viewLifecycleOwner) {
+            Log.d("list counts", "${viewModel.count.value}")
+        }
 
         viewModel.searchResult.observe(viewLifecycleOwner) {
             binding.tvTotalAll.text = "총 ${viewModel.searchResult.value?.workCounter}건의 봉사가 있습니다."
         }
 
+
         recyclerView.adapter = adapter
-        layoutManager = LinearLayoutManager(MainActivity())
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
+                if (dy > 80) {
                     // 스크롤 내렸을 때 플로팅 버튼 사라지게 하기
 
-
-                    val visibleItemCount = layoutManager.childCount
-                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+//                    layoutManager = LinearLayoutManager(requireContext())
+//                    val visibleItemCount = layoutManager.childCount
+//                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                     val total = adapter.itemCount
 //                    Log.d("total", "${total}")
 
-                    if (!isLoading) {
-                        viewModel.servicesList.observe(viewLifecycleOwner) {
-                            Log.d("current cnt", "${viewModel.searchResult.value?.serviceList?.size!!}")
-                            Log.d("total cnt", "${total}")
-                            if ((viewModel.searchResult.value?.workCounter!! / 10).toInt() + 1 > page) {
-                                page++
-                                getServices(token, context)
-                            }
-                        }
+                    if (page == 1) {
+                        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+                            if (!isLoading) {
+                                Log.d("current cnt", "${viewModel.count.value}")
+                                Log.d("total cnt", "${total}")
+                                if ((viewModel.searchResult.value?.workCounter!! / 10).toInt() + 1 > page &&
+                                    viewModel.count.value!! < viewModel.searchResult.value?.workCounter!!.toInt()) {
+                                    Log.d("page cnt", "${(viewModel.searchResult.value?.workCounter!! / 10).toInt()}")
+                                    Log.d("page before cnt", "${page}")
+                                    page++
+                                    getServices(token, context)
+                                    Log.d("page after cnt", "${page}")
 
+                                } else {
+                                    viewModel._isInitialized.value = false
+                                }
+                            }
+
+                        }
+                    } else if (page < (viewModel.searchResult.value?.workCounter!! / 10).toInt() + 1) {
+                        viewModel.isScrollSuccessful.observe(viewLifecycleOwner) {
+                            if (!isLoading) {
+                                Log.d("current cnt", "${viewModel.count.value}")
+                                Log.d("total cnt", "${total}")
+                                if ((viewModel.searchResult.value?.workCounter!! / 10).toInt() + 1 > page &&
+                                    viewModel.count.value!! < viewModel.searchResult.value?.workCounter!!.toInt()) {
+                                    Log.d("page cnt", "${(viewModel.searchResult.value?.workCounter!! / 10).toInt()}")
+                                    Log.d("page before cnt", "${page}")
+                                    page++
+                                    getServices(token, context)
+                                    Log.d("page after cnt", "${page}")
+
+                                }
+                            }
+
+                        }
                     }
-                } else {
 
                 }
             }
         })
+
+
+        return binding.root
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
 
     }
@@ -129,15 +169,18 @@ class SearchAllFragment: Fragment() {
         // TODO 만약 GET 성공하면, (result.isSuccessful) 핸들러 실행
         viewModel.loadServices(token, category, sort, page)
         Log.d("봉사활동 서비스 불러오기 성공 여부", "${viewModel.isSuccessful.value}")
+
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
             if (viewModel.isSuccessful.value == true) {
                 Handler().postDelayed({
                     if (::adapter.isInitialized) {
-                        adapter = ServicesSearchRVAdapter(contextActivity as MainActivity, viewModel, viewModel.servicesList.value)
-                        binding.rvResultAll.adapter = adapter
-                        binding.rvResultAll.layoutManager = layoutManager
+//                        adapter = ServicesSearchRVAdapter(contextActivity as MainActivity, viewModel, viewModel.servicesList.value)
+//                        binding.rvResultAll.adapter = adapter
+//                        binding.rvResultAll.layoutManager = layoutManager
+                        adapter.notifyDataSetChanged()
 //                        page++
                         Log.d("봉사활동 서비스 목록", viewModel.servicesList.value.toString())
+
                     } else {
                         adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel.servicesList.value)
                         binding.rvResultAll.adapter = adapter
@@ -145,11 +188,13 @@ class SearchAllFragment: Fragment() {
                     }
                     isLoading = false
                     binding.progressAll.visibility = View.GONE
-                }, 1000)
+                }, 500)
             } else {
                 Log.d("네트워크 통신 이뤄지지 않음, 네트워크 통신 성공 여부", "${viewModel.isSuccessful.value}")
             }
         }
+
+
 
 
 //            // 어댑터가 초기화 안됐으면 초기화하고, 초기화 되어있으면 adapter.notifyDataSetChanged 호출.

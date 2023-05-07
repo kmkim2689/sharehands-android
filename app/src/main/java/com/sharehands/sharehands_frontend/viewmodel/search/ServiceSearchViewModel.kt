@@ -16,6 +16,8 @@ import retrofit2.Response
 
 class ServiceSearchViewModel: ViewModel() {
 
+    var _isInitialized = MutableLiveData<Boolean>(true)
+
     private var _serviceSum = MutableLiveData<Int>()
     val serviceSum: LiveData<Int>
         get() = _serviceSum
@@ -25,7 +27,7 @@ class ServiceSearchViewModel: ViewModel() {
         get() = _searchResult
 
     // 괄호 안에 초기화를 해야 리스트에 추가 시 오류가 안나옴
-    private var _servicesList = MutableLiveData<ArrayList<ServiceList>>(ArrayList())
+    var _servicesList = MutableLiveData<ArrayList<ServiceList>>(ArrayList())
     val servicesList: LiveData<ArrayList<ServiceList>>
         get() = _servicesList
 
@@ -33,9 +35,29 @@ class ServiceSearchViewModel: ViewModel() {
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
 
+    private var _isScrollSuccessful = MutableLiveData<Boolean>()
+    val isScrollSuccessful: LiveData<Boolean>
+        get() = _isScrollSuccessful
+
+    private var _isApplySuccessful = MutableLiveData<Boolean>()
+    val isApplySuccessful: LiveData<Boolean>
+        get() = _isApplySuccessful
+
+    private var _isCancelSuccessful = MutableLiveData<Boolean>()
+    val isCancelSuccessful: LiveData<Boolean>
+        get() = _isCancelSuccessful
+
+    private var _isClickSuccessful = MutableLiveData<Boolean>()
+    val isClickSuccessful: LiveData<Boolean>
+        get() = _isClickSuccessful
+
     private var _searchKeyword = MutableLiveData<String>()
     val searchKeyword: LiveData<String>
         get() = _searchKeyword
+
+    private var _count = MutableLiveData<Int>(0)
+    val count: LiveData<Int>
+        get() = _count
 
 
     // 검색 키워드
@@ -75,9 +97,14 @@ class ServiceSearchViewModel: ViewModel() {
                                 if (result != null) {
                                     _searchResult.value = result
                                     _serviceSum.value = result.workCounter.toInt()
+                                    Log.d("service cnt once", "${_searchResult.value!!.serviceList.size}")
+                                    Log.d("service scroll once", "${_searchResult.value!!.serviceList.last().workId}")
+
                                     for (elem in result.serviceList) {
                                         _servicesList.value!!.add(elem)
                                     }
+                                    Log.d("service count ${page}", "${result.serviceList.size}")
+
                                     Log.d("봉사활동 목록 GET 성공", "${result}")
                                     Log.d("봉사활동 전체 목록", "${servicesList.value}")
                                     _isSuccessful.value = true
@@ -107,6 +134,7 @@ class ServiceSearchViewModel: ViewModel() {
 
 
             } else {
+                Log.d("last id", "${servicesList.value?.get(servicesList.value!!.size - 1)!!.workId.toInt()}")
                 RetrofitClient.createRetorfitClient().getServicesAdditional(
                     token,
                     category,
@@ -121,26 +149,29 @@ class ServiceSearchViewModel: ViewModel() {
                         if (response.code() == 200) {
                             val result = response.body()
                             if (result != null) {
+                                Log.d("service cnt scrolled", "${_searchResult.value!!.serviceList.size}")
+                                Log.d("service scroll last", "${_searchResult.value!!.serviceList.last().workId}")
                                 _serviceSum.value = result.workCounter.toInt()
                                 for (elem in result.serviceList) {
                                     _servicesList.value!!.add(elem)
                                 }
+                                Log.d("service count ${page}", "${result.serviceList.size}")
                                 Log.d("봉사활동 목록 GET 성공", "${result}")
                                 Log.d("봉사활동 전체 목록", "${servicesList.value}")
-                                _isSuccessful.value = true
+                                _isScrollSuccessful.value = true
                             } else {
                                 Log.d("봉사뢀동 목록 GET 실패", "데이터 비어있음")
-                                _isSuccessful.value = false
+                                _isScrollSuccessful.value = false
                             }
                         } else {
                             Log.d("봉사활동 목록 GET 실패", "${response.code()}")
-                            _isSuccessful.value = false
+                            _isScrollSuccessful.value = false
                         }
                     }
 
                     override fun onFailure(call: Call<SearchResult>, t: Throwable) {
                         Log.d("봉사활동 추가 목록 GET 실패", "${t.message}")
-                        _isSuccessful.value = false
+                        _isScrollSuccessful.value = false
                     }
 
                 })
@@ -158,17 +189,17 @@ class ServiceSearchViewModel: ViewModel() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         Log.d("지원 성공", "${response.code()}")
-                        _isSuccessful.value = true
+                        _isApplySuccessful.value = true
                     } else {
                         Log.d("지원 실패", "${response.code()}")
-                        _isSuccessful.value = false
+                        _isApplySuccessful.value = false
                     }
 
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.d("지원 실패", "${t.message}")
-                    _isSuccessful.value = false
+                    _isApplySuccessful.value = false
                 }
 
             })
@@ -181,18 +212,21 @@ class ServiceSearchViewModel: ViewModel() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         Log.d("지원 취소 성공", "${response.code()}")
-                        _isSuccessful.value = true
+                        _isCancelSuccessful.value = true
                     } else {
                         Log.d("지원 취소 실패", "${response.code()}")
-                        _isSuccessful.value = false
+                        _isCancelSuccessful.value = false
                     }
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.d("지원 취소 실패", "${t.message}")
-                    _isSuccessful.value = false
+                    _isCancelSuccessful.value = false
                 }
 
             })
+    }
+
+    fun deleteAll() {
     }
 }
