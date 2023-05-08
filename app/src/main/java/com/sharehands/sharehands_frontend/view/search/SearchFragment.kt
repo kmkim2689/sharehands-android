@@ -36,7 +36,11 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchViewModel::class.java)
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val viewPager: ViewPager2 = binding.viewpagerService
         val tabLayout = binding.layoutServiceTab
         val orderSpinner = binding.spinnerServiceCategory
@@ -130,13 +134,6 @@ class SearchFragment : Fragment() {
                 Snackbar.make(requireView(), "2글자 이상 입력해주세요.", Snackbar.LENGTH_SHORT).show()
             }
         }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onResume() {

@@ -76,9 +76,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="24dp"
+                            android:inputType="text"
                             android:textSize="16sp"
+                            android:textColor="@color/text_color"
                             android:background="@null"
                             android:layout_weight="20"
+                            android:onTextChanged="@{(s, start, before, count) -> viewModel.onSearchKeywordChanged(s, start, before, count)}"
                             />
 
                         <ImageView
@@ -110,25 +113,41 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="총 x건의 봉사가 있어요."
+                android:text="@{`총 ` + viewModel.serviceSum + `건의 봉사가 있습니다.`}"
                 android:textColor="@color/sharehands_green_strong"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="24dp"
-                android:layout_marginStart="24dp"/>'
+                android:layout_marginStart="24dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_result_result"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/tv_total_result"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_result"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progress_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

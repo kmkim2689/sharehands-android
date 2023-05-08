@@ -194,19 +194,6 @@ class SearchAllFragment: Fragment() {
             }
         }
 
-
-
-
-//            // 어댑터가 초기화 안됐으면 초기화하고, 초기화 되어있으면 adapter.notifyDataSetChanged 호출.
-
     }
-//    private fun showSnackbar(text: String) {
-//        val snackbar = Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG)
-//            .setAction("로그인") {
-//                val intent = Intent(requireContext(), SocialLoginActivity::class.java)
-//                startActivity(intent)
-//                MainActivity().finish()
-//            }
-//        snackbar.show()
-//    }
+
 }

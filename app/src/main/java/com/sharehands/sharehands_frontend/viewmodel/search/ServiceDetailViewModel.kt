@@ -258,4 +258,5 @@ class ServiceDetailViewModel:ViewModel() {
                 }
             })
     }
+
 }

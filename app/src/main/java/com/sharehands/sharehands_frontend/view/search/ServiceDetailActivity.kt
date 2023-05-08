@@ -21,8 +21,10 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServiceImageVPAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityServiceDetailBinding
@@ -53,9 +55,6 @@ class ServiceDetailActivity:AppCompatActivity() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
-
-
 
         val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
         // TODO serviceId(workId) 몇 번부터 시작하는지 알아내기
@@ -118,6 +117,9 @@ class ServiceDetailActivity:AppCompatActivity() {
                         photoList
                     )
                     viewPager.adapter = viewPagerAdapter
+                    TabLayoutMediator(binding.tabLayout, viewPager)  { tab, position ->
+                        viewPager.setCurrentItem(tab.position)
+                    }.attach()
                 }
 
 
@@ -125,6 +127,7 @@ class ServiceDetailActivity:AppCompatActivity() {
                     .load(viewModel.contents.value?.profileUrl.toString())
                     .into(binding.ivUserProfile)
             }
+
 
 
 //            RetrofitClient.createRetorfitClient().getService(token, serviceId)
@@ -154,6 +157,8 @@ class ServiceDetailActivity:AppCompatActivity() {
 //                })
 
         }
+
+
 
         binding.layoutUserProfile.setOnClickListener {
             viewModel.getProfile(token, viewModel.contents.value?.userId!!.toInt())
@@ -315,18 +320,11 @@ class ServiceDetailActivity:AppCompatActivity() {
         return Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_SHORT)
     }
 
-
-
-
-
-
-
 }
 
 class ProfileDialog(private val context: AppCompatActivity) {
     private val dialog = Dialog(context)
-    private lateinit var binding: DialogProfileBinding
-
+    private var binding: DialogProfileBinding
 
     init {
         binding = DialogProfileBinding.inflate(LayoutInflater.from(context.applicationContext))

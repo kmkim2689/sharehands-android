@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sharehands.sharehands_frontend.view.search.ServiceImageFragment
+import com.sharehands.sharehands_frontend.viewmodel.search.ServiceDetailViewModel
 
 class ServiceImageVPAdapter(fragmentActivity: FragmentActivity, private val imageUrls: List<String>?)
     :FragmentStateAdapter(fragmentActivity) {
@@ -20,8 +21,10 @@ class ServiceImageVPAdapter(fragmentActivity: FragmentActivity, private val imag
         if (position < 0 || position >= imageUrls!!.size) {
             throw IllegalArgumentException("Invalid position $position")
         }
+
         return ServiceImageFragment(imageUrls[position]!!)
     }
+
 
 
 }
