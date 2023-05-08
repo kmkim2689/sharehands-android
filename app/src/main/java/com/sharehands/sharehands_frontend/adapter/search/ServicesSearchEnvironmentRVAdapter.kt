@@ -19,14 +19,14 @@ import com.sharehands.sharehands_frontend.network.search.ServiceList
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
-import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
+import com.sharehands.sharehands_frontend.viewmodel.search.*
 import retrofit2.Call
 import javax.security.auth.callback.Callback
 
-class ServicesSearchRVAdapter(private val context: MainActivity?, private val viewModel: ServiceSearchViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchRVAdapter.ServicesSearchViewHolder>() {
+class ServicesSearchEnvironmentRVAdapter(private val context: MainActivity?, private val viewModel: ServiceSearchEnvironmentViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchEnvironmentRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchViewModel) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchEnvironmentViewModel) {
             val token = SharedPreferencesManager.getInstance(context)
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick

@@ -7,3 +7,8 @@
       android:pathData="M10,0L78,0A10,10 0,0 1,88 10L88,78A10,10 0,0 1,78 88L10,88A10,10 0,0 1,0 78L0,10A10,10 0,0 1,10 0z"
       android:fillColor="#F2F3F9"/>
 </vector>
+<!--<item android:bottom="1.5dp">-->
+<!--  <shape android:shape="rectangle">-->
+<!--    <solid android:color="@color/item_color" />-->
+<!--  </shape>-->
+<!--</item>-->

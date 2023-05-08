@@ -98,7 +98,7 @@ class ServiceDetailActivity:AppCompatActivity() {
                 )
             )
             progressDialog.dismiss()
-        }, 1000)
+        }, 500)
 
 
         // 네트워크 통신 성공 시, 마지막에 progressDialog.dismiss() 코드 추가할것

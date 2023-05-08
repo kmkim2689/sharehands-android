@@ -26,18 +26,17 @@ import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
 
-class SearchAllFragment: Fragment() {
-    private lateinit var binding: FragmentSearchAllBinding
+open class SearchAllFragment: Fragment() {
+    lateinit var binding: FragmentSearchAllBinding
     private lateinit var adapter: ServicesSearchRVAdapter
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var viewModel: ServiceSearchViewModel
     private var sort = 1
     private val category = 1
-    var itemCount = 0
     // 페이지 초기화
-    var page = 1
+    private var page = 1
     // 네트워크 통신중 여부
-    var isLoading = false
+    private var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
