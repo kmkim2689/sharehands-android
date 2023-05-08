@@ -56,6 +56,7 @@ class AppliedServiceActivity: AppCompatActivity() {
         viewModel.isAppliedServiceSuccessful.observe(this) {
             Log.d("봉사활동 서비스 불러오기 성공 여부", "${viewModel.isAppliedServiceSuccessful.value}")
             if (viewModel.isAppliedServiceSuccessful.value == true) {
+                binding.tvTotalApplied.text = "총 ${viewModel.appliedNum.value}개의 봉사에 지원했습니다."
                 Handler().postDelayed({
                     if (::adapter.isInitialized) {
 //                        adapter = ServicesSearchRVAdapter(contextActivity as MainActivity, viewModel, viewModel.servicesList.value)

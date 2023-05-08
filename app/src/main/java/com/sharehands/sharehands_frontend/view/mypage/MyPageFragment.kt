@@ -53,6 +53,12 @@ class MyPageFragment : Fragment() {
 //        binding.rvMgtService.adapter = myPageServiceRVAdapter
 //        binding.rvMgtService.layoutManager = LinearLayoutManager(requireContext() as MainActivity, LinearLayoutManager.HORIZONTAL, false)
 
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         val loginIntent = Intent(requireContext(), SocialLoginActivity::class.java)
         val userInfoIntent = Intent(requireContext(), UserInfoActivity::class.java)
 
@@ -169,7 +175,6 @@ class MyPageFragment : Fragment() {
             val withdrawIntent = Intent(requireContext(), WithdrawActivity::class.java)
             startActivity(withdrawIntent)
         }
-
     }
 
 

@@ -787,7 +787,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="이름, 생년월일 변경은  "
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/icon_unfilled" />
 
                     <TextView
@@ -796,7 +796,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/contact"
                         android:textColor="@color/sharehands_green_strong"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         />
 
@@ -804,7 +804,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" 에서 신청 가능합니다."
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/icon_unfilled"/>
                 </LinearLayout>
 
@@ -815,7 +815,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_ref1"
                     app:layout_constraintStart_toStartOf="@id/iv_level"
                     app:layout_constraintEnd_toEndOf="@id/progress_bar_rating"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textColor="@color/icon_unfilled"
                     android:text="운영자를 통해 본인인증을 거친 후 변경 가능합니다."
                     android:layout_marginTop="6dp"

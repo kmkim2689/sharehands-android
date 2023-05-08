@@ -12,8 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ServiceMgtViewModel: ViewModel() {
-    private var _recruitedNum = MutableLiveData<Int>()
-    val recruitedNum: LiveData<Int>
+    private var _recruitedNum = MutableLiveData<String>()
+    val recruitedNum: LiveData<String>
         get() = _recruitedNum
 
     private var _recruitedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
@@ -24,8 +24,8 @@ class ServiceMgtViewModel: ViewModel() {
     val isRecruitedSuccessful: LiveData<Boolean>
         get() = _isRecruitedSuccessful
 
-    private var _appliedNum = MutableLiveData<Int>()
-    val appliedNum: LiveData<Int>
+    private var _appliedNum = MutableLiveData<String>()
+    val appliedNum: LiveData<String>
         get() = _appliedNum
 
     private var _appliedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
@@ -36,8 +36,8 @@ class ServiceMgtViewModel: ViewModel() {
     val isAppliedServiceSuccessful: LiveData<Boolean>
         get() = _isAppliedServiceSuccessful
 
-    private var _completedNum = MutableLiveData<Int>()
-    val completedNum: LiveData<Int>
+    private var _completedNum = MutableLiveData<String>()
+    val completedNum: LiveData<String>
         get() = _completedNum
 
     private var _completedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
@@ -72,7 +72,7 @@ class ServiceMgtViewModel: ViewModel() {
                         Log.d("모집한 봉사 호출 성공", "${response.body()}")
                         val result = response.body()
                         if (result != null) {
-                            _recruitedNum.value = result.serviceCounter.toInt()
+                            _recruitedNum.value = result.serviceCounter.toString()
                             if (result.serviceList.isNotEmpty()) {
                                 for (elem in result.serviceList) {
                                     _recruitedServices.value!!.add(elem)
@@ -109,7 +109,8 @@ class ServiceMgtViewModel: ViewModel() {
                         Log.d("지원한 봉사 호출 성공", "${response.body()}")
                         val result = response.body()
                         if (result != null) {
-                            _appliedNum.value = result.serviceCounter.toInt()
+                            _appliedNum.value = result.serviceCounter.toString()
+                            Log.d("완료 개수", "${appliedNum.value}")
                             if (result.serviceList.isNotEmpty()) {
                                 for (elem in result.serviceList) {
                                     Log.d("추가됨", "${elem}")
@@ -147,7 +148,8 @@ class ServiceMgtViewModel: ViewModel() {
                         Log.d("완료한 봉사 호출 성공", "${response.body()}")
                         val result = response.body()
                         if (result != null) {
-                            _completedNum.value = result.serviceCounter.toInt()
+                            _completedNum.value = result.serviceCounter.toString()
+                            Log.d("완료 개수", "${completedNum.value}")
                             if (result.serviceList.isNotEmpty()) {
                                 for (elem in result.serviceList) {
                                     _completedServices.value!!.add(elem)

@@ -17,5 +17,6 @@ data class ServiceList(
     @SerializedName ("location") val location: String,
     @SerializedName ("maxNum") val maxNum: String,
     @SerializedName ("date") val date: String,
-    @SerializedName ("dow") val dow: String
+    @SerializedName ("dow") val dow: String,
+    @SerializedName("isAuthor") val isAuthor: Boolean
 )

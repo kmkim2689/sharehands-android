@@ -71,7 +71,7 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                         btnApply.visibility = View.VISIBLE
                         btnCancel.visibility = View.GONE
                         val intent = Intent(context, AppliedServiceActivity::class.java)
-                        context.finish()
+                        (context as AppliedServiceActivity).finish()
                         context.startActivity(intent)
 //                        val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
 //

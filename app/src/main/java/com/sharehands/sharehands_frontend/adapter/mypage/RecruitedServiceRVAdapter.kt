@@ -35,10 +35,7 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                 val recruitBtn = binding.ivGotoRecruit
                 val deleteBtn = binding.ivDeleteRecruit
 
-                // TODO int로 보내야하는가?
                 val serviceId = current.serviceId.toInt()
-                // 스낵바 띄울 액티비티
-                val activity = (context as RecruitedServiceActivity).findViewById<ConstraintLayout>(R.id.layout_main_activity)
 
                 Glide.with(context)
                     .load(current.imageUrl)
@@ -68,15 +65,11 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                     if (viewModel.isDeleteSuccessful.value == true) {
                         Log.d("success", "true")
                         val intent = Intent(RecruitedServiceActivity(), RecruitedServiceActivity::class.java)
-                        RecruitedServiceActivity().finish()
-                        RecruitedServiceActivity().startActivity(intent)
-//                        val snackbarCancelSuccess = Snackbar.make(activity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
-//
-//                        snackbarCancelSuccess.show()
+                        (context as RecruitedServiceActivity).finish()
+                        context.startActivity(intent)
+
                     } else {
-//                        Log.d("success", "false")
-//                        val snackbarCancelFail = Snackbar.make(activity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
-//                        snackbarCancelFail.show()
+
                     }
                 }
 

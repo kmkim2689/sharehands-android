@@ -60,12 +60,20 @@ class ServicesSearchCultureRVAdapter(private val context: MainActivity?, private
             val isApplied = current.userApplied
             Log.d("isApplied", "${isApplied}")
 
-            if (isApplied) {
+
+
+            val isAuthor = current.isAuthor
+            if (isAuthor) {
                 btnApply.visibility = View.GONE
-                btnCancel.visibility = View.VISIBLE
-            } else {
-                btnApply.visibility = View.VISIBLE
                 btnCancel.visibility = View.GONE
+            } else {
+                if (isApplied) {
+                    btnApply.visibility = View.GONE
+                    btnCancel.visibility = View.VISIBLE
+                } else {
+                    btnApply.visibility = View.VISIBLE
+                    btnCancel.visibility = View.GONE
+                }
             }
 
 //            // TODO 봉사활동 클릭 이벤트 설정하기

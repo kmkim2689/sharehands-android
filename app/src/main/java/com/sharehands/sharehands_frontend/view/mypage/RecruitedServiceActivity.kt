@@ -57,6 +57,7 @@ class RecruitedServiceActivity: AppCompatActivity() {
         Log.d("봉사활동 서비스 불러오기 성공 여부", "${viewModel.isRecruitedSuccessful.value}")
 
         viewModel.isRecruitedSuccessful.observe(this) {
+            binding.tvTotalRecruited.text = "총 ${viewModel.recruitedNum.value}개의 봉사를 모집했습니다."
             if (viewModel.isRecruitedSuccessful.value == true) {
                 Handler().postDelayed({
                     if (::adapter.isInitialized) {

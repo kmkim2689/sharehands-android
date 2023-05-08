@@ -58,13 +58,20 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
             val isApplied = current.userApplied
             Log.d("isApplied", "${isApplied}")
 
-            if (isApplied) {
+            val isAuthor = current.isAuthor
+            if (isAuthor) {
                 btnApply.visibility = View.GONE
-                btnCancel.visibility = View.VISIBLE
-            } else {
-                btnApply.visibility = View.VISIBLE
                 btnCancel.visibility = View.GONE
+            } else {
+                if (isApplied) {
+                    btnApply.visibility = View.GONE
+                    btnCancel.visibility = View.VISIBLE
+                } else {
+                    btnApply.visibility = View.VISIBLE
+                    btnCancel.visibility = View.GONE
+                }
             }
+
 
 //            // TODO 봉사활동 클릭 이벤트 설정하기
             btnApply.setOnClickListener {
@@ -73,9 +80,9 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
                     Log.d("success", "true")
                     btnApply.visibility = View.GONE
                     btnCancel.visibility = View.VISIBLE
-//                    val intent = Intent(context, MainActivity::class.java)
+//                    val intent = Intent(itemView.context, MainActivity::class.java)
 //                    (context as MainActivity).finish()
-//                    (context as MainActivity).startActivity(intent)
+//                    (itemView.context).startActivity(intent)
                     val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
                     snackbarApplySuccess.show()
                 } else {
