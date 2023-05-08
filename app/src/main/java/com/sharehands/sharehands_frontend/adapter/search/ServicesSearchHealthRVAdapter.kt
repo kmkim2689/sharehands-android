@@ -76,9 +76,9 @@ class ServicesSearchHealthRVAdapter(private val context: MainActivity?, private 
                     Log.d("success", "true")
                     btnApply.visibility = View.GONE
                     btnCancel.visibility = View.VISIBLE
-                    val intent = Intent(context, MainActivity::class.java)
-                    (context as MainActivity).finish()
-                    (context as MainActivity).startActivity(intent)
+//                    val intent = Intent(context, MainActivity::class.java)
+//                    (context as MainActivity).finish()
+//                    (context as MainActivity).startActivity(intent)
                     val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
                     snackbarApplySuccess.show()
                 } else {
@@ -95,9 +95,9 @@ class ServicesSearchHealthRVAdapter(private val context: MainActivity?, private 
                     Log.d("success", "true")
                     btnApply.visibility = View.VISIBLE
                     btnCancel.visibility = View.GONE
-                    val intent = Intent(context, MainActivity::class.java)
-                    (context as MainActivity).finish()
-                    (context as MainActivity).startActivity(intent)
+//                    val intent = Intent(context, MainActivity::class.java)
+//                    (context as MainActivity).finish()
+//                    (context as MainActivity).startActivity(intent)
                     val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
                     snackbarCancelSuccess.show()
                 } else {

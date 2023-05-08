@@ -391,7 +391,7 @@ class ServiceUploadViewModel(): ViewModel() {
                         "\"area\":\"${area.value!!}\"," +
                         "\"startDate\":\"${startDate.value!!}\"," +
                         "\"endDate\":\"${endDate.value!!}\"," +
-                        "\"DOW\":\"${dow}\"," +
+                        "\"dow\":\"${dow}\"," +
                         "\"startTime\":\"${startTime.value!!}\"," +
                         "\"endTime\":\"${endTime.value!!}\"," +
                         "\"recruitNum\":\"${maxNum.value!!}\"," +

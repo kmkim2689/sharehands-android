@@ -118,14 +118,14 @@
 
         <TextView
             android:id="@+id/tv_preview_period"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="2023.01.01 ~ 2023. 01.01"
             android:maxLength="24"
             android:textSize="11sp"
             android:textStyle="bold"
             android:textColor="@color/text_color"
-            android:maxLines="1"
+            android:maxLines="2"
             android:ellipsize="end"
             android:layout_marginStart="8dp"
             android:gravity="start"
@@ -133,6 +133,8 @@
             app:layout_constraintStart_toEndOf="@id/iv_preview_period"
             app:layout_constraintTop_toTopOf="@id/iv_preview_location"
             app:layout_constraintBottom_toBottomOf="@id/iv_preview_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
             />
 
 
@@ -142,7 +144,7 @@
                 android:layout_height="16dp"
                 android:src="@drawable/ic_people"
                 android:layout_gravity="start"
-                app:layout_constraintTop_toBottomOf="@id/iv_preview_location"
+                app:layout_constraintTop_toBottomOf="@id/tv_preview_location"
                 app:layout_constraintStart_toStartOf="@id/iv_preview_location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="6dp"

@@ -41,6 +41,13 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // 글쓰기 완료 시 바로 반영 하려면 onResume에 넣음
         val viewPager: ViewPager2 = binding.viewpagerService
         val tabLayout = binding.layoutServiceTab
         val orderSpinner = binding.spinnerServiceCategory
@@ -134,10 +141,6 @@ class SearchFragment : Fragment() {
                 Snackbar.make(requireView(), "2글자 이상 입력해주세요.", Snackbar.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
     }
 

@@ -54,6 +54,15 @@ open class SearchAllFragment: Fragment() {
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
 
+        return binding.root
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("on", "viewcreated")
+
         // Fragment 왔다갔다 했을 때 오류뜨는 이슈 및 중복해서 나타나는 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
 
@@ -143,20 +152,13 @@ open class SearchAllFragment: Fragment() {
         })
 
 
-        return binding.root
-
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
 
 
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d("on", "resume")
 
     }
 
@@ -187,7 +189,7 @@ open class SearchAllFragment: Fragment() {
                     }
                     isLoading = false
                     binding.progressAll.visibility = View.GONE
-                }, 500)
+                }, 200)
             } else {
                 Log.d("네트워크 통신 이뤄지지 않음, 네트워크 통신 성공 여부", "${viewModel.isSuccessful.value}")
             }

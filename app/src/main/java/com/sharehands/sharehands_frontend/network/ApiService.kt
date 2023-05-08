@@ -213,20 +213,33 @@ interface ApiService {
     ): Call<Void>
 
     // 모집한 봉사
-    @POST("/my-page/recruit-list")
+    @GET("/my-page/recruit-list")
     fun getRecruitList(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
     ): Call<RecruitedServices>
 
     // 지원한 봉사
-    @POST("/my-page/apply-list")
+    @GET("/my-page/apply-list")
     fun getAppliedList(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
     ): Call<RecruitedServices>
 
     // 완료한 봉사
-//    @POST("/my-page/participate-list")
-//    fun getCompleteList(
-//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
-//    ): Call<CompletedServices>
+    @GET("/my-page/participate-list")
+    fun getCompleteList(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<RecruitedServices>
+
+    // 모집글 삭제
+    @POST("/service/delete/{workId}")
+    fun deleteService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Path("workId") workId: Long
+    ): Call<Void>
+
+    // 회원탈퇴
+    @POST("/my-page/withdraw")
+    fun withdraw(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<Void>
 }

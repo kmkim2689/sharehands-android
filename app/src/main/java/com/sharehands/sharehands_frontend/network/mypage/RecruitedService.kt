@@ -17,14 +17,18 @@ data class RecruitedService(
     val imageUrl: String,
     @SerializedName("location")
     val location: String,
-    @SerializedName("nickName")
+    @SerializedName("nickname")
     val nickName: String,
     @SerializedName("profileUrl")
     val profileUrl: String,
     @SerializedName("workId")
-    val serviceId: Int,
+    val serviceId: Long,
     @SerializedName("serviceName")
     val serviceName: String,
     @SerializedName("userApplied")
-    val userApplied: Boolean
+    val userApplied: Boolean,
+    @SerializedName("maxNum")
+    val maxNum: Long,
+    @SerializedName("dow")
+    val dow: String,
 )
