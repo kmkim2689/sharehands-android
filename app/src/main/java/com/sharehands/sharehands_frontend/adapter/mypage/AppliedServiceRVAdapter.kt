@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -36,7 +37,7 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                 // TODO int로 보내야하는가?
                 val serviceId = current.serviceId.toInt()
                 // 스낵바 띄울 액티비티
-                val activity = (context as AppliedServiceActivity).findViewById<ConstraintLayout>(R.id.layout_main_activity)
+                val view = (context as AppliedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_applied)
 
                 Glide.with(context)
                     .load(current.imageUrl)
@@ -66,21 +67,26 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
 
                 btnCancel.setOnClickListener {
                     viewModel.cancelService(token, serviceId)
-                    if (viewModel.isCancelSuccessful.value == true) {
-                        Log.d("success", "true")
-                        btnApply.visibility = View.VISIBLE
-                        btnCancel.visibility = View.GONE
-                        val intent = Intent(context, AppliedServiceActivity::class.java)
-                        (context as AppliedServiceActivity).finish()
-                        context.startActivity(intent)
-//                        val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
-//
-//                        snackbarCancelSuccess.show()
-                    } else {
-                        Log.d("success", "false")
-//                        val snackbarCancelFail = Snackbar.make(mainActivity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
-//                        snackbarCancelFail.show()
+                    // 데이터를 관찰하는 코드를 넣어주어야 삭제가 제대로 반영됨
+                    viewModel.isCancelSuccessful.observe(context as AppliedServiceActivity) {
+                        if (viewModel.isCancelSuccessful.value == true) {
+                            try {
+                                Log.d("success", "true")
+                                servicesList?.remove(current)
+                                notifyItemRemoved(adapterPosition)
+                                notifyItemRangeChanged(adapterPosition, servicesList!!.size)
+                                Snackbar.make(view, "봉사활동 지원을 취소하였습니다.", 1000).show()
+                            } catch (e: Exception) {
+                                Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()
+                            }
+
+                        } else {
+                            Log.d("success", "false")
+                            Snackbar.make(view, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", 1000).show()
+
+                        }
                     }
+
                 }
 
                 itemView.setOnClickListener {

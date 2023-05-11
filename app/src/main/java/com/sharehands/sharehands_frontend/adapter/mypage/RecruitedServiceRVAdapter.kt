@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -56,20 +57,31 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                 binding.tvRecruitPeople.text = "${current.maxNum}명"
                 binding.tvRecruitDay.text = current.dow
 
+                val view = (context as RecruitedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_recruit)
+
                 val isApplied = current.userApplied
                 Log.d("isApplied", "${isApplied}")
 
 
                 deleteBtn.setOnClickListener {
                     viewModel.deleteService(token, serviceId)
-                    if (viewModel.isDeleteSuccessful.value == true) {
-                        Log.d("success", "true")
-                        val intent = Intent(RecruitedServiceActivity(), RecruitedServiceActivity::class.java)
-                        (context as RecruitedServiceActivity).finish()
-                        context.startActivity(intent)
+                    viewModel.isDeleteSuccessful.observe(context as RecruitedServiceActivity) {
+                        if (viewModel.isDeleteSuccessful.value == true) {
+                            Log.d("success", "true")
+                            try {
+                                // 이렇게 해야 오류가 안남
+                                servicesList?.remove(current)
+                                notifyItemRemoved(adapterPosition)
+                                notifyItemRangeChanged(adapterPosition, servicesList!!.size)
+                                Snackbar.make(view, "봉사활동을 삭제하였습니다.", 1000).show()
+                            } catch (e: Exception) {
+                                Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()
+                            }
 
-                    } else {
 
+                        } else {
+                            Snackbar.make(view, "네트워크 상 오류가 발생하였습니다. 다시 시도해주세요", 1000).show()
+                        }
                     }
                 }
 

@@ -82,7 +82,7 @@ class ServiceDetailActivity:AppCompatActivity() {
 
 
 
-        val progressDialog = ProgressDialog(this)
+        val progressDialog = ProgressDialog(this, "콘텐츠 로드 중")
         progressDialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         progressDialog.setCancelable(false)
         progressDialog.show()
@@ -317,7 +317,7 @@ class ServiceDetailActivity:AppCompatActivity() {
 
 
     fun makeSnackbar(text: String): Snackbar {
-        return Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_SHORT)
+        return Snackbar.make(binding.coordinatorLayout, text, 1000)
     }
 
 }

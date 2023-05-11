@@ -5,16 +5,24 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ItemServiceParticipatedBinding
 import com.sharehands.sharehands_frontend.databinding.ItemServiceScrapBinding
+import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.mypage.RecruitedService
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.mypage.ParticipatedServiceActivity
 import com.sharehands.sharehands_frontend.view.mypage.ScrapedServiceActivity
 import com.sharehands.sharehands_frontend.view.search.ReviewWriteActivity
 import com.sharehands.sharehands_frontend.viewmodel.mypage.ServiceMgtViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, private val viewModel: ServiceMgtViewModel,
                               private val servicesList: ArrayList<RecruitedService?>?)
@@ -45,8 +53,30 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
                     binding.tvPreviewPeople.text = "${current.maxNum}명"
                     binding.tvPreviewDay.text = current.dow
 
+                    val view = (context as ScrapedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_scrap)
+
                     cancelBtn.setOnClickListener {
                         // 스크랩 취소 api
+                        viewModel.cancelScrap(token, serviceId)
+                        viewModel.isScrapCancelSuccessful.observe(context as ScrapedServiceActivity) {
+                            if (viewModel.isScrapCancelSuccessful.value == true) {
+                                try {
+                                    // 이렇게 해야 삭제 시 오류가 나지 않음
+                                    servicesList?.remove(current)
+                                    notifyItemRemoved(adapterPosition)
+                                    notifyItemRangeChanged(adapterPosition, servicesList!!.size)
+                                    Log.d("스크랩 취소", "성공")
+                                    Snackbar.make(view, "스크랩을 취소하였습니다.", 1000).show()
+                                } catch (e: Exception) {
+                                    Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()
+                                }
+
+                            } else {
+                                Log.d("스크랩 취소", "실패")
+                                Snackbar.make(view, "스크랩을 취소할 수 없습니다.", 1000).show()
+                            }
+                        }
+
                     }
                 }
             }

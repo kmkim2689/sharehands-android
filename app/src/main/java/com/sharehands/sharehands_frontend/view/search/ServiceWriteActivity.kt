@@ -47,6 +47,7 @@ import com.sharehands.sharehands_frontend.network.search.location.KakaoMapApiSer
 import com.sharehands.sharehands_frontend.network.search.location.KakaoMapClient
 import com.sharehands.sharehands_frontend.network.search.location.KakaoMapData
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
+import com.sharehands.sharehands_frontend.view.ProgressDialog
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceUploadViewModel
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -432,6 +433,11 @@ class ServiceWriteActivity: AppCompatActivity() {
         }
 
         binding.btnSubmitActive.setOnClickListener {
+            val progressDialog = ProgressDialog(this, "업로드 중")
+            progressDialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            progressDialog.setCancelable(false)
+            progressDialog.show()
+
             val token = SharedPreferencesManager.getInstance(this)
                 .getString("token", "null")
 
@@ -439,6 +445,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                 viewModel.upload(token)
                 viewModel.isSuccessful.observe(this) {
                     if (viewModel.isSuccessful.value == true) {
+                        progressDialog.dismiss()
                         Log.d("게시글 작성 완료", "${viewModel.isSuccessful.value}")
                         showSnackbar("게시글 작성이 완료되었습니다.")
                         finish()

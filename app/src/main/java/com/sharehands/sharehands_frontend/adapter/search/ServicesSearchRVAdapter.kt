@@ -76,39 +76,40 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
 //            // TODO 봉사활동 클릭 이벤트 설정하기
             btnApply.setOnClickListener {
                 viewModel.applyService(token, serviceId)
-                if (viewModel.isApplySuccessful.value == true) {
-                    Log.d("success", "true")
-                    btnApply.visibility = View.GONE
-                    btnCancel.visibility = View.VISIBLE
-//                    val intent = Intent(itemView.context, MainActivity::class.java)
-//                    (context as MainActivity).finish()
-//                    (itemView.context).startActivity(intent)
-                    val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
-                    snackbarApplySuccess.show()
-                } else {
-                    Log.d("success", "false")
-                    val snackbarApplyFail = Snackbar.make(mainActivity, "네트워크 문제로 지원에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
-                    snackbarApplyFail.show()
+                viewModel.isApplySuccessful.observe(context as MainActivity) {
+                    if (viewModel.isApplySuccessful.value == true) {
+                        Log.d("success", "true")
+                        btnApply.visibility = View.GONE
+                        btnCancel.visibility = View.VISIBLE
+                        val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
+                        snackbarApplySuccess.show()
+                    } else {
+                        Log.d("success", "false")
+                        val snackbarApplyFail = Snackbar.make(mainActivity, "네트워크 문제로 지원에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                        snackbarApplyFail.show()
+                    }
                 }
+
 
             }
 
             btnCancel.setOnClickListener {
                 viewModel.cancelService(token, serviceId)
-                if (viewModel.isCancelSuccessful.value == true) {
-                    Log.d("success", "true")
-                    btnApply.visibility = View.VISIBLE
-                    btnCancel.visibility = View.GONE
-//                    val intent = Intent(context, MainActivity::class.java)
-//                    (context as MainActivity).finish()
-//                    (context as MainActivity).startActivity(intent)
-                    val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
-                    snackbarCancelSuccess.show()
-                } else {
-                    Log.d("success", "false")
-                    val snackbarCancelFail = Snackbar.make(mainActivity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
-                    snackbarCancelFail.show()
+                viewModel.isCancelSuccessful.observe(context as MainActivity) {
+                    if (viewModel.isCancelSuccessful.value == true) {
+                        Log.d("success", "true")
+                        btnApply.visibility = View.VISIBLE
+                        btnCancel.visibility = View.GONE
+
+                        val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
+                        snackbarCancelSuccess.show()
+                    } else {
+                        Log.d("success", "false")
+                        val snackbarCancelFail = Snackbar.make(mainActivity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                        snackbarCancelFail.show()
+                    }
                 }
+
             }
 
             itemView.setOnClickListener {

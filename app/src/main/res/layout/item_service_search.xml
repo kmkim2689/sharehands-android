@@ -120,7 +120,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="2023.01.01 ~ 2023. 01.01"
-            android:maxLength="24"
+            android:maxLength="30"
             android:textSize="11sp"
             android:textStyle="bold"
             android:textColor="@color/text_color"
@@ -133,7 +133,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_preview_location"
             app:layout_constraintBottom_toBottomOf="@id/iv_preview_location"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="12dp"
             />
 
 

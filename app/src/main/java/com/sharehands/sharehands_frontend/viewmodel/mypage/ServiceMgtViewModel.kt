@@ -20,7 +20,7 @@ class ServiceMgtViewModel: ViewModel() {
     val recruitedNum: LiveData<String>
         get() = _recruitedNum
 
-    private var _recruitedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
+    var _recruitedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
     val recruitedServices: LiveData<ArrayList<RecruitedService>>
         get() = _recruitedServices
 
@@ -32,7 +32,7 @@ class ServiceMgtViewModel: ViewModel() {
     val appliedNum: LiveData<String>
         get() = _appliedNum
 
-    private var _appliedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
+    var _appliedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
     val appliedServices: LiveData<ArrayList<RecruitedService>>
         get() = _appliedServices
 
@@ -68,7 +68,7 @@ class ServiceMgtViewModel: ViewModel() {
     val scrapedResult: LiveData<ScrapedServices>
         get() = _scrapedResult
 
-    private var _scrapedServices = MutableLiveData<ArrayList<RecruitedService?>>( ArrayList() )
+    var _scrapedServices = MutableLiveData<ArrayList<RecruitedService?>>( ArrayList() )
     val scrapedServices: LiveData<ArrayList<RecruitedService?>>
         get() = _scrapedServices
 
@@ -87,6 +87,10 @@ class ServiceMgtViewModel: ViewModel() {
     private var _isCancelSuccessful = MutableLiveData<Boolean>()
     val isCancelSuccessful: LiveData<Boolean>
         get() = _isCancelSuccessful
+
+    private var _isScrapCancelSuccessful = MutableLiveData<Boolean>()
+    val isScrapCancelSuccessful: LiveData<Boolean>
+        get() = _isScrapCancelSuccessful
 
     // 모집한봉사
     fun getRecruitedList(token: String) {
@@ -359,6 +363,25 @@ class ServiceMgtViewModel: ViewModel() {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.d("봉사활동 삭제 실패", "${t.message}")
                     _isDeleteSuccessful.value = false
+                }
+
+            })
+    }
+
+    fun cancelScrap(token: String, serviceId: Int) {
+        RetrofitClient.createRetorfitClient().cancelScrap(token, serviceId.toLong())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(
+                    call: Call<Void>,
+                    response: Response<Void>
+                ) {
+                    Log.d("스크랩 취소 성공", "${response.code()}")
+                    _isScrapCancelSuccessful.value = true
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("스크랩 취소 실패", "${t.message}")
+                    _isScrapCancelSuccessful.value = false
                 }
 
             })

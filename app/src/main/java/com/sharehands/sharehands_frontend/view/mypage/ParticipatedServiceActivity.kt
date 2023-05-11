@@ -14,6 +14,7 @@ import com.sharehands.sharehands_frontend.databinding.ActivityParticipatedServic
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.viewmodel.mypage.ServiceMgtViewModel
 
+// TODO 무한스크롤 구현하기
 class ParticipatedServiceActivity: AppCompatActivity() {
     private lateinit var binding: ActivityParticipatedServiceBinding
     private lateinit var viewModel: ServiceMgtViewModel
