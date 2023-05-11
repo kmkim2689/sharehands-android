@@ -2,10 +2,7 @@ package com.sharehands.sharehands_frontend.network
 
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
-import com.sharehands.sharehands_frontend.network.mypage.MyPageDetail
-import com.sharehands.sharehands_frontend.network.mypage.MyPageInitial
-import com.sharehands.sharehands_frontend.network.mypage.RecruitedService
-import com.sharehands.sharehands_frontend.network.mypage.RecruitedServices
+import com.sharehands.sharehands_frontend.network.mypage.*
 import com.sharehands.sharehands_frontend.network.search.*
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
@@ -218,17 +215,51 @@ interface ApiService {
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
     ): Call<RecruitedServices>
 
+    // 모집한 봉사 - 스크롤
+    @GET("/my-page/recruit-list")
+    fun getRecruitListAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("last") last: Int
+    ): Call<RecruitedServices>
+
     // 지원한 봉사
     @GET("/my-page/apply-list")
     fun getAppliedList(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
     ): Call<RecruitedServices>
 
+    // 지원한 봉사 - 스크롤
+    @GET("/my-page/apply-list")
+    fun getAppliedListAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("last") last: Int
+    ): Call<RecruitedServices>
+
     // 완료한 봉사
     @GET("/my-page/participate-list")
     fun getCompleteList(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
-    ): Call<RecruitedServices>
+    ): Call<CompletedServices>
+
+    // 완료한 봉사 - 스크롤
+    @GET("/my-page/participate-list")
+    fun getCompleteListAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("last") lastService: Int
+    ): Call<CompletedServices>
+
+    // 스크랩한 봉사
+    @GET("/my-page/scrap-list")
+    fun getScrapedList(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<ScrapedServices>
+
+    // 스크랩한 봉사 - 스크롤
+    @GET("/my-page/scrap-list")
+    fun getScrapedListAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("last") lastService: Int
+    ): Call<ScrapedServices>
 
     // 모집글 삭제
     @POST("/service/delete/{workId}")

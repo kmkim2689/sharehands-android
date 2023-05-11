@@ -177,7 +177,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         // 모집 마감일
         binding.btnDueDate.setOnClickListener {
             val dueDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                var dueDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+                var dueDate = "${year}년 ${(month+1).toString().padStart(2, '0')}월 ${dayOfMonth.toString().padStart(2, '0')}일"
                 binding.tvDueDate.text = dueDate
                 viewModel.onDateChanged("due", dueDate)
             }
@@ -211,7 +211,7 @@ class ServiceWriteActivity: AppCompatActivity() {
 
         // 봉사 기간
         val startDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            var startDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+            var startDate = "${year}년 ${(month+1).toString().padStart(2, '0')}월 ${dayOfMonth.toString().padStart(2, '0')}일"
             binding.tvStartDateContent.text = startDate
             viewModel.onDateChanged("start", startDate)
         }
@@ -219,7 +219,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         val startDatePickerDialog = DatePickerDialog(this, startDatePickerSetting, year, month, day)
 
         val endDatePickerSetting = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            var endDate = "${year}년 ${month+1}월 ${dayOfMonth}일"
+            var endDate = "${year}년 ${(month+1).toString().padStart(2, '0')}월 ${dayOfMonth.toString().padStart(2, '0')}일"
             binding.tvEndDateContent.text = endDate
             viewModel.onDateChanged("end", endDate)
         }
@@ -280,7 +280,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         // 시작시간
         binding.btnStartTime.setOnClickListener {
             val startTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                var startTime = "$hourOfDay : $minute"
+                var startTime = "${hourOfDay.toString().padStart(2, '0')} : ${minute.toString().padStart(2, '0')}"
                 binding.tvStartTimeContent.text = startTime
                 viewModel.onTimeChanged("start", startTime)
             }
@@ -293,7 +293,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         binding.btnEndTime.setOnClickListener {
             Log.d("end버튼", "클릭")
             val endTimePickerSetting = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                var endTime = "$hourOfDay : $minute"
+                var endTime = "${hourOfDay.toString().padStart(2, '0')} : ${minute.toString().padStart(2, '0')}"
                 binding.tvEndTimeContent.text = endTime
                 viewModel.onTimeChanged("end", endTime)
             }
