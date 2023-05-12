@@ -5,20 +5,36 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.sharehands.sharehands_frontend.R
+import com.sharehands.sharehands_frontend.adapter.schedule.MonthlyServiceRVAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityMonthlyCalendarBinding
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.schedule.calendar_decorator.*
+import com.sharehands.sharehands_frontend.viewmodel.schedule.MonthlyCalendarViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.log
 
 class MonthlyCalendarActivity: AppCompatActivity() {
     lateinit var binding: ActivityMonthlyCalendarBinding
+    private lateinit var viewModel: MonthlyCalendarViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_monthly_calendar)
+        viewModel = ViewModelProvider(this).get(MonthlyCalendarViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
+
+        // adapter
+        val rvMonthly = binding.rvSchedules
+
+//        val adapter = MonthlyServiceRVAdapter(this, )
 
         // calendarView 초기화
         val calendar: MaterialCalendarView = binding.calendarMonthly
@@ -44,6 +60,21 @@ class MonthlyCalendarActivity: AppCompatActivity() {
         val todayMonth = (today.month + 1).toString()
         val todayDay = today.day.toString()
         Log.d("today", "${todayYear}년 ${todayMonth}월 ${todayDay}일")
+
+        if (token != "null") {
+            viewModel.getMonthlyList(token, todayYear.toInt(), todayMonth.toInt())
+            viewModel.monthlyList.observe(this) {
+                if (viewModel.monthlyList.value!!.isNotEmpty()) {
+                    val monthlyAdapter = MonthlyServiceRVAdapter(this, viewModel.monthlyList.value!!)
+                    val rvLayoutManager = LinearLayoutManager(this)
+                    binding.rvSchedules.apply {
+                        adapter = monthlyAdapter
+                        layoutManager = rvLayoutManager
+                    }
+                }
+            }
+        }
+
 
         // 선택된 date(날짜)가 변화될 때의 동작을 정의
         calendar.setOnDateChangedListener { widget, date, selected ->
@@ -79,8 +110,8 @@ class MonthlyCalendarActivity: AppCompatActivity() {
         }
 
         BottomSheetBehavior.from(binding.viewScheduleMgt).apply {
-            peekHeight=600
-            this.state=BottomSheetBehavior.STATE_COLLAPSED
+            peekHeight = 600
+            this.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         binding.btnBack.setOnClickListener {

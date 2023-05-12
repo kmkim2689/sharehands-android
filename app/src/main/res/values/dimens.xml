@@ -2,4 +2,6 @@
 <resources>
     <dimen name="dot_size">3dp</dimen>
     <dimen name="dot_padding">8dp</dimen>
+    <dimen name="pageMargin">52dp</dimen>
+    <dimen name="pageWidth">280dp</dimen>
 </resources>

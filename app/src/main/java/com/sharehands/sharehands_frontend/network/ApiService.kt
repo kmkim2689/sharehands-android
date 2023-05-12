@@ -3,6 +3,9 @@ package com.sharehands.sharehands_frontend.network
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
 import com.sharehands.sharehands_frontend.network.mypage.*
+import com.sharehands.sharehands_frontend.network.schedule.DailyServices
+import com.sharehands.sharehands_frontend.network.schedule.MonthlyServices
+import com.sharehands.sharehands_frontend.network.schedule.TodayServices
 import com.sharehands.sharehands_frontend.network.search.*
 import com.sharehands.sharehands_frontend.network.signin.UserInfoDetail
 import com.sharehands.sharehands_frontend.network.signin.UserInfoEdit
@@ -46,7 +49,31 @@ interface ApiService {
     ): Call<PostUserResponse>
 
     // 2. Home
+
+
     // 3. Schedule(not yet...)
+    // 오늘의 봉사 호출
+    @GET("/today")
+    fun getTodayService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<TodayServices>
+
+    // 월별 계획 호출
+    @GET("/monthly")
+    fun getMonthlyService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("year") year: Int,
+        @Query("month") month: Int
+    ): Call<MonthlyServices>
+
+    // 일별 계획 호출
+    @GET("/daily")
+    fun getDailyService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+        @Query("day") day: Int
+    ): Call<DailyServices>
 
     // 4. Search
     // 글쓰기
