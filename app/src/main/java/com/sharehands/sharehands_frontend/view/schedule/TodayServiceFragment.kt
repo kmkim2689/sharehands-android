@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.FragmentTodayServiceBinding
 
-class TodayServiceFragment(val time: String, val location: String, val title: String): Fragment() {
+class TodayServiceFragment(val time: String?, val location: String?, val title: String?): Fragment() {
     private lateinit var binding: FragmentTodayServiceBinding
     override fun onCreateView(
         inflater: LayoutInflater,

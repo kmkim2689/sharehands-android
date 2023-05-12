@@ -61,19 +61,9 @@ class MonthlyCalendarActivity: AppCompatActivity() {
         val todayDay = today.day.toString()
         Log.d("today", "${todayYear}년 ${todayMonth}월 ${todayDay}일")
 
-        if (token != "null") {
-            viewModel.getMonthlyList(token, todayYear.toInt(), todayMonth.toInt())
-            viewModel.monthlyList.observe(this) {
-                if (viewModel.monthlyList.value!!.isNotEmpty()) {
-                    val monthlyAdapter = MonthlyServiceRVAdapter(this, viewModel.monthlyList.value!!)
-                    val rvLayoutManager = LinearLayoutManager(this)
-                    binding.rvSchedules.apply {
-                        adapter = monthlyAdapter
-                        layoutManager = rvLayoutManager
-                    }
-                }
-            }
-        }
+        binding.tvScheduleTitle.text = "${todayMonth}월의 봉사계획"
+
+        getServices(token, todayYear, todayMonth, calendar)
 
 
         // 선택된 date(날짜)가 변화될 때의 동작을 정의
@@ -93,15 +83,18 @@ class MonthlyCalendarActivity: AppCompatActivity() {
             val month = date.month + 1
             val day = date.day
             Log.d("selected Date", "${year}년 ${month}월 ${day}일")
-
         }
 
         // 월이 바뀌었을 때
+        // TODO 버벅거림 최적화 필요
         calendar.setOnMonthChangedListener { widget, date ->
             calendar.setTitleFormatter {
                 val simpleDateFormat = SimpleDateFormat("yyyy년 MM월", Locale.KOREA)
                 simpleDateFormat.format(date.date)
             }
+            Log.d("selected month", "${date.year + date.month}")
+            binding.tvScheduleTitle.text = "${date.month + 1}월의 봉사계획"
+            getServices(token, date.year.toString(), (date.month + 1).toString(), calendar)
         }
 
         binding.tvViewDetail.setOnClickListener {
@@ -110,7 +103,10 @@ class MonthlyCalendarActivity: AppCompatActivity() {
         }
 
         BottomSheetBehavior.from(binding.viewScheduleMgt).apply {
-            peekHeight = 600
+            // 시트의 높이
+            val viewHeight = 700
+            val peekHeightRatio = 0.95 // 비율 값
+            peekHeight = (viewHeight * peekHeightRatio).toInt()
             this.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
@@ -119,5 +115,44 @@ class MonthlyCalendarActivity: AppCompatActivity() {
         }
 
 
+    }
+
+    private fun getServices(
+        token: String,
+        todayYear: String,
+        todayMonth: String,
+        calendar: MaterialCalendarView
+    ) {
+        if (token != "null") {
+            viewModel.getMonthlyList(token, todayYear.toInt(), todayMonth.toInt())
+            viewModel.monthlyList.observe(this) {
+                if (viewModel.monthlyList.value!!.isNotEmpty()) {
+                    Log.d("days", "${viewModel.monthlyList.value}")
+                    val monthlyAdapter = MonthlyServiceRVAdapter(
+                        this@MonthlyCalendarActivity,
+                        viewModel.monthlyList.value!!
+                    )
+                    val rvLayoutManager = LinearLayoutManager(this)
+                    binding.rvSchedules.apply {
+                        adapter = monthlyAdapter
+                        layoutManager = rvLayoutManager
+                    }
+                    Log.d("dates", "${viewModel.monthlyDates.value.toString()}")
+                    val eventDayDecorate = EventDecorator(viewModel.monthlyDates.value!!, this)
+                    calendar.addDecorator(eventDayDecorate)
+                } else {
+                    Log.d("days", "${viewModel.monthlyList.value}")
+                    val monthlyAdapter = MonthlyServiceRVAdapter(
+                        this@MonthlyCalendarActivity,
+                        viewModel.monthlyList.value!!
+                    )
+                    val rvLayoutManager = LinearLayoutManager(this)
+                    binding.rvSchedules.apply {
+                        adapter = monthlyAdapter
+                        layoutManager = rvLayoutManager
+                    }
+                }
+            }
+        }
     }
 }

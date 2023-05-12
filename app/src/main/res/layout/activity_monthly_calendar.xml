@@ -108,7 +108,7 @@
         <FrameLayout
             android:id="@+id/view_schedule_mgt"
             android:layout_width="match_parent"
-            android:layout_height="700dp"
+            android:layout_height="702dp"
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +149,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:layout_marginStart="20dp"
-                        android:text="x월의 봉사 계획"
                         android:textSize="20sp"
                         android:textColor="@color/text_color"
                         android:textStyle="bold"

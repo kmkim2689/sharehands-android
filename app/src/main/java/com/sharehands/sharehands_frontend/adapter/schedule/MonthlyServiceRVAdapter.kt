@@ -10,7 +10,7 @@ import com.sharehands.sharehands_frontend.network.schedule.MonthlyService
 import com.sharehands.sharehands_frontend.view.schedule.MonthlyCalendarActivity
 import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
 
-class MonthlyServiceRVAdapter(val context: Context, val serviceList: List<MonthlyService>)
+class MonthlyServiceRVAdapter(val context: MonthlyCalendarActivity, val serviceList: List<MonthlyService>)
     :RecyclerView.Adapter<MonthlyServiceRVAdapter.MonthlyServiceViewHolder>(){
         inner class MonthlyServiceViewHolder(val binding: ItemMonthlyScheduleBinding)
             :RecyclerView.ViewHolder(binding.root) {
@@ -31,12 +31,12 @@ class MonthlyServiceRVAdapter(val context: Context, val serviceList: List<Monthl
                     binding.tvScheduleDay.text = current.day.toString()
 
 
-                    val serviceId = current.workId
+                    val serviceId = current.workId.toInt()
 
                     itemView.setOnClickListener {
-                        val intent = Intent(context as MonthlyCalendarActivity, ServiceDetailActivity::class.java)
+                        val intent = Intent(itemView.context, ServiceDetailActivity::class.java)
                         intent.putExtra("serviceId", serviceId)
-                        (context as MonthlyCalendarActivity).startActivity(intent)
+                        itemView.context.startActivity(intent)
                     }
                 }
             }
