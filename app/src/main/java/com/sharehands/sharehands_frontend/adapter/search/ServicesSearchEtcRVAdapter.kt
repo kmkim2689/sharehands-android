@@ -29,7 +29,7 @@ import javax.security.auth.callback.Callback
 class ServicesSearchEtcRVAdapter(private val context: MainActivity?, private val viewModel: ServiceSearchEtcViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchEtcRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchEtcViewModel) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchEtcViewModel, serviceList: ArrayList<ServiceList>?) {
             val token = SharedPreferencesManager.getInstance(context)
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
@@ -83,6 +83,7 @@ class ServicesSearchEtcRVAdapter(private val context: MainActivity?, private val
                     Log.d("success", "true")
                     btnApply.visibility = View.GONE
                     btnCancel.visibility = View.VISIBLE
+                    serviceList!![position].userApplied = true
 //                    val intent = Intent(context, MainActivity::class.java)
 //                    (context as MainActivity).finish()
 //                    (context as MainActivity).startActivity(intent)
@@ -102,6 +103,7 @@ class ServicesSearchEtcRVAdapter(private val context: MainActivity?, private val
                     Log.d("success", "true")
                     btnApply.visibility = View.VISIBLE
                     btnCancel.visibility = View.GONE
+                    serviceList!![position].userApplied = false
 //                    val intent = Intent(context, MainActivity::class.java)
 //                    (context as MainActivity).finish()
 //                    (context as MainActivity).startActivity(intent)
@@ -133,7 +135,7 @@ class ServicesSearchEtcRVAdapter(private val context: MainActivity?, private val
     }
 
     override fun onBindViewHolder(holder: ServicesSearchViewHolder, position: Int) {
-        holder.bind(context!!, serviceList!![position], position, viewModel)
+        holder.bind(context!!, serviceList!![position], position, viewModel, serviceList)
     }
 
     override fun getItemCount(): Int {

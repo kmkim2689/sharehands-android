@@ -38,44 +38,7 @@ class ReviewPreviewRVAdapter(private val context: ServiceDetailActivity, private
 
             // 별점
             val rating = current.rateAvg
-            if (0 <= rating && rating < 0.5) {
-
-            } else if (0.5 <= rating && rating < 1.5) {
-                binding.ivFirstStarFilled.visibility = View.VISIBLE
-                binding.ivFirstStarUnfilled.visibility = View.GONE
-            } else if (1.5 <= rating && rating < 2.5) {
-                binding.ivFirstStarFilled.visibility = View.VISIBLE
-                binding.ivFirstStarUnfilled.visibility = View.GONE
-                binding.ivSecondStarFilled.visibility = View.VISIBLE
-                binding.ivSecondStarUnfilled.visibility = View.GONE
-            } else if (2.5 <= rating && rating < 3.5) {
-                binding.ivFirstStarFilled.visibility = View.VISIBLE
-                binding.ivFirstStarUnfilled.visibility = View.GONE
-                binding.ivSecondStarFilled.visibility = View.VISIBLE
-                binding.ivSecondStarUnfilled.visibility = View.GONE
-                binding.ivThirdStarFilled.visibility = View.VISIBLE
-                binding.ivThirdStarUnfilled.visibility = View.GONE
-            } else if (3.5 <= rating && rating < 4.5) {
-                binding.ivFirstStarFilled.visibility = View.VISIBLE
-                binding.ivFirstStarUnfilled.visibility = View.GONE
-                binding.ivSecondStarFilled.visibility = View.VISIBLE
-                binding.ivSecondStarUnfilled.visibility = View.GONE
-                binding.ivThirdStarFilled.visibility = View.VISIBLE
-                binding.ivThirdStarUnfilled.visibility = View.GONE
-                binding.ivFourthStarFilled.visibility = View.VISIBLE
-                binding.ivFourthStarUnfilled.visibility = View.GONE
-            } else {
-                binding.ivFirstStarFilled.visibility = View.VISIBLE
-                binding.ivFirstStarUnfilled.visibility = View.GONE
-                binding.ivSecondStarFilled.visibility = View.VISIBLE
-                binding.ivSecondStarUnfilled.visibility = View.GONE
-                binding.ivThirdStarFilled.visibility = View.VISIBLE
-                binding.ivThirdStarUnfilled.visibility = View.GONE
-                binding.ivFourthStarFilled.visibility = View.VISIBLE
-                binding.ivFourthStarUnfilled.visibility = View.GONE
-                binding.ivFifthStarFilled.visibility = View.VISIBLE
-                binding.ivFifthStarUnfilled.visibility = View.GONE
-            }
+            binding.layoutRating.rating = rating.toFloat()
 
             binding.tvReviewContent.text = current.content
         }

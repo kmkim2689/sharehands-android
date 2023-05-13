@@ -27,7 +27,7 @@ import javax.security.auth.callback.Callback
 class ServicesSearchEduRVAdapter(private val context: MainActivity?, private val viewModel: ServiceSearchEduViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchEduRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchEduViewModel) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchEduViewModel, serviceList: ArrayList<ServiceList>?) {
             val token = SharedPreferencesManager.getInstance(context)
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
@@ -132,7 +132,7 @@ class ServicesSearchEduRVAdapter(private val context: MainActivity?, private val
     }
 
     override fun onBindViewHolder(holder: ServicesSearchViewHolder, position: Int) {
-        holder.bind(context!!, serviceList!![position], position, viewModel)
+        holder.bind(context!!, serviceList!![position], position, viewModel, serviceList)
     }
 
     override fun getItemCount(): Int {

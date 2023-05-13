@@ -8,14 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sharehands.sharehands_frontend.databinding.ItemReviewBinding
 import com.sharehands.sharehands_frontend.network.search.Review
+import com.sharehands.sharehands_frontend.network.search.ReviewDetailItem
 import com.sharehands.sharehands_frontend.view.search.ReviewDetailActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ReviewDetailViewModel
 
-class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private val reviewList: List<Review>?,
+class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private val reviewList: ArrayList<ReviewDetailItem>?,
+                            private val token: String,
                             private val serviceId: Int, private val viewModel: ReviewDetailViewModel)
     : RecyclerView.Adapter<ReviewDetailRVAdapter.ReviewDetailViewHolder>(){
         inner class ReviewDetailViewHolder(val binding: ItemReviewBinding): RecyclerView.ViewHolder(binding.root) {
-            fun bind(context: Context, current: Review) {
+            fun bind(context: Context, current: ReviewDetailItem) {
                 if (current.isAuthor == true) {
                     binding.ivBan.visibility = View.INVISIBLE
                     binding.ivReport.visibility = View.INVISIBLE
@@ -46,46 +48,19 @@ class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private v
 
                 // 별점
                 val rating = current.rateAvg
-                if (0 <= rating && rating < 0.5) {
-
-                } else if (0.5 <= rating && rating < 1.5) {
-                    binding.ivFirstStarFilled.visibility = View.VISIBLE
-                    binding.ivFirstStarUnfilled.visibility = View.GONE
-                } else if (1.5 <= rating && rating < 2.5) {
-                    binding.ivFirstStarFilled.visibility = View.VISIBLE
-                    binding.ivFirstStarUnfilled.visibility = View.GONE
-                    binding.ivSecondStarFilled.visibility = View.VISIBLE
-                    binding.ivSecondStarUnfilled.visibility = View.GONE
-                } else if (2.5 <= rating && rating < 3.5) {
-                    binding.ivFirstStarFilled.visibility = View.VISIBLE
-                    binding.ivFirstStarUnfilled.visibility = View.GONE
-                    binding.ivSecondStarFilled.visibility = View.VISIBLE
-                    binding.ivSecondStarUnfilled.visibility = View.GONE
-                    binding.ivThirdStarFilled.visibility = View.VISIBLE
-                    binding.ivThirdStarUnfilled.visibility = View.GONE
-                } else if (3.5 <= rating && rating < 4.5) {
-                    binding.ivFirstStarFilled.visibility = View.VISIBLE
-                    binding.ivFirstStarUnfilled.visibility = View.GONE
-                    binding.ivSecondStarFilled.visibility = View.VISIBLE
-                    binding.ivSecondStarUnfilled.visibility = View.GONE
-                    binding.ivThirdStarFilled.visibility = View.VISIBLE
-                    binding.ivThirdStarUnfilled.visibility = View.GONE
-                    binding.ivFourthStarFilled.visibility = View.VISIBLE
-                    binding.ivFourthStarUnfilled.visibility = View.GONE
-                } else {
-                    binding.ivFirstStarFilled.visibility = View.VISIBLE
-                    binding.ivFirstStarUnfilled.visibility = View.GONE
-                    binding.ivSecondStarFilled.visibility = View.VISIBLE
-                    binding.ivSecondStarUnfilled.visibility = View.GONE
-                    binding.ivThirdStarFilled.visibility = View.VISIBLE
-                    binding.ivThirdStarUnfilled.visibility = View.GONE
-                    binding.ivFourthStarFilled.visibility = View.VISIBLE
-                    binding.ivFourthStarUnfilled.visibility = View.GONE
-                    binding.ivFifthStarFilled.visibility = View.VISIBLE
-                    binding.ivFifthStarUnfilled.visibility = View.GONE
-                }
+                binding.layoutRating.rating = rating.toFloat()
 
                 binding.tvReviewContent.text = current.content
+
+                // 신고
+                binding.ivReport.setOnClickListener {
+
+                }
+
+                // 차단
+                binding.ivBan.setOnClickListener {
+
+                }
             }
         }
 

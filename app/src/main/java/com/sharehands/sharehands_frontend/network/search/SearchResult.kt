@@ -12,7 +12,7 @@ data class ServiceList(
     @SerializedName ("imageUrl") val imageUrl: String,
     @SerializedName ("profileUrl") val profileUrl: String,
     @SerializedName ("nickname") val nickName: String,
-    @SerializedName ("userApplied") val userApplied: Boolean,
+    @SerializedName ("userApplied") var userApplied: Boolean,
     @SerializedName ("workName") val workName: String,
     @SerializedName ("location") val location: String,
     @SerializedName ("maxNum") val maxNum: String,

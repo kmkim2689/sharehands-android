@@ -107,126 +107,129 @@
             app:layout_constraintTop_toTopOf="@id/tv_user_nickname"
             app:layout_constraintBottom_toBottomOf="@id/tv_time"/>
 
-        <LinearLayout
+        <RatingBar
             android:id="@+id/layout_rating"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:stepSize="0.1"
             app:layout_constraintTop_toBottomOf="@id/iv_user_profile"
             app:layout_constraintStart_toStartOf="@id/iv_user_profile"
-            android:layout_marginTop="12dp">
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_marginTop="12dp"/>
 
-            <FrameLayout
-                android:id="@+id/layout_first_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/layout_first_star"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:id="@+id/iv_first_star_unfilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_unfilled"
-                    android:visibility="visible"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_first_star_unfilled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_unfilled"-->
+<!--                    android:visibility="visible"/>-->
 
-                <ImageView
-                    android:id="@+id/iv_first_star_filled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_filled"
-                    android:visibility="gone"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_first_star_filled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_filled"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
 
-            </FrameLayout>
+<!--            </FrameLayout>-->
 
-            <FrameLayout
-                android:id="@+id/layout_second_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/layout_second_star"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:id="@+id/iv_second_star_unfilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_unfilled"
-                    android:visibility="visible"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_second_star_unfilled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_unfilled"-->
+<!--                    android:visibility="visible"/>-->
 
-                <ImageView
-                    android:id="@+id/iv_second_star_filled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_filled"
-                    android:visibility="gone"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_second_star_filled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_filled"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
 
-            </FrameLayout>
+<!--            </FrameLayout>-->
 
-            <FrameLayout
-                android:id="@+id/layout_third_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/layout_third_star"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:id="@+id/iv_third_star_unfilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_unfilled"
-                    android:visibility="visible"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_third_star_unfilled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_unfilled"-->
+<!--                    android:visibility="visible"/>-->
 
-                <ImageView
-                    android:id="@+id/iv_third_star_filled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_filled"
-                    android:visibility="gone"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_third_star_filled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_filled"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
 
-            </FrameLayout>
+<!--            </FrameLayout>-->
 
-            <FrameLayout
-                android:id="@+id/layout_fourth_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/layout_fourth_star"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:id="@+id/iv_fourth_star_unfilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_unfilled"
-                    android:visibility="visible"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_fourth_star_unfilled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_unfilled"-->
+<!--                    android:visibility="visible"/>-->
 
-                <ImageView
-                    android:id="@+id/iv_fourth_star_filled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_filled"
-                    android:visibility="gone"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_fourth_star_filled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_filled"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
 
-            </FrameLayout>
+<!--            </FrameLayout>-->
 
-            <FrameLayout
-                android:id="@+id/layout_fifth_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/layout_fifth_star"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <ImageView
-                    android:id="@+id/iv_fifth_star_unfilled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_unfilled"
-                    android:visibility="visible"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_fifth_star_unfilled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_unfilled"-->
+<!--                    android:visibility="visible"/>-->
 
-                <ImageView
-                    android:id="@+id/iv_fifth_star_filled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_filled"
-                    android:visibility="gone"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_fifth_star_filled"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_star_filled"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
 
-            </FrameLayout>
+<!--            </FrameLayout>-->
 
-        </LinearLayout>
+<!--        </RatingBar>-->
 
         <TextView
             android:id="@+id/tv_review_content"
@@ -239,7 +242,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="8dp"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/text_color"
             android:layout_marginBottom="8dp"
             tools:text="봉사를 할 수 있어서 정말 뜻깊은 시간이었다. 오늘은 푹 쉬어야겠다. 예전에 교육봉사만 해봐서 다른 봉사를 경험하고 싶었는데 좋은 경험이었다."/>

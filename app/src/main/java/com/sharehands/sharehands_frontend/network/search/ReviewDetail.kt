@@ -26,5 +26,6 @@ data class ReviewDetailItem(
     @SerializedName("rateAvg") val rateAvg: Double,
     @SerializedName("content") val content: String,
     @SerializedName("updatedDate") val updatedDate: String,
-    @SerializedName("isAuthor") val isAuthor: Boolean
+    @SerializedName("isAuthor") val isAuthor: Boolean,
+    @SerializedName("reviewId") val reviewId: Long
 )

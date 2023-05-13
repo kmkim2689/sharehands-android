@@ -84,7 +84,7 @@ class SearchEtcFragment: Fragment() {
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 80) {
+                if (dy > 50) {
                     // 스크롤 내렸을 때 플로팅 버튼 사라지게 하기
 
 //                    layoutManager = LinearLayoutManager(requireContext())

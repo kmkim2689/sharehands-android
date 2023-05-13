@@ -110,6 +110,10 @@ class ReviewWriteActivity: AppCompatActivity() {
                 Log.d("토큰 없음", "업로드 실패")
             }
         }
+
+        binding.ivGoBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showSnackbar(text: String) {

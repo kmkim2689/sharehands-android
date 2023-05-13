@@ -36,11 +36,11 @@ class ReviewWriteViewModel: ViewModel() {
     }
 
     fun onTrafficChanged(rating: Double) {
-        _achievement.value = rating
+        _traffic.value = rating
     }
 
     fun onSystemChanged(rating: Double) {
-        _achievement.value = rating
+        _system.value = rating
     }
 
 //    fun onContentChanged(s: CharSequence, start: Int, before: Int, count: Int) {

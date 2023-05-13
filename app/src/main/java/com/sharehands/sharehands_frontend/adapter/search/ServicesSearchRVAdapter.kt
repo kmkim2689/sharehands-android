@@ -26,7 +26,7 @@ import javax.security.auth.callback.Callback
 class ServicesSearchRVAdapter(private val context: MainActivity?, private val viewModel: ServiceSearchViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<ServicesSearchRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchViewModel) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: ServiceSearchViewModel, serviceList: ArrayList<ServiceList>?) {
             val token = SharedPreferencesManager.getInstance(context)
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
@@ -81,6 +81,9 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
                         Log.d("success", "true")
                         btnApply.visibility = View.GONE
                         btnCancel.visibility = View.VISIBLE
+                        // 지원을 신청하였음에서 불구하고 스크롤 했다가 다시 올렸을 때 다시 지원하기 버튼으로 바뀌는 것을 방지하기 위하여, 리스트의 내용을 아예 바꿔버린다.
+                        // 그렇게 하기 위해서, 데이터 클래스 변수 선언 키워드를 var로 변경한다.(ServiceList 데이터 클래스 참고하기)
+                        serviceList!![position].userApplied = true
                         val snackbarApplySuccess = Snackbar.make(mainActivity, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
                         snackbarApplySuccess.show()
                     } else {
@@ -100,7 +103,7 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
                         Log.d("success", "true")
                         btnApply.visibility = View.VISIBLE
                         btnCancel.visibility = View.GONE
-
+                        serviceList!![position].userApplied = false
                         val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
                         snackbarCancelSuccess.show()
                     } else {
@@ -131,7 +134,7 @@ class ServicesSearchRVAdapter(private val context: MainActivity?, private val vi
     }
 
     override fun onBindViewHolder(holder: ServicesSearchViewHolder, position: Int) {
-        holder.bind(context!!, serviceList!![position], position, viewModel)
+        holder.bind(context!!, serviceList!![position], position, viewModel, serviceList)
     }
 
     override fun getItemCount(): Int {

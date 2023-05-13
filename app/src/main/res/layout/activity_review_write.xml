@@ -188,7 +188,7 @@
                     android:textSize="14sp"
                     android:lineHeight="14sp"
                     android:background="@null"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:maxLength="1000"
                     />
 

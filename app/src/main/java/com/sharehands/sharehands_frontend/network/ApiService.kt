@@ -126,21 +126,11 @@ interface ApiService {
     ): Call<ServiceContent>
 
     // 작성자 프로필 호출
-    // TODO 1 method (query or path)
-    // TODO 2 parameter (userId or authorId?)
     @GET("/profile")
     fun getUserProfile(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
         @Query("userId") userId: Long
     ): Call<UserProfile>
-
-//    // 지원자 명단 호출
-//    // TODO query parameter(serviceId or workId?)
-//    @GET("/applicants")
-//    fun getApplicants(
-//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-//        @Query("serviceId") serviceId: Int
-//    ): Call<RecruitData>
 
     // 지원하기
     @POST("/service/{workId}/apply")
@@ -155,9 +145,6 @@ interface ApiService {
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
         @Path("workId") workId: Long
     ): Call<Void>
-
-    // 리뷰 허용하기
-    // TODO url(not exists...)
 
     // 리뷰 불러오기 초기
     @GET("/review/all")
