@@ -13,7 +13,8 @@ data class ReviewDetail(
     @SerializedName("rate2Avg") val rate2Avg: Double,
     @SerializedName("rate3Avg") val rate3Avg: Double,
     // reviewLists인지 reviewList인지
-    @SerializedName("reviewLists") val reviewLists: List<ReviewDetailItem>
+    @SerializedName("reviewLists") val reviewLists: List<ReviewDetailItem>,
+    @SerializedName("isPermission") val isPermission: Boolean
 )
 
 data class ReviewDetailItem(
@@ -24,6 +25,6 @@ data class ReviewDetailItem(
     @SerializedName("level") val level: String,
     @SerializedName("rateAvg") val rateAvg: Double,
     @SerializedName("content") val content: String,
-    @SerializedName("updatedDate") val updatedDate: LocalDateTime,
-    @SerializedName("author") val author: Boolean
+    @SerializedName("updatedDate") val updatedDate: String,
+    @SerializedName("isAuthor") val isAuthor: Boolean
 )

@@ -404,6 +404,22 @@ class ServiceWriteActivity: AppCompatActivity() {
             }
         }
 
+        binding.editPhone.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                // 전화번호 형식 적용
+                if (s != null && s.length >= 3) {
+                    if (s.length == 4 || s.length == 9) {
+                        binding.editPhone.setText("${s.substring(0, s.length - 1)}-${s.substring(s.length - 1)}")
+                        binding.editPhone.setSelection(binding.editPhone.length())
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+
         // 다 채워졌으면 active button
         viewModel.isValid.observe(this) {
             if (viewModel.isValid.value == true) {
@@ -450,6 +466,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         showSnackbar("게시글 작성이 완료되었습니다.")
                         finish()
                     } else {
+                        progressDialog.dismiss()
                         Log.d("게시글 작성 실패", "${viewModel.isSuccessful.value}")
                         // TODO 스낵바 띄우기
                         showSnackbar("네트워크 오류가 발생하였습니다. 다시 시도해보세요.")

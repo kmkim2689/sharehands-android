@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="20dp"
-                android:text="x월 xx일"
+                android:text=""
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 

@@ -2,12 +2,15 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sharehands.sharehands_frontend.viewmodel.search.RecruitViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/coordinator_layout_check_applicants">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

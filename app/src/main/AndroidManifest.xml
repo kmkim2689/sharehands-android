@@ -65,9 +65,11 @@
         <activity android:name=".view.signin.PermissionsAgreeActivity"/>
         <activity android:name=".view.signin.UserInfoWriteActivity"/>
         <activity android:name=".view.signin.UserPreferencesActivity"/>
-        <activity android:name=".view.search.ServiceWriteActivity"/>
+        <activity android:name=".view.search.ServiceWriteActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".view.search.SearchResultActivity"/>
-        <activity android:name=".view.search.ReviewWriteActivity"/>
+        <activity android:name=".view.search.ReviewWriteActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".view.search.ReviewDetailActivity"/>
         <activity android:name=".view.search.LocationSearchActivity"/>
         <activity android:name=".view.mypage.RecruitedServiceActivity"/>

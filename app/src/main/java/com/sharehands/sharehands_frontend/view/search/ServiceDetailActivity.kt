@@ -21,11 +21,13 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sharehands.sharehands_frontend.R
+import com.sharehands.sharehands_frontend.adapter.search.ReviewPreviewRVAdapter
 import com.sharehands.sharehands_frontend.adapter.search.ServiceImageVPAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityServiceDetailBinding
 import com.sharehands.sharehands_frontend.databinding.DialogProfileBinding
@@ -59,6 +61,8 @@ class ServiceDetailActivity:AppCompatActivity() {
         val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
         // TODO serviceId(workId) 몇 번부터 시작하는지 알아내기
         val serviceId = intent.getIntExtra("serviceId", 0)
+
+        Log.d("serviceId", "${serviceId}")
 
         if (token == "null") {
             val snackbar = makeSnackbar("서비스를 이용하기 위하여 로그인이 필요합니다.")
@@ -126,6 +130,12 @@ class ServiceDetailActivity:AppCompatActivity() {
                 Glide.with(this)
                     .load(viewModel.contents.value?.profileUrl.toString())
                     .into(binding.ivUserProfile)
+
+                val reviewAdapter = ReviewPreviewRVAdapter(this, viewModel.contents.value?.reviewLists)
+                Log.d("review contents", "${viewModel.contents.value?.reviewLists}")
+                val reviewLayoutManager = LinearLayoutManager(this)
+                binding.rvReviewsPreview.adapter = reviewAdapter
+                binding.rvReviewsPreview.layoutManager = reviewLayoutManager
             }
 
 
@@ -311,8 +321,19 @@ class ServiceDetailActivity:AppCompatActivity() {
             }
         }
 
+        binding.tvReviewTitle.setOnClickListener {
+            val reviewIntent = Intent(this, ReviewDetailActivity::class.java)
+            reviewIntent.putExtra("serviceId", serviceId)
+            startActivity(reviewIntent)
+        }
 
+        binding.btnRecruit.setOnClickListener {
+            val recruitIntent = Intent(this, RecruitActivity::class.java)
+            recruitIntent.putExtra("serviceId", serviceId)
+            startActivity(recruitIntent)
+        }
     }
+
 
 
 

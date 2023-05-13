@@ -1,15 +1,17 @@
 package com.sharehands.sharehands_frontend.model.home
 
+import com.sharehands.sharehands_frontend.network.search.Suggestion
+
 data class MainPage(
     val nickname: String,
     val profileUrl: String,
     val invitation: Int,
-    val suggestion: List<Suggestion>,
+    val suggestion: List<SuggestionData>,
     val popular: List<Popular>,
     val ranking: List<UserRanking>
 )
 
-data class Suggestion(
+data class SuggestionData(
     val thumbnailUrl: String,
     val title: String,
     // 예) "2022. 01. 01. ~ 2022. 01. 10."

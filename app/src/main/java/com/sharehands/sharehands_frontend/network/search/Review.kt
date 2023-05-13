@@ -21,5 +21,7 @@ data class Review(
     @SerializedName("updatedDate")
     val updatedDate: String,
     @SerializedName("workId")
-    val workId: Long
+    val workId: Long,
+    @SerializedName("reviewId")
+    val reviewId: Int
 )

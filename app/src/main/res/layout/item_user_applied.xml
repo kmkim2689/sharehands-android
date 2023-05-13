@@ -1,107 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_shadow_stroke">
+<layout>
+    <data>
 
-    <ImageView
-        android:id="@+id/iv_user_profile"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/frame_preview_profile"
-        android:clipToOutline="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_user_nickname"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/text_color"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/iv_user_profile"
-        app:layout_constraintTop_toTopOf="@id/iv_user_profile"
-        tools:text="닉네임" />
+        android:background="@drawable/rectangle_shadow_stroke">
 
-    <ImageView
-        android:id="@+id/iv_cert_badge"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/ic_cert"
-        app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
-        app:layout_constraintStart_toEndOf="@id/tv_user_nickname"
-        app:layout_constraintTop_toTopOf="@id/tv_user_nickname" />
+        <ImageView
+            android:id="@+id/iv_user_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/frame_preview_profile"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_view_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:src="@drawable/ic_forward_dir"
-        app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
-        app:layout_constraintStart_toEndOf="@id/iv_cert_badge"
-        app:layout_constraintTop_toTopOf="@id/tv_user_nickname"
-        app:tint="@color/text_color" />
+        <TextView
+            android:id="@+id/tv_user_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_user_profile"
+            tools:text="닉네임" />
 
-    <TextView
-        android:id="@+id/tv_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="나눔레벨"
-        android:textColor="@color/text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
-        app:layout_constraintTop_toBottomOf="@id/tv_user_nickname" />
+        <ImageView
+            android:id="@+id/iv_cert_badge"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_cert"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_user_nickname"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/tv_user_nickname" />
 
-    <TextView
-        android:id="@+id/tv_level_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:textColor="@color/text_color"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_level"
-        app:layout_constraintStart_toEndOf="@id/tv_level"
-        app:layout_constraintTop_toTopOf="@id/tv_level"
-        tools:text="1" />
+        <ImageView
+            android:id="@+id/iv_view_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/ic_forward_dir"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+            app:layout_constraintStart_toEndOf="@id/iv_cert_badge"
+            app:layout_constraintTop_toTopOf="@id/tv_user_nickname"
+            app:tint="@color/text_color" />
 
-    <TextView
-        android:id="@+id/tv_user_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="16dp"
-        android:drawableStart="@drawable/ic_star_filled"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_user_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_level"
-        tools:text="4.9" />
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="나눔레벨"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_nickname" />
 
-    <ImageView
-        android:id="@+id/btn_accept"
-        android:layout_width="128dp"
-        android:layout_height="72dp"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/ic_service_accept"/>
+        <TextView
+            android:id="@+id/tv_level_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_level"
+            app:layout_constraintStart_toEndOf="@id/tv_level"
+            app:layout_constraintTop_toTopOf="@id/tv_level"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/tv_user_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_star_filled"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_level"
+            tools:text="4.9" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btn_permit_review"
+                android:layout_width="92dp"
+                android:layout_height="32dp"
+                android:padding="2dp"
+                app:tint="@color/sharehands_green_weak"
+                android:background="@drawable/ic_service_accept"
+                android:backgroundTint="@color/sharehands_green_weak"
+                android:gravity="center"
+                android:textColor="@color/icon_unfilled"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="리뷰 허용" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/btn_ban_review"-->
+<!--                android:layout_width="128dp"-->
+<!--                android:layout_height="56dp"-->
+<!--                android:padding="2dp"-->
+<!--                android:background="@drawable/ic_service_accept"-->
+<!--                android:backgroundTint="#E4C462"-->
+<!--                android:gravity="center"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="리뷰 불허"-->
+<!--                />-->
+
+        </FrameLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

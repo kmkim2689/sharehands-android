@@ -7,7 +7,7 @@
             type="com.sharehands.sharehands_frontend.model.home.MainPage" />
         <variable
             name="suggestion"
-            type="com.sharehands.sharehands_frontend.model.home.Suggestion" />
+            type="com.sharehands.sharehands_frontend.model.home.SuggestionData" />
         <variable
             name="popular"
             type="com.sharehands.sharehands_frontend.model.home.Popular" />

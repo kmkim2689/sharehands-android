@@ -134,13 +134,13 @@ interface ApiService {
         @Query("userId") userId: Long
     ): Call<UserProfile>
 
-    // 지원자 명단 호출
-    // TODO query parameter(serviceId or workId?)
-    @GET("/applicants")
-    fun getApplicants(
-        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Query("serviceId") serviceId: Int
-    ): Call<RecruitData>
+//    // 지원자 명단 호출
+//    // TODO query parameter(serviceId or workId?)
+//    @GET("/applicants")
+//    fun getApplicants(
+//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+//        @Query("serviceId") serviceId: Int
+//    ): Call<RecruitData>
 
     // 지원하기
     @POST("/service/{workId}/apply")
@@ -159,29 +159,28 @@ interface ApiService {
     // 리뷰 허용하기
     // TODO url(not exists...)
 
-    // 리뷰 리스트 3개 호출 -> 제거대상?
-    // TODO method(query or path)
-    // TODO Url(???)
-//    @GET("/service")
-//    fun getReviewsPreview(
-//        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-//
-//    ): Call<>
-
     // 리뷰 불러오기 초기
     @GET("/review/all")
     fun getReviews(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Query("workId") workId: Int
+        @Query("workId") workId: Long
     ): Call<ReviewDetail>
 
     // 리뷰 불러오기 스크롤
     @GET("/review/all")
     fun getReviewsAdditional(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        @Query("workId") workId: Int,
+        @Query("workId") workId: Long,
         @Query("last") last: Int
     ): Call<ReviewDetail>
+
+    // 리뷰 전송하기
+    @POST("/review/new-review")
+    fun uploadReview(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("workId") workId: Long,
+        @Body reviewContent: ReviewUpload
+    ): Call<Void>
 
     // 좋아요
     @POST("/manage/like")
@@ -211,7 +210,37 @@ interface ApiService {
     @POST("/manage/unscrap")
     fun cancelScrap(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        // 이거 Long임?
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 신청한 회원 불러오기
+    @GET("/applicants")
+    fun getApplicants(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("workId") workId: Long
+    ): Call<ApplicantsData>
+
+    // 제안하기
+    @POST("/service/inviteUser")
+    fun suggest(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long,
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 제안 취소하기
+    @POST("/service/cancelUser")
+    fun cancelSuggest(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long,
+        @Query("workId") workId: Long
+    ): Call<Void>
+
+    // 리뷰 허용하기
+    @PUT("/manage/allow")
+    fun allowReview(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long,
         @Query("workId") workId: Long
     ): Call<Void>
 
