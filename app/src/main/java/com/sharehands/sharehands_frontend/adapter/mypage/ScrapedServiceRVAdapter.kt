@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,8 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
                     val cancelBtn = binding.ivScrapCancel
                     val serviceId = current.serviceId.toInt()
 
+                    var totalNum = viewModel.scrapedNum.value?.toInt()
+
                     Glide.with(context)
                         .load(current.imageUrl)
                         .into(binding.ivServicePreviewThumbnail)
@@ -54,6 +57,7 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
                     binding.tvPreviewDay.text = current.dow
 
                     val view = (context as ScrapedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_scrap)
+                    val total = (context as ScrapedServiceActivity).findViewById<TextView>(R.id.tv_total_scraped)
 
                     cancelBtn.setOnClickListener {
                         // 스크랩 취소 api
@@ -66,6 +70,8 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
                                     notifyItemRemoved(adapterPosition)
                                     notifyItemRangeChanged(adapterPosition, servicesList!!.size)
                                     Log.d("스크랩 취소", "성공")
+                                    totalNum = totalNum?.minus(1)
+                                    total.text = "총 ${totalNum}개의 봉사를 스크랩하였습니다."
                                     Snackbar.make(view, "스크랩을 취소하였습니다.", 1000).show()
                                 } catch (e: Exception) {
                                     Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()

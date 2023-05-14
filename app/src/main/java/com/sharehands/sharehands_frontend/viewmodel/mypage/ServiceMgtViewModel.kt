@@ -12,6 +12,7 @@ import com.sharehands.sharehands_frontend.network.mypage.ScrapedServices
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
 
 class ServiceMgtViewModel: ViewModel() {
     var _isInitialized = MutableLiveData<Boolean>(true)
@@ -19,6 +20,10 @@ class ServiceMgtViewModel: ViewModel() {
     private var _recruitedNum = MutableLiveData<String>()
     val recruitedNum: LiveData<String>
         get() = _recruitedNum
+
+    private var _recruitedResult = MutableLiveData<RecruitedServices>()
+    val recruitedResult: LiveData<RecruitedServices>
+        get() = _recruitedResult
 
     var _recruitedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
     val recruitedServices: LiveData<ArrayList<RecruitedService>>
@@ -31,6 +36,10 @@ class ServiceMgtViewModel: ViewModel() {
     private var _appliedNum = MutableLiveData<String>()
     val appliedNum: LiveData<String>
         get() = _appliedNum
+
+    private var _appliedResult = MutableLiveData<RecruitedServices>()
+    val appliedResult: LiveData<RecruitedServices>
+        get() = _appliedResult
 
     var _appliedServices = MutableLiveData<ArrayList<RecruitedService>>( ArrayList() )
     val appliedServices: LiveData<ArrayList<RecruitedService>>
@@ -93,80 +102,138 @@ class ServiceMgtViewModel: ViewModel() {
         get() = _isScrapCancelSuccessful
 
     // 모집한봉사
-    fun getRecruitedList(token: String) {
-        RetrofitClient.createRetorfitClient().getRecruitList(token)
-            .enqueue(object : Callback<RecruitedServices> {
-                override fun onResponse(
-                    call: Call<RecruitedServices>,
-                    response: Response<RecruitedServices>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.d("모집한 봉사 호출 성공", "${response.body()}")
-                        val result = response.body()
-                        if (result != null) {
-                            _recruitedNum.value = result.serviceCounter.toString()
-                            if (result.serviceList.isNotEmpty()) {
+    fun getRecruitedList(token: String, last: Int) {
+        if (last == 0) {
+            RetrofitClient.createRetorfitClient().getRecruitList(token)
+                .enqueue(object : Callback<RecruitedServices> {
+                    override fun onResponse(
+                        call: Call<RecruitedServices>,
+                        response: Response<RecruitedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("모집한 봉사 호출 성공", "${response.body()}")
+                            val result = response.body()
+                            if (result != null) {
+                                _recruitedResult.value = result!!
+                                _recruitedNum.value = result.serviceCounter.toString()
+                                if (result.serviceList.isNotEmpty()) {
+                                    for (elem in result.serviceList) {
+                                        _recruitedServices.value!!.add(elem)
+                                    }
+                                }
+
+
+                                _isRecruitedSuccessful.value = true
+                            } else {
+                                _isRecruitedSuccessful.value = false
+                            }
+                        } else {
+                            Log.d("모집한 봉사 호출 실패", "${response.code()}")
+                            _isRecruitedSuccessful.value = false
+                        }
+                    }
+
+                    override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
+                        Log.d("모집한 봉사 호출 실패", "${t.message}")
+                        _isRecruitedSuccessful.value = false
+                    }
+
+                })
+        } else {
+            RetrofitClient.createRetorfitClient().getRecruitListAdditional(token, last)
+                .enqueue(object : Callback<RecruitedServices> {
+                    override fun onResponse(
+                        call: Call<RecruitedServices>,
+                        response: Response<RecruitedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            val result = response.body()
+                            _recruitedResult.value = result!!
+                            if (result?.serviceList!!.isNotEmpty()) {
                                 for (elem in result.serviceList) {
                                     _recruitedServices.value!!.add(elem)
                                 }
                             }
-
-
                             _isRecruitedSuccessful.value = true
                         } else {
                             _isRecruitedSuccessful.value = false
                         }
-                    } else {
-                        Log.d("모집한 봉사 호출 실패", "${response.code()}")
+                    }
+
+                    override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
                         _isRecruitedSuccessful.value = false
                     }
-                }
 
-                override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
-                    Log.d("모집한 봉사 호출 실패", "${t.message}")
-                    _isRecruitedSuccessful.value = false
-                }
+                })
+        }
 
-            })
     }
 
-    fun getAppliedList(token: String) {
-        RetrofitClient.createRetorfitClient().getAppliedList(token)
-            .enqueue(object : Callback<RecruitedServices> {
-                override fun onResponse(
-                    call: Call<RecruitedServices>,
-                    response: Response<RecruitedServices>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.d("지원한 봉사 호출 성공", "${response.body()}")
-                        val result = response.body()
-                        if (result != null) {
-                            _appliedNum.value = result.serviceCounter.toString()
-                            Log.d("완료 개수", "${appliedNum.value}")
-                            if (result.serviceList.isNotEmpty()) {
-                                for (elem in result.serviceList) {
-                                    Log.d("추가됨", "${elem}")
-                                    _appliedServices.value!!.add(elem)
+    fun getAppliedList(token: String, last: Int) {
+        if (last == 0) {
+            RetrofitClient.createRetorfitClient().getAppliedList(token)
+                .enqueue(object : Callback<RecruitedServices> {
+                    override fun onResponse(
+                        call: Call<RecruitedServices>,
+                        response: Response<RecruitedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("지원한 봉사 호출 성공", "${response.body()}")
+                            val result = response.body()
+                            if (result != null) {
+                                _appliedResult.value = result!!
+                                _appliedNum.value = result.serviceCounter.toString()
+                                if (result.serviceList.isNotEmpty()) {
+                                    for (elem in result.serviceList) {
+                                        _appliedServices.value!!.add(elem)
+                                    }
                                 }
 
+
+                                _isAppliedServiceSuccessful.value = true
+                            } else {
+                                _isAppliedServiceSuccessful.value = false
+                            }
+                        } else {
+                            Log.d("모집한 봉사 호출 실패", "${response.code()}")
+                            _isAppliedServiceSuccessful.value = false
+                        }
+                    }
+
+                    override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
+                        Log.d("모집한 봉사 호출 실패", "${t.message}")
+                        _isAppliedServiceSuccessful.value = false
+                    }
+
+                })
+        } else {
+            RetrofitClient.createRetorfitClient().getAppliedListAdditional(token, last)
+                .enqueue(object : Callback<RecruitedServices> {
+                    override fun onResponse(
+                        call: Call<RecruitedServices>,
+                        response: Response<RecruitedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            val result = response.body()
+                            _appliedResult.value = result!!
+                            if (result?.serviceList!!.isNotEmpty()) {
+                                for (elem in result.serviceList) {
+                                    _appliedServices.value!!.add(elem)
+                                }
                             }
                             _isAppliedServiceSuccessful.value = true
-
                         } else {
                             _isAppliedServiceSuccessful.value = false
                         }
-                    } else {
-                        Log.d("지원한 봉사 호출 실패", "${response.code()}")
+                    }
+
+                    override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
                         _isAppliedServiceSuccessful.value = false
                     }
-                }
 
-                override fun onFailure(call: Call<RecruitedServices>, t: Throwable) {
-                    Log.d("지원한 봉사 호출 실패", "${t.message}")
-                    _isAppliedServiceSuccessful.value = false
-                }
+                })
+        }
 
-            })
     }
 
     fun getCompletedList(token: String, last: Int) {
@@ -259,31 +326,28 @@ class ServiceMgtViewModel: ViewModel() {
                         if (response.isSuccessful) {
                             Log.d("스크랩한 봉사 호출 성공", "${response.body()}")
                             val result = response.body()
-                            _scrapedResult.value = result!!
-                            if (result?.serviceList != null) {
+                            if (result != null) {
+                                _scrapedResult.value = result!!
                                 _scrapedNum.value = result.serviceCounter.toString()
-                                Log.d("스크랩 개수", "${scrapedNum.value}")
-                                if (result.serviceList.size != 0) {
+                                if (result.serviceList?.isNotEmpty() == true) {
                                     for (elem in result.serviceList) {
-                                        Log.d("스크랩 service elem", "${elem}")
-                                        _scrapedServices.value?.add(elem)
-                                        Log.d("스크랩 services list", "${scrapedServices.value}")
+                                        _scrapedServices.value!!.add(elem)
                                     }
-                                    _currScrapedNum.value = _currScrapedNum.value?.plus(result.serviceList.size)
                                 }
+
+
                                 _isScrapSuccessful.value = true
                             } else {
                                 _isScrapSuccessful.value = false
                             }
                         } else {
-                            Log.d("스크랩한 봉사 호출 실패", "${response.code()}")
+                            Log.d("모집한 봉사 호출 실패", "${response.code()}")
                             _isScrapSuccessful.value = false
                         }
-
                     }
 
                     override fun onFailure(call: Call<ScrapedServices>, t: Throwable) {
-                        Log.d("스크랩한 봉사 호출 실패", "${t.message}")
+                        Log.d("모집한 봉사 호출 실패", "${t.message}")
                         _isScrapSuccessful.value = false
                     }
 
@@ -296,33 +360,23 @@ class ServiceMgtViewModel: ViewModel() {
                         response: Response<ScrapedServices>
                     ) {
                         if (response.isSuccessful) {
-                            Log.d("스크랩한 봉사 추가 호출 성공", "${response.body()}")
                             val result = response.body()
                             _scrapedResult.value = result!!
-                            if (result?.serviceList != null) {
-                                _scrapedNum.value = result.serviceCounter.toString()
-                                Log.d("완료 개수", "${scrapedNum.value}")
-                                if (result.serviceList.isNotEmpty()) {
-                                    for (elem in result.serviceList) {
-                                        _scrapedServices.value!!.add(elem)
-                                    }
-                                    _currScrapedNum.value = _currScrapedNum.value?.plus(result.serviceList.size)
+                            if (result?.serviceList!!.isNotEmpty()) {
+                                for (elem in result.serviceList) {
+                                    _scrapedServices.value!!.add(elem)
                                 }
-                                _isScrapSuccessful.value = true
-                            } else {
-                                _isScrapSuccessful.value = false
                             }
+                            _isScrapSuccessful.value = true
                         } else {
-                            Log.d("완료한 봉사 호출 실패", "${response.code()}")
                             _isScrapSuccessful.value = false
                         }
-
                     }
 
                     override fun onFailure(call: Call<ScrapedServices>, t: Throwable) {
-                        Log.d("완료한 봉사 호출 실패", "${t.message}")
                         _isScrapSuccessful.value = false
                     }
+
                 })
         }
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -23,7 +24,7 @@ import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewMode
 class SearchKeywordRVAdapter(private val context: SearchResultActivity?, private val viewModel: SearchKeywordViewModel, private val serviceList: ArrayList<ServiceList>?): RecyclerView.Adapter<SearchKeywordRVAdapter.ServicesSearchViewHolder>() {
 
     class ServicesSearchViewHolder(private val binding: ItemServiceSearchBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, current: ServiceList, position: Int, viewModel: SearchKeywordViewModel) {
+        fun bind(context: Context, current: ServiceList, position: Int, viewModel: SearchKeywordViewModel, serviceList: ArrayList<ServiceList>?) {
             val token = SharedPreferencesManager.getInstance(context)
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
@@ -32,6 +33,7 @@ class SearchKeywordRVAdapter(private val context: SearchResultActivity?, private
             val serviceId = current.workId.toInt()
             // 스낵바 띄울 액티비티
 
+            val view = (context as SearchResultActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_result)
 
             Glide.with(context)
                 .load(current.imageUrl)
@@ -77,10 +79,12 @@ class SearchKeywordRVAdapter(private val context: SearchResultActivity?, private
                     btnApply.visibility = View.GONE
                     btnCancel.visibility = View.VISIBLE
                     val intent = Intent(context, MainActivity::class.java)
-                    (context as SearchResultActivity).finish()
-                    (context as SearchResultActivity).startActivity(intent)
-
+                    serviceList!![position].userApplied = true
+                    val snackbarApplySuccess = Snackbar.make(view, "봉사활동에 지원하였습니다.", Snackbar.LENGTH_SHORT)
+                    snackbarApplySuccess.show()
                 } else {
+                    val snackbarApplyFail = Snackbar.make(view, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                    snackbarApplyFail.show()
                     Log.d("success", "false")
 
                 }
@@ -93,13 +97,15 @@ class SearchKeywordRVAdapter(private val context: SearchResultActivity?, private
                     Log.d("success", "true")
                     btnApply.visibility = View.VISIBLE
                     btnCancel.visibility = View.GONE
-                    val intent = Intent(context, MainActivity::class.java)
-                    (context as MainActivity).finish()
-                    (context as MainActivity).startActivity(intent)
+                    serviceList!![position].userApplied = true
+                    val snackbarApplySuccess = Snackbar.make(view, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
+                    snackbarApplySuccess.show()
 //                    val snackbarCancelSuccess = Snackbar.make(mainActivity, "봉사활동 지원을 취소하였습니다.", Snackbar.LENGTH_SHORT)
 //                    snackbarCancelSuccess.show()
                 } else {
                     Log.d("success", "false")
+                    val snackbarCancelFail = Snackbar.make(view, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
+                    snackbarCancelFail.show()
 //                    val snackbarCancelFail = Snackbar.make(mainActivity, "네트워크 문제로 취소에 실패하였습니다. 다시 시도해보세요.", Snackbar.LENGTH_SHORT)
 //                    snackbarCancelFail.show()
                 }
@@ -124,7 +130,7 @@ class SearchKeywordRVAdapter(private val context: SearchResultActivity?, private
     }
 
     override fun onBindViewHolder(holder: ServicesSearchViewHolder, position: Int) {
-        holder.bind(context!!, serviceList!![position], position, viewModel)
+        holder.bind(context!!, serviceList!![position], position, viewModel, serviceList)
     }
 
     override fun getItemCount(): Int {

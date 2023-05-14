@@ -191,6 +191,8 @@ class ServiceDetailActivity:AppCompatActivity() {
                 binding.btnApplyCancel.visibility = View.GONE
                 binding.btnApply.visibility = View.GONE
                 binding.btnRecruit.visibility = View.VISIBLE
+                binding.tvReportTitle.visibility = View.GONE
+                binding.viewSeparator4.visibility = View.GONE
             } else {
                 if (viewModel.contents.value?.didApply == true) {
                     Log.d("didapply", "${viewModel.contents.value?.didApply}")

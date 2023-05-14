@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModel
@@ -33,6 +34,8 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                 val token = SharedPreferencesManager.getInstance(context)
                     .getString("token", "null")
 
+                val total = (context as RecruitedServiceActivity).findViewById<TextView>(R.id.tv_total_recruited)
+
                 val recruitBtn = binding.ivGotoRecruit
                 val deleteBtn = binding.ivDeleteRecruit
 
@@ -59,6 +62,8 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
 
                 val view = (context as RecruitedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_recruit)
 
+                var totalNum = viewModel.recruitedNum.value?.toInt()
+
                 val isApplied = current.userApplied
                 Log.d("isApplied", "${isApplied}")
 
@@ -72,7 +77,9 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                                 // 이렇게 해야 오류가 안남
                                 servicesList?.remove(current)
                                 notifyItemRemoved(adapterPosition)
+                                totalNum = totalNum?.minus(1)
                                 notifyItemRangeChanged(adapterPosition, servicesList!!.size)
+                                total.text = "총 ${totalNum}개의 봉사를 모집하였습니다."
                                 Snackbar.make(view, "봉사활동을 삭제하였습니다.", 1000).show()
                             } catch (e: Exception) {
                                 Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()

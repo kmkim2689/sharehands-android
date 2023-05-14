@@ -135,6 +135,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_preview_period"
             app:layout_constraintTop_toTopOf="@id/iv_preview_period"
+            app:layout_constraintBottom_toBottomOf="@id/iv_preview_period"
             tools:text="2023.01.01 ~ 2023. 01.01" />
 
         <ImageView

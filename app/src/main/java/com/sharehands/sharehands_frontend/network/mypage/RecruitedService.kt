@@ -7,7 +7,9 @@ data class RecruitedServices(
     @SerializedName("serviceCounter")
     val serviceCounter: Int,
     @SerializedName("serviceList")
-    val serviceList: List<RecruitedService>
+    val serviceList: List<RecruitedService>,
+    @SerializedName("lastWorkId")
+    val lastWorkId: Long
 )
 
 data class RecruitedService(

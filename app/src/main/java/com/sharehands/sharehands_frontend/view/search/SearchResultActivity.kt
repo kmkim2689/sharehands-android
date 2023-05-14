@@ -140,7 +140,7 @@ class SearchResultActivity: AppCompatActivity() {
                 startActivity(intent)
             } else {
                 // 스낵바 띄우기
-                Snackbar.make(binding.coordinatorLayout, "2글자 이상 입력해주세요.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.coordinatorLayoutResult, "2글자 이상 입력해주세요.", Snackbar.LENGTH_SHORT).show()
             }
 
 
@@ -188,7 +188,7 @@ class SearchResultActivity: AppCompatActivity() {
 
 
     private fun showSnackbar(text: String) {
-        val snackbar = Snackbar.make(binding.coordinatorLayout, text, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(binding.coordinatorLayoutResult, text, Snackbar.LENGTH_LONG)
             .setAction("로그인") {
                 val intent = Intent(this, SocialLoginActivity::class.java)
                 startActivity(intent)

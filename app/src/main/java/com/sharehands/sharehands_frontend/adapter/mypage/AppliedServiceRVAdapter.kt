@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModel
@@ -38,6 +39,9 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                 val serviceId = current.serviceId.toInt()
                 // 스낵바 띄울 액티비티
                 val view = (context as AppliedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_applied)
+                val total = (context as AppliedServiceActivity).findViewById<TextView>(R.id.tv_total_applied)
+
+                var totalNum = viewModel.appliedNum.value?.toInt()
 
                 Glide.with(context)
                     .load(current.imageUrl)
@@ -75,6 +79,8 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                                 servicesList?.remove(current)
                                 notifyItemRemoved(adapterPosition)
                                 notifyItemRangeChanged(adapterPosition, servicesList!!.size)
+                                totalNum = totalNum?.minus(1)
+                                total.text = "총 ${totalNum}개의 봉사에 지원하였습니다."
                                 Snackbar.make(view, "봉사활동 지원을 취소하였습니다.", 1000).show()
                             } catch (e: Exception) {
                                 Snackbar.make(view, "알 수 없는 오류가 발생하였습니다.", 1000).show()
