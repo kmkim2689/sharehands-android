@@ -33,7 +33,7 @@ class DailyCalendarActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_daily_calendar)
-        val binding = DataBindingUtil.setContentView<ActivityDailyCalendarBinding>(this, R.layout.activity_daily_calendar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_daily_calendar)
 
         val viewModel = ViewModelProvider(this).get(DailyCalendarViewModel::class.java)
         val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
@@ -55,12 +55,12 @@ class DailyCalendarActivity: AppCompatActivity() {
         val todayMonth = today.month + 1
         val todayDay = today.day
 
+        val timeTable: TimetableView = binding.viewTimeTable
+
         binding.tvScheduleTitle.text = "${todayMonth}월 ${todayDay}일"
 
         viewModel.getDailyServices(token, todayYear, todayMonth, todayDay)
         viewModel.dailyList.observe(this) {
-            val timeTable: TimetableView = binding.viewTimeTable
-
             timeTable.setBackgroundColor(resources.getColor(R.color.item_color))
             val schedules = ArrayList<Schedule>()
             for (elem in viewModel.dailyList.value!!) {
@@ -81,38 +81,7 @@ class DailyCalendarActivity: AppCompatActivity() {
                 timeTable.add(schedules)
             }
 
-            // 클릭 이벤트
-            timeTable.setOnStickerSelectEventListener(object : OnStickerSelectedListener {
-                override fun OnStickerSelected(idx: Int, schedules: ArrayList<Schedule>?) {
-                    Log.d("schedules", "${schedules}")
-                    Log.d("schedules idx elem", "${idx}")
-                    // 특정 인덱스의 스티커가 선택되었을 때... 여기서 인덱스란 schedules ArrayList를 이름.
-                    // TODO schedules arraylist 뿐만 아니라,
-                    // TODO schedule의 아이디를 담는 arraylist도 별도로 만들어 관리하는 것이 필요할듯
-
-                    val intent = Intent(this@DailyCalendarActivity, ServiceDetailActivity::class.java)
-                    // TODO 서비스 아이디 넘겨주는 것 바꿔놓기
-                    intent.putExtra("serviceId", idList[idx])
-                    startActivity(intent)
-                }
-
-            })
-
         }
-
-        // timetable 설정
-
-
-        // add schedule 시범
-        // 1. Schedule 객체를 생성한다.
-//        val schedule1 = Schedule()
-//        schedule1.apply {
-//            classTitle = "봉사활동 뭐시기"
-//            classPlace = "한국외국어대학교"
-//            professorName = "닉네임"
-//            startTime = Time(9, 0)
-//            endTime = Time(13, 0)
-//        }
 
 
 
@@ -152,7 +121,7 @@ class DailyCalendarActivity: AppCompatActivity() {
 
             viewModel.getDailyServices(token, changedYear, changedMonth, changedDay)
             viewModel.dailyList.observe(this) {
-                val timeTable: TimetableView = binding.viewTimeTable
+
                 val schedules = ArrayList<Schedule>()
                 timeTable.removeAll()
                 for (elem in viewModel.dailyList.value!!) {
@@ -172,25 +141,25 @@ class DailyCalendarActivity: AppCompatActivity() {
                     schedules.add(schedule)
                     timeTable.add(schedules)
                 }
-
-                // 클릭 이벤트
-                timeTable.setOnStickerSelectEventListener(object : OnStickerSelectedListener {
-                    override fun OnStickerSelected(idx: Int, schedules: ArrayList<Schedule>?) {
-                        Log.d("schedules", "${schedules.toString()}")
-                        Log.d("schedules idx elem", "${idx}")
-                        // 특정 인덱스의 스티커가 선택되었을 때... 여기서 인덱스란 schedules ArrayList를 이름.
-                        // TODO schedules arraylist 뿐만 아니라,
-                        // TODO schedule의 아이디를 담는 arraylist도 별도로 만들어 관리하는 것이 필요할듯
-
-                        val intent = Intent(this@DailyCalendarActivity, ServiceDetailActivity::class.java)
-                        // TODO 서비스 아이디 넘겨주는 것 바꿔놓기
-                        intent.putExtra("serviceId", idList[idx])
-                        startActivity(intent)
-                    }
-
-                })
-
             }
+
+        }
+
+        // 클릭 이벤트
+        timeTable.setOnStickerSelectEventListener { idx, schedules ->
+            Log.d("schedules", "${schedules.toString()}")
+            Log.d("schedules idx elem", "${idx}")
+            // 특정 인덱스의 스티커가 선택되었을 때... 여기서 인덱스란 schedules ArrayList를 이름.
+
+            if (!isFinishing) {
+                val intent =
+                    Intent(this, ServiceDetailActivity::class.java)
+                // TODO 서비스 아이디 넘겨주는 것 바꿔놓기
+//                    intent.putExtra("serviceId", idList[idx])
+                startActivity(intent)
+            }
+
+
 
         }
 
@@ -198,10 +167,6 @@ class DailyCalendarActivity: AppCompatActivity() {
             finish()
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
 }

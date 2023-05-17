@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.mypage.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -424,7 +426,6 @@ class ServiceMgtViewModel: ViewModel() {
                             Log.d("제안받은 봉사 호출 실패", "${response.code()}")
                             _isSuggestedSuccessful.value = false
                         }
-
                     }
 
                     override fun onFailure(call: Call<SuggestedServices>, t: Throwable) {
@@ -473,29 +474,35 @@ class ServiceMgtViewModel: ViewModel() {
         }
     }
 
+
+    /*
+    이 코드에서 acceptService 함수는 네트워크 통신 결과에 따라 result 값을 반환하는데, 현재는 항상 false를 반환하고 있습니다. 이는 enqueue 메서드가 비동기로 실행되며, 네트워크 요청이 완료되기 전에 result가 반환되기 때문입니다.
+
+이를 개선하기 위해서는 콜백 대신 코루틴과 suspend 함수를 사용하여 비동기 처리를 직접 제어해야 합니다. 다음은 개선된 코드 예시입니다:
+     */
     suspend fun acceptService(token: String, serviceId: Long): Boolean {
-        var result = false
-        RetrofitClient.createRetorfitClient().acceptSuggestion(token, serviceId)
-            .enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.code() == 200) {
-                        Log.d("봉사활동 수락 성공", "${response.code()}")
-                        result = true
-                    } else {
-                        Log.d("봉사활동 수락 실패", "${response.code()}")
-                        result = false
-                    }
-
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = RetrofitClient.createRetorfitClient().acceptSuggestion(token, serviceId).execute()
+                if (response.isSuccessful) {
+                    Log.d("봉사활동 수락 성공", "${response.code()}")
+                    true
+                } else {
+                    Log.d("봉사활동 수락 실패", "${response.code()}")
+                    false
                 }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    Log.d("봉사활동 수락 실패", "${t.message}")
-                    result = false
-                }
-            })
-
-        return result
+            } catch (t: Throwable) {
+                Log.d("봉사활동 수락 실패", "${t.message}")
+                false
+            }
+        }
     }
+
+    /*
+    위의 코드에서는 enqueue 대신 execute 메서드를 사용하여 동기적으로 네트워크 요청을 수행하고, response.isSuccessful을 통해 성공 여부를 확인합니다. 또한, try-catch 문을 사용하여 예외가 발생한 경우에도 실패로 처리합니다.
+
+이렇게 개선된 코드를 사용하면 네트워크 통신의 결과에 따라 올바른 값을 반환할 수 있습니다. 하지만 주의할 점은 이 함수를 호출하는 곳에서는 코루틴 스코프 내에서 호출되어야 한다는 것입니다.
+     */
 
     fun cancelService(token: String, serviceId: Int) {
         RetrofitClient.createRetorfitClient().cancelApplyService(token, serviceId.toLong())

@@ -84,25 +84,17 @@ class ServiceDetailActivity:AppCompatActivity() {
         val layout = binding.coordinatorLayout
         layout.visibility = View.INVISIBLE
 
-
-
-        val progressDialog = ProgressDialog(this, "콘텐츠 로드 중")
-        progressDialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        progressDialog.setCancelable(false)
-        progressDialog.show()
-
-
         // 네트워크 통신이 5초 안에 이뤄지지 않는다면 그냥 없앰
-        Handler().postDelayed({
-            layout.visibility = View.VISIBLE
-            layout.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this@ServiceDetailActivity,
-                    R.anim.anim_element_fade_in
-                )
-            )
-            progressDialog.dismiss()
-        }, 500)
+//        Handler().postDelayed({
+//            layout.visibility = View.VISIBLE
+//            layout.startAnimation(
+//                AnimationUtils.loadAnimation(
+//                    this@ServiceDetailActivity,
+//                    R.anim.anim_element_fade_in
+//                )
+//            )
+//            progressDialog.dismiss()
+//        }, 500)
 
 
         // 네트워크 통신 성공 시, 마지막에 progressDialog.dismiss() 코드 추가할것
@@ -113,10 +105,22 @@ class ServiceDetailActivity:AppCompatActivity() {
 
 
         if (token != "null" && serviceId != 0) {
+            val progressDialog = ProgressDialog(this, "콘텐츠 로드 중")
+            progressDialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            progressDialog.setCancelable(false)
+            progressDialog.show()
             viewModel.showContents(token, serviceId)
-            viewModel.photoList.observe(this) {
-                val photoList = viewModel.photoList?.value
-                if (photoList != null) {
+            viewModel.contents.observe(this) {
+                val photoList = viewModel.contents.value!!.photoList
+                if (viewModel.contents.value != null) {
+                    progressDialog.dismiss()
+                    layout.visibility = View.VISIBLE
+                    layout.startAnimation(
+                        AnimationUtils.loadAnimation(
+                        this@ServiceDetailActivity,
+                            R.anim.anim_element_fade_in
+                        )
+                    )
                     val viewPagerAdapter = ServiceImageVPAdapter(this@ServiceDetailActivity,
                         photoList
                     )
@@ -124,6 +128,9 @@ class ServiceDetailActivity:AppCompatActivity() {
                     TabLayoutMediator(binding.tabLayout, viewPager)  { tab, position ->
                         viewPager.setCurrentItem(tab.position)
                     }.attach()
+                } else {
+                    progressDialog.dismiss()
+                    finish()
                 }
 
 
@@ -343,6 +350,11 @@ class ServiceDetailActivity:AppCompatActivity() {
         return Snackbar.make(binding.coordinatorLayout, text, 1000)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
 }
 
 class ProfileDialog(private val context: AppCompatActivity) {
@@ -387,4 +399,5 @@ class ProfileDialog(private val context: AppCompatActivity) {
 
         dialog.show()
     }
+
 }

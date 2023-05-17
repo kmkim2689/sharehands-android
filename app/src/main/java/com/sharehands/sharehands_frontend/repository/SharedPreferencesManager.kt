@@ -2,6 +2,8 @@ package com.sharehands.sharehands_frontend.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.sharehands.sharehands_frontend.model.schedule.CheckListItem
 
 class SharedPreferencesManager private constructor(context: Context) {
 
@@ -37,6 +39,31 @@ class SharedPreferencesManager private constructor(context: Context) {
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+    }
+
+    fun getArray(
+        key: String,
+        defaultValue: MutableList<CheckListItem> = mutableListOf()
+    ): MutableList<CheckListItem> {
+        val str = sharedPreferences.getString(key, "[]") ?: "[]"
+        return Gson().fromJson(str, Array<CheckListItem>::class.java).toMutableList()
+    }
+
+    fun addArray(key: String, newItem: CheckListItem) {
+        val itemsJson = sharedPreferences.getString(key, "[]") ?: "[]"
+        val items = Gson().fromJson(itemsJson, Array<CheckListItem>::class.java).toMutableList()
+        items.add(newItem)
+        val updatedItemsJson = Gson().toJson(items)
+        sharedPreferences.edit()
+            .putString(key, updatedItemsJson)
+            .apply()
+    }
+
+    fun deleteArray(key: String, newList: MutableList<CheckListItem>) {
+        val items = Gson().toJson(newList)
+        sharedPreferences.edit()
+            .putString(key, items)
+            .apply()
     }
 
 }

@@ -1,5 +1,7 @@
 package com.sharehands.sharehands_frontend.view.schedule
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharehands.sharehands_frontend.R
+import com.sharehands.sharehands_frontend.adapter.schedule.BelongingsRVAdapter
 import com.sharehands.sharehands_frontend.adapter.schedule.TodayServiceVPAdapter
+import com.sharehands.sharehands_frontend.databinding.DialogAddItemBinding
 import com.sharehands.sharehands_frontend.databinding.FragmentScheduleBinding
+import com.sharehands.sharehands_frontend.model.schedule.CheckListItem
 import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.schedule.TodayServices
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
@@ -44,6 +49,13 @@ class ScheduleFragment : Fragment() {
         val tvNone = binding.tvTodayNone
         val viewPagerToday = binding.vpTodayServices
 
+
+
+        val rvItems = binding.rvCheckList
+        val initialItems = SharedPreferencesManager.getInstance(requireContext()).getArray("items", mutableListOf())
+        val itemAdapter = BelongingsRVAdapter(requireContext() as MainActivity, initialItems)
+        rvItems.adapter = itemAdapter
+
         Log.d("schedule fragment", "onViewCreated")
 
         val today = Calendar.getInstance()
@@ -71,7 +83,7 @@ class ScheduleFragment : Fragment() {
                     val result = response.body()
                     Log.d("오늘 봉사 불러오기 코드", "${response.code()}")
                     Log.d("오늘 봉사 불러오기 성공", "${result}")
-                    if (result?.workList != null) {
+                    if (result?.workList?.isNotEmpty() == true) {
                         // recyclerview
                         val vpTodayAdapter = TodayServiceVPAdapter(activity!!, result?.workList)
                         viewPagerToday.adapter = vpTodayAdapter
@@ -115,6 +127,29 @@ class ScheduleFragment : Fragment() {
         binding.ivServiceToday.setOnClickListener {
             startActivity(monthlyCalendarIntent)
         }
+
+        binding.tvAddItem.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            val builderItem = DialogAddItemBinding.inflate(layoutInflater)
+            val editText = builderItem.dialogEdit
+
+            with(builder) {
+                setTitle("준비물 추가")
+                setView(builderItem.root)
+                setPositiveButton("추가") { dialogInterface: DialogInterface, num: Int ->
+                    SharedPreferencesManager.getInstance(requireContext())
+                        .addArray("items", CheckListItem(editText.text.toString(), false))
+                    itemAdapter.notifyDataSetChanged()
+                }
+                setNegativeButton("취소") { dialogInterface: DialogInterface, num: Int ->
+                    dialogInterface.dismiss()
+                }
+            }
+
+            builder.show()
+        }
+
+
 
     }
 
