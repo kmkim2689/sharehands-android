@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sharehands.sharehands_frontend.network.RetrofitClient
-import com.sharehands.sharehands_frontend.network.mypage.CompletedServices
-import com.sharehands.sharehands_frontend.network.mypage.RecruitedService
-import com.sharehands.sharehands_frontend.network.mypage.RecruitedServices
-import com.sharehands.sharehands_frontend.network.mypage.ScrapedServices
+import com.sharehands.sharehands_frontend.network.mypage.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,6 +77,22 @@ class ServiceMgtViewModel: ViewModel() {
     var _scrapedServices = MutableLiveData<ArrayList<RecruitedService?>>( ArrayList() )
     val scrapedServices: LiveData<ArrayList<RecruitedService?>>
         get() = _scrapedServices
+
+    private var _suggestedNum = MutableLiveData<String>()
+    val suggestedNum: LiveData<String>
+        get() = _suggestedNum
+
+    private var _suggestedResult = MutableLiveData<SuggestedServices?>()
+    val suggestedResult: LiveData<SuggestedServices?>
+        get() = _suggestedResult
+
+    private var _suggestedServices = MutableLiveData<ArrayList<RecruitedService?>>( ArrayList() )
+    val suggestedServices: LiveData<ArrayList<RecruitedService?>>
+        get() = _suggestedServices
+
+    private var _isSuggestedSuccessful = MutableLiveData<Boolean>()
+    val isSuggestedSuccessful: LiveData<Boolean>
+        get() = _isSuggestedSuccessful
 
     private var _isScrapSuccessful = MutableLiveData<Boolean>()
     val isScrapSuccessful: LiveData<Boolean>
@@ -379,6 +392,109 @@ class ServiceMgtViewModel: ViewModel() {
 
                 })
         }
+    }
+
+    fun getSuggestedList(token: String, last: Int) {
+        if (last == 0) {
+            RetrofitClient.createRetorfitClient().getSuggestedList(token)
+                .enqueue(object : Callback<SuggestedServices> {
+                    override fun onResponse(
+                        call: Call<SuggestedServices>,
+                        response: Response<SuggestedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("제안받은 봉사 호출 성공", "${response.body()}")
+                            val result = response.body()
+                            _suggestedResult.value = result!!
+                            if (result?.serviceList != null) {
+                                _suggestedNum.value = result.serviceCounter.toString()
+                                Log.d("완료 개수", "${suggestedNum.value}")
+                                if (result.serviceList.size != 0) {
+                                    for (elem in result.serviceList) {
+                                        Log.d("suggested service elem", "${elem}")
+                                        _suggestedServices.value?.add(elem)
+                                        Log.d("suggested services list", "${suggestedServices.value}")
+                                    }
+                                }
+                                _isSuggestedSuccessful.value = true
+                            } else {
+                                _isSuggestedSuccessful.value = false
+                            }
+                        } else {
+                            Log.d("제안받은 봉사 호출 실패", "${response.code()}")
+                            _isSuggestedSuccessful.value = false
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<SuggestedServices>, t: Throwable) {
+                        Log.d("제안받은 봉사 호출 실패", "${t.message}")
+                        _isSuggestedSuccessful.value = false
+                    }
+
+                })
+        } else {
+            RetrofitClient.createRetorfitClient().getSuggestedListAdditional(token, last)
+                .enqueue(object : Callback<SuggestedServices> {
+                    override fun onResponse(
+                        call: Call<SuggestedServices>,
+                        response: Response<SuggestedServices>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("제안받은 봉사 추가 호출 성공", "${response.body()}")
+                            val result = response.body()
+                            _suggestedResult.value = result!!
+                            if (result?.serviceList != null) {
+                                _suggestedNum.value = result.serviceCounter.toString()
+                                Log.d("완료 개수", "${suggestedNum.value}")
+                                if (result.serviceList.isNotEmpty()) {
+                                    for (elem in result.serviceList) {
+                                        _suggestedServices.value!!.add(elem)
+                                    }
+
+                                }
+                                _isSuggestedSuccessful.value = true
+                            } else {
+                                _isSuggestedSuccessful.value = false
+                            }
+                        } else {
+                            Log.d("제안받은 봉사 호출 실패", "${response.code()}")
+                            _isSuggestedSuccessful.value = false
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<SuggestedServices>, t: Throwable) {
+                        Log.d("제안받은 봉사 호출 실패", "${t.message}")
+                        _isSuggestedSuccessful.value = false
+                    }
+
+                })
+        }
+    }
+
+    suspend fun acceptService(token: String, serviceId: Long): Boolean {
+        var result = false
+        RetrofitClient.createRetorfitClient().acceptSuggestion(token, serviceId)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.code() == 200) {
+                        Log.d("봉사활동 수락 성공", "${response.code()}")
+                        result = true
+                    } else {
+                        Log.d("봉사활동 수락 실패", "${response.code()}")
+                        result = false
+                    }
+
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("봉사활동 수락 실패", "${t.message}")
+                    result = false
+                }
+            })
+
+        return result
     }
 
     fun cancelService(token: String, serviceId: Int) {

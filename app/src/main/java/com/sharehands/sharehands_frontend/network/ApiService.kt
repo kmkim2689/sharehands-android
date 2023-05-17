@@ -231,6 +231,27 @@ interface ApiService {
         @Query("workId") workId: Long
     ): Call<Void>
 
+    // 모집글 신고
+    @POST("/manage/reportWork")
+    fun reportService(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Body reportBody: ReportBody
+    ): Call<Void>
+
+    // 리뷰 신고
+    @POST("/manage/reportReview")
+    fun reportReview(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Body reportBody: ReportBody
+    ): Call<Void>
+
+    // 차단
+    @POST("/manage/block")
+    fun blockUser(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long
+    ): Call<Void>
+
     // 5. My Page
 
     // 마이페이지 초기화면
@@ -303,6 +324,25 @@ interface ApiService {
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
         @Query("last") lastService: Int
     ): Call<ScrapedServices>
+
+    // 제안받은 봉사
+    @GET("/my-page/invited-list")
+    fun getSuggestedList(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<SuggestedServices>
+
+    @GET("/my-page/invited-list")
+    fun getSuggestedListAdditional(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("last") lastService: Int
+    ): Call<SuggestedServices>
+
+    // 제안받은 봉사 수락
+    @POST("/service/acceptInvitation")
+    fun acceptSuggestion(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("workId") workId: Long
+    ): Call<Void>
 
     // 모집글 삭제
     @POST("/service/delete/{workId}")

@@ -60,6 +60,8 @@ class DailyCalendarActivity: AppCompatActivity() {
         viewModel.getDailyServices(token, todayYear, todayMonth, todayDay)
         viewModel.dailyList.observe(this) {
             val timeTable: TimetableView = binding.viewTimeTable
+
+            timeTable.setBackgroundColor(resources.getColor(R.color.item_color))
             val schedules = ArrayList<Schedule>()
             for (elem in viewModel.dailyList.value!!) {
                 idList.add(elem.workId.toInt())
