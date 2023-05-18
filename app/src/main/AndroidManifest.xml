@@ -83,6 +83,9 @@
         <activity android:name=".view.mypage.ContactActivity"/>
         <activity android:name=".view.mypage.WithdrawActivity"/>
         <activity android:name=".view.mypage.UserInfoActivity"/>
+        <activity android:name=".view.BlockActivity"/>
+        <activity android:name=".view.ReportReviewActivity"/>
+        <activity android:name=".view.ReportServiceActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

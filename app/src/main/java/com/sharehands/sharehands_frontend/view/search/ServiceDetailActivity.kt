@@ -35,8 +35,10 @@ import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.search.ServiceContent
 import com.sharehands.sharehands_frontend.network.search.UserProfile
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
+import com.sharehands.sharehands_frontend.view.BlockActivity
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.ProgressDialog
+import com.sharehands.sharehands_frontend.view.ReportServiceActivity
 import com.sharehands.sharehands_frontend.view.signin.SocialLoginActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceDetailViewModel
 import retrofit2.Call
@@ -189,7 +191,7 @@ class ServiceDetailActivity:AppCompatActivity() {
         * */
 
         viewModel.profile.observe(this) {
-            val profile = ProfileDialog(this)
+            val profile = ProfileDialog(this, viewModel)
             profile.show(viewModel.profile.value!!)
         }
 
@@ -341,6 +343,12 @@ class ServiceDetailActivity:AppCompatActivity() {
             recruitIntent.putExtra("serviceId", serviceId)
             startActivity(recruitIntent)
         }
+
+        binding.tvReportTitle.setOnClickListener {
+            val reportIntent = Intent(this, ReportServiceActivity::class.java)
+            reportIntent.putExtra("serviceId", serviceId.toLong())
+            startActivity(reportIntent)
+        }
     }
 
 
@@ -357,7 +365,7 @@ class ServiceDetailActivity:AppCompatActivity() {
 
 }
 
-class ProfileDialog(private val context: AppCompatActivity) {
+class ProfileDialog(private val context: AppCompatActivity, private val viewModel: ServiceDetailViewModel) {
     private val dialog = Dialog(context)
     private var binding: DialogProfileBinding
 
@@ -378,6 +386,15 @@ class ProfileDialog(private val context: AppCompatActivity) {
         binding.ivExit.setOnClickListener {
             dialog.dismiss()
         }
+
+        binding.btnDialogBan.setOnClickListener {
+            val userId = viewModel.contents.value?.userId
+            if (userId != null) {
+                val blockIntent = Intent(context, BlockActivity::class.java)
+                blockIntent.putExtra("userId", userId.toLong())
+                context.startActivity(blockIntent)
+            }
+        }
     }
 
     fun show(userProfile: UserProfile) {
@@ -389,10 +406,17 @@ class ProfileDialog(private val context: AppCompatActivity) {
         binding.tvNumRecruited.text = userProfile.managedWork.toString()
         binding.tvNumApplied.text = userProfile.appliedWork.toString()
         binding.tvNumParticipated.text = userProfile.participatedWork.toString()
+        if (userProfile.author) {
+            binding.btnDialogBan.visibility = View.GONE
+        }
         Log.d("profile profile url", "${userProfile.profileUrl}")
         Glide.with(context)
             .load(userProfile.profileUrl)
             .into(binding.ivDialogUserProfile)
+
+
+
+
 
 
         // TODO 프로필 URL 호출하기

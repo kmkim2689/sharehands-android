@@ -1,6 +1,7 @@
 package com.sharehands.sharehands_frontend.adapter.search
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.sharehands.sharehands_frontend.databinding.ItemReviewBinding
 import com.sharehands.sharehands_frontend.network.search.Review
 import com.sharehands.sharehands_frontend.network.search.ReviewDetailItem
+import com.sharehands.sharehands_frontend.view.BlockActivity
+import com.sharehands.sharehands_frontend.view.ReportReviewActivity
 import com.sharehands.sharehands_frontend.view.search.ReviewDetailActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ReviewDetailViewModel
 
@@ -37,8 +40,6 @@ class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private v
                     }
                 }
 
-                binding.ivBan.visibility = View.GONE
-                binding.ivReport.visibility = View.GONE
                 Glide.with(context)
                     .load(current.profileUrl)
                     .into(binding.ivUserProfile)
@@ -54,12 +55,17 @@ class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private v
 
                 // 신고
                 binding.ivReport.setOnClickListener {
-
+                    val reviewId = current.reviewId
+                    val reportIntent = Intent(context as ReviewDetailActivity, ReportReviewActivity::class.java)
+                    reportIntent.putExtra("reviewId", reviewId)
+                    context.startActivity(reportIntent)
                 }
 
                 // 차단
                 binding.ivBan.setOnClickListener {
-
+//                    val userId = current.
+                    val banIntent = Intent(context as ReviewDetailActivity, BlockActivity::class.java)
+                    context.startActivity(banIntent)
                 }
             }
         }

@@ -42,6 +42,9 @@
     <string name="report_description">본 정보는 쉐어핸즈의 해당 회원이 제공한 자료로, 쉐어핸즈는 기재된 내용에 대한 오류 및 사용자가 그 내용을 신뢰하여 일어난 모든 결과에 대해 책임을 지지 않습니다. 또한, 본 정보는 쉐어핸즈의 동의 없이 재배포될 수 없음을 알려드립니다.</string>
     <string name="withdraw_desc">탈퇴를 진행한 후로부터 30일까지는 유예기간으로, 30일 안에 다시 로그인하시면 계정은 복구됩니다.\n\n30일 후 탈퇴가 진행되어도 회원이 직접 작성한 게시글과 댓글, 리뷰 등 UGC(User-Generated Contents) 관련 정보들은 모두 보존됩니다. 그 외 모든 회원 관련 정보들은 폐기되며, 이는 재가입을 하더라도 복원할 수 없습니다.</string>
     <string name="contact"><u>문의하기</u></string>
+    <string name="user_block_title">차단하기</string>
+    <string name="warning_title">유의사항</string>
+    <string name="block_warning_desc">쉐어핸즈에 적절하지 않은 사용자를 차단합니다. 차단된 사용자는 쉐어핸즈 운영 방침에 따라 처리됩니다. 또한, 차단한 사용자의 모든 게시물과 리뷰는 나에게만 숨김처리 됩니다.</string>
 
     <!-- spinner 리스트 -->
     <string-array name="location_spinner">
