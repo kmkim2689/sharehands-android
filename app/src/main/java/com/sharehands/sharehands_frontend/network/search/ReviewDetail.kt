@@ -18,6 +18,7 @@ data class ReviewDetail(
 )
 
 data class ReviewDetailItem(
+    @SerializedName("userId") val userId: Long,
     @SerializedName("workId") val workId: Long,
     @SerializedName("memberName") val memberName: String,
     @SerializedName("profileUrl") val profileUrl: String,

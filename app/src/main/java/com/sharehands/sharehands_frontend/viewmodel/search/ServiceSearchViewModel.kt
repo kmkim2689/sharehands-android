@@ -18,6 +18,8 @@ class ServiceSearchViewModel: ViewModel() {
 
     var _isInitialized = MutableLiveData<Boolean>(true)
 
+    var _sort = MutableLiveData<Int>(1)
+
     private var _serviceSum = MutableLiveData<Int>()
     val serviceSum: LiveData<Int>
         get() = _serviceSum

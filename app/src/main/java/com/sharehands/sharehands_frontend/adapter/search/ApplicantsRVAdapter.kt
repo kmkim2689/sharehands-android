@@ -10,10 +10,15 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ItemUserAppliedBinding
+import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.search.ApplicantsData
 import com.sharehands.sharehands_frontend.network.search.Participated
+import com.sharehands.sharehands_frontend.network.search.UserProfile
 import com.sharehands.sharehands_frontend.view.search.RecruitActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.RecruitViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ApplicantsRVAdapter(private val context: RecruitActivity, private val applicantsList: List<Participated?>?,
                           private val token: String,
@@ -51,6 +56,33 @@ class ApplicantsRVAdapter(private val context: RecruitActivity, private val appl
                                 snackbarSugFail.show()
                             }
                         }
+                    }
+
+                    itemView.setOnClickListener {
+                        val userId = current.userId
+                        if (userId != null) {
+                            RetrofitClient.createRetorfitClient().getUserProfile(token, userId)
+                                .enqueue(object : Callback<UserProfile> {
+                                    override fun onResponse(
+                                        call: Call<UserProfile>,
+                                        response: Response<UserProfile>
+                                    ) {
+                                        val result = response.body()
+                                        if (response.isSuccessful && result != null) {
+                                            val profileDialog = DialogProfile(context as RecruitActivity, userId)
+                                            profileDialog.show(result)
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+
+                                    }
+
+                                })
+                        }
+
+
+
                     }
                 }
             }

@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/spinner_service_category"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
@@ -115,18 +115,18 @@
                     app:layout_constraintHorizontal_weight="4"
                     />
 
-                <Spinner
-                    android:id="@+id/spinner_service_category"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/ic_spinner"
-                    android:layout_marginEnd="24dp"
-                    app:layout_constraintStart_toEndOf="@id/layout_service_tab"
-                    app:layout_constraintTop_toTopOf="@id/layout_service_tab"
-                    app:layout_constraintBottom_toBottomOf="@id/layout_service_tab"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="2"/>
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_service_category"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:background="@drawable/ic_spinner"-->
+<!--                    android:layout_marginEnd="24dp"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/layout_service_tab"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/layout_service_tab"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/layout_service_tab"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_weight="2"/>-->
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewpager_service"

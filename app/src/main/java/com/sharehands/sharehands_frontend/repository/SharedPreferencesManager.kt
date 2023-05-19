@@ -29,6 +29,20 @@ class SharedPreferencesManager private constructor(context: Context) {
         return sharedPreferences.getString(key, defaultValue) ?: defaultValue
     }
 
+    fun saveInt(key: String, value: Int) {
+        sharedPreferences.edit().putInt(key, value).apply()
+    }
+
+    fun getInt(key: String, defaultValue: Int): Int {
+        return sharedPreferences.getInt(key, defaultValue) ?: defaultValue
+    }
+
+    fun deleteIntByKey(key: String) {
+        sharedPreferences.edit()
+            .remove(key)
+            .apply()
+    }
+
     fun deleteStringByKey(key: String) {
         sharedPreferences.edit()
             .remove(key)

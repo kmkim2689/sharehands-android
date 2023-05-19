@@ -63,8 +63,9 @@ class ReviewDetailRVAdapter(private val context: ReviewDetailActivity, private v
 
                 // 차단
                 binding.ivBan.setOnClickListener {
-//                    val userId = current.
+                    val userId = current.userId
                     val banIntent = Intent(context as ReviewDetailActivity, BlockActivity::class.java)
+                    banIntent.putExtra("userId", userId)
                     context.startActivity(banIntent)
                 }
             }

@@ -414,11 +414,6 @@ class ProfileDialog(private val context: AppCompatActivity, private val viewMode
             .load(userProfile.profileUrl)
             .into(binding.ivDialogUserProfile)
 
-
-
-
-
-
         // TODO 프로필 URL 호출하기
 
         dialog.show()

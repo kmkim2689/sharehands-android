@@ -9,6 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.NumberPicker.OnScrollListener
 import androidx.databinding.DataBindingUtil
@@ -63,6 +66,8 @@ open class SearchAllFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("on", "viewcreated")
 
+        val orderSpinner = binding.spinnerServiceCategory
+
         // Fragment 왔다갔다 했을 때 오류뜨는 이슈 및 중복해서 나타나는 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
 
@@ -70,6 +75,10 @@ open class SearchAllFragment: Fragment() {
         adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
         binding.rvResultAll.adapter = adapter
 
+
+        // 정렬 순서 저장
+        sort = viewModel._sort.value!!
+        Log.d("sort", "$sort")
 
         val recyclerView = binding.rvResultAll
 
@@ -84,7 +93,7 @@ open class SearchAllFragment: Fragment() {
         }
 
 
-        getServices(token, context)
+//        getServices(token, context)
         viewModel.count.observe(viewLifecycleOwner) {
             Log.d("list counts", "${viewModel.count.value}")
         }
@@ -145,6 +154,68 @@ open class SearchAllFragment: Fragment() {
                 }
             }
         })
+
+
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.service_order,
+            android.R.layout.simple_spinner_item
+        )
+
+        // 드롭다운 시 레이아웃 설정
+        spinnerAdapter.setDropDownViewResource(androidx.transition.R.layout.support_simple_spinner_dropdown_item)
+        // address(spinner 뷰)에 만들어놓은 adapter를 할당한다.
+        orderSpinner.adapter = spinnerAdapter
+        orderSpinner.dropDownVerticalOffset = 120
+
+        var orderBy = "최신순"
+
+        orderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                orderBy = when (position) {
+                    0 -> {
+                        "최신순"
+                    }
+                    1 -> {
+                        "좋아요순"
+                    }
+                    else -> {
+                        "스크랩순"
+                    }
+                }
+                Log.d("선택된 정렬 순서", orderBy)
+                viewModel._servicesList.value = ArrayList<ServiceList>()
+                adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+                binding.rvResultAll.adapter = adapter
+                binding.rvResultAll.layoutManager = LinearLayoutManager(requireContext())
+
+                sort = position + 1
+                page = 1
+                viewModel._sort.value = sort
+
+                getServices(token, context)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // 아무것도 선택되지 않는 경우는 발생하지 않으므로 비워둠
+            }
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel._servicesList.value = ArrayList<ServiceList>()
+            adapter = ServicesSearchRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+            binding.rvResultAll.adapter = adapter
+            binding.rvResultAll.layoutManager = LinearLayoutManager(requireContext())
+
+            page = 1
+            getServices(token, context)
+            binding.refreshLayout.isRefreshing = false
+        }
 
 
 
