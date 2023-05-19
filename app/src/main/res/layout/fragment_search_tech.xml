@@ -24,31 +24,46 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="24dp"/>
 
+        <Spinner
+            android:id="@+id/spinner_service_category"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_spinner"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_total_tech"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintTop_toTopOf="@id/tv_total_tech"/>
+
+
         <!-- TODO 스크롤뷰 적용 여부 고려 -->
 
-        <LinearLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/tv_total_tech"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_result_tech"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"/>
-
-            <ProgressBar
-                android:id="@+id/progress_tech"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
-
-        </LinearLayout>
+                android:layout_height="wrap_content" />
 
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_tech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/refresh_layout"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

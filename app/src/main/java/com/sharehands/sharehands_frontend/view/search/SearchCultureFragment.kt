@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchCultureRVAdapter
 import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchEduRVAdapter
+import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchRVAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchCultureBinding
 import com.sharehands.sharehands_frontend.databinding.FragmentSearchEducationBinding
 import com.sharehands.sharehands_frontend.network.search.ServiceList
@@ -47,6 +50,10 @@ class SearchCultureFragment: Fragment() {
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
 
+        // 정렬 순서 저장
+        sort = viewModel._sort.value!!
+        Log.d("sort", "$sort")
+
         // Fragment 왔다갔다 했을 때 오류뜨는 이슈 및 중복해서 나타나는 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
 
@@ -54,6 +61,7 @@ class SearchCultureFragment: Fragment() {
         adapter = ServicesSearchCultureRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
         binding.rvResultCul.adapter = adapter
 
+        val orderSpinner = binding.spinnerServiceCategory
 
         val recyclerView = binding.rvResultCul
 
@@ -67,8 +75,7 @@ class SearchCultureFragment: Fragment() {
                 .show()
         }
 
-
-        getServices(token, context)
+//        getServices(token, context)
         viewModel.count.observe(viewLifecycleOwner) {
             Log.d("list counts", "${viewModel.count.value}")
         }
@@ -134,6 +141,67 @@ class SearchCultureFragment: Fragment() {
                 }
             }
         })
+
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.service_order,
+            android.R.layout.simple_spinner_item
+        )
+
+        // 드롭다운 시 레이아웃 설정
+        spinnerAdapter.setDropDownViewResource(androidx.transition.R.layout.support_simple_spinner_dropdown_item)
+        // address(spinner 뷰)에 만들어놓은 adapter를 할당한다.
+        orderSpinner.adapter = spinnerAdapter
+        orderSpinner.dropDownVerticalOffset = 120
+
+        var orderBy = "최신순"
+
+        orderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                orderBy = when (position) {
+                    0 -> {
+                        "최신순"
+                    }
+                    1 -> {
+                        "좋아요순"
+                    }
+                    else -> {
+                        "스크랩순"
+                    }
+                }
+                Log.d("선택된 정렬 순서", orderBy)
+                viewModel._servicesList.value = ArrayList<ServiceList>()
+                adapter = ServicesSearchCultureRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+                binding.rvResultCul.adapter = adapter
+                binding.rvResultCul.layoutManager = LinearLayoutManager(requireContext())
+
+                sort = position + 1
+                page = 1
+                viewModel._sort.value = sort
+
+                getServices(token, context)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // 아무것도 선택되지 않는 경우는 발생하지 않으므로 비워둠
+            }
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel._servicesList.value = ArrayList<ServiceList>()
+            adapter = ServicesSearchCultureRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+            binding.rvResultCul.adapter = adapter
+            binding.rvResultCul.layoutManager = LinearLayoutManager(requireContext())
+
+            page = 1
+            getServices(token, context)
+            binding.refreshLayout.isRefreshing = false
+        }
 
 
         return binding.root

@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -57,6 +59,13 @@ class SearchEnvironmentFragment: Fragment() {
         adapter = ServicesSearchEnvironmentRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
         binding.rvResultEnv.adapter = adapter
 
+        val orderSpinner = binding.spinnerServiceCategory
+
+        viewModel._servicesList.value = ArrayList<ServiceList>()
+        adapter = ServicesSearchEnvironmentRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+        binding.rvResultEnv.adapter = adapter
+
+
 
         val recyclerView = binding.rvResultEnv
 
@@ -71,7 +80,7 @@ class SearchEnvironmentFragment: Fragment() {
         }
 
 
-        getServices(token, context)
+//        getServices(token, context)
         viewModel.count.observe(viewLifecycleOwner) {
             Log.d("list counts", "${viewModel.count.value}")
         }
@@ -137,6 +146,67 @@ class SearchEnvironmentFragment: Fragment() {
                 }
             }
         })
+
+        val spinnerAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.service_order,
+            android.R.layout.simple_spinner_item
+        )
+
+        // 드롭다운 시 레이아웃 설정
+        spinnerAdapter.setDropDownViewResource(androidx.transition.R.layout.support_simple_spinner_dropdown_item)
+        // address(spinner 뷰)에 만들어놓은 adapter를 할당한다.
+        orderSpinner.adapter = spinnerAdapter
+        orderSpinner.dropDownVerticalOffset = 120
+
+        var orderBy = "최신순"
+
+        orderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                orderBy = when (position) {
+                    0 -> {
+                        "최신순"
+                    }
+                    1 -> {
+                        "좋아요순"
+                    }
+                    else -> {
+                        "스크랩순"
+                    }
+                }
+                Log.d("선택된 정렬 순서", orderBy)
+                viewModel._servicesList.value = ArrayList<ServiceList>()
+                adapter = ServicesSearchEnvironmentRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+                binding.rvResultEnv.adapter = adapter
+                binding.rvResultEnv.layoutManager = LinearLayoutManager(requireContext())
+
+                sort = position + 1
+                page = 1
+                viewModel._sort.value = sort
+
+                getServices(token, context)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // 아무것도 선택되지 않는 경우는 발생하지 않으므로 비워둠
+            }
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel._servicesList.value = ArrayList<ServiceList>()
+            adapter = ServicesSearchEnvironmentRVAdapter(context as MainActivity, viewModel, viewModel._servicesList.value)
+            binding.rvResultEnv.adapter = adapter
+            binding.rvResultEnv.layoutManager = LinearLayoutManager(requireContext())
+
+            page = 1
+            getServices(token, context)
+            binding.refreshLayout.isRefreshing = false
+        }
 
 
         return binding.root
