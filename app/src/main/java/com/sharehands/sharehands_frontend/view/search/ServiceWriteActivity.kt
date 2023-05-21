@@ -70,6 +70,7 @@ class ServiceWriteActivity: AppCompatActivity() {
     private val GALLERY_REQUEST_CODE = 201
     private var imageUri: Uri? = null
     lateinit var photoURI: Uri
+    lateinit var file: String
     private var imageUriString: String = ""
     lateinit var currentPhotoPath: String
     private lateinit var viewModel: ServiceUploadViewModel
@@ -536,9 +537,13 @@ class ServiceWriteActivity: AppCompatActivity() {
                     Log.d("imageUri", "${photoURI}")
                     if (photoURI != null) {
                         imageUriString = photoURI.toString()
-                        val imagePath = photoURI?.path
-                        Log.d("imagePath", "${imagePath}")
-                        val imageFile = File(imagePath)
+                        val imagePath = file
+                        Log.d("absolute path", "${file}")
+
+                        // File의 매개변수로 절대경로를 넣어주어야 한다...
+                        // 그냥 uri를 넣어주면 파일을 찾지 못함
+                        val imageFile = File(file)
+
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일
                         val imagePart = MultipartBody.Part.createFormData("files", imageFile.name, requestFile)
@@ -579,6 +584,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                         val imagePath = imageUri?.path
                         Log.d("imagePath", "${imagePath}")
                         // 파일로 만들기
+                        Log.d("absolute path", "${absolutelyPath(selectedImage, this)}")
                         val imageFile = File(absolutelyPath(selectedImage, this))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
                         // 서버로 보낼 이미지 파일에 해당됨
@@ -603,6 +609,37 @@ class ServiceWriteActivity: AppCompatActivity() {
             }
         }
     }
+
+    fun getAbsolutePathFromUri(context: Context, uri: Uri): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                return it.getString(columnIndex)
+            }
+        }
+        return null
+    }
+
+//    fun absolutePathCamera(uri: Uri, context: Context): String {
+//        val projection = arrayOf(MediaStore.Images.Media.DISPLAY_NAME)
+////        val cursor = contentResolver.query(uri, projection, null, null, null)
+////        val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
+////        cursor?.moveToFirst()
+////        val path = cursor?.getString(columnIndex!!)
+////        cursor?.close()
+////        Log.d("image path", "${path}")
+////        return path!!
+////        val projection = arrayOf(MediaStore.Images.Media.DISPLAY_NAME)
+//        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+//        val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
+//        cursor?.moveToFirst()
+//        val path = cursor?.getString(columnIndex!!)
+//        cursor?.close()
+//        Log.d("image path", "$path")
+//        return path!!
+//    }
 
     fun absolutelyPath(uri: Uri, context: Context): String {
         val projection = arrayOf(MediaStore.Images.Media.DATA)
@@ -633,6 +670,7 @@ class ServiceWriteActivity: AppCompatActivity() {
         //1) File 생성 - 촬영 사진이 저장 될
         //photoFile 경로 = /storage/emulated/0/Android/data/패키지명/files/Pictures/
         val photoFile: File? = try {
+
             createImageFile(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES))
 
         } catch (ex: IOException) {
@@ -640,6 +678,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             ex.printStackTrace()
             null
         }
+
         Log.d("image file", "${photoFile}")
 
         photoFile?.also {
@@ -654,6 +693,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             //3) 생성된 Uri를 Intent에 Put
             fullSizeCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
         }
+
         return fullSizeCaptureIntent
     }
 
@@ -670,6 +710,7 @@ class ServiceWriteActivity: AppCompatActivity() {
             ".jpg", /* suffix */
             storageDir /* directory */
         ).apply {
+            file = absolutePath
             Log.i("syTest", "Created File AbsolutePath : $absolutePath")
         }
     }

@@ -448,6 +448,7 @@ class ServiceUploadViewModel(): ViewModel() {
                                 )
                                 Log.d("봉사활동 게시글 채워진 것들", "${result}")
                                 Log.d("게시글 업로드 실패", "통신 오류")
+                                Log.d("봉사활동 게시글 업로드 오류", "${t.message}")
                                 _isSuccessful.value = false
                             }
 
