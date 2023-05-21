@@ -1,174 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:elevation="40dp"
-    android:background="@drawable/rectangle_shadow_rad40">
-
-    <ImageView
-        android:id="@+id/iv_recommend_thumbnail"
-        android:layout_width="156dp"
-        android:layout_height="156dp"
-        android:background="@drawable/rectangle_service_mgt"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:scaleType="centerCrop"
-        android:clipToOutline="true" />
-
-    <TextView
-        android:id="@+id/tv_recommend_title"
-        android:layout_width="0dp"
+<layout>
+    <data>
+        <variable
+            name="suggestion"
+            type="com.sharehands.sharehands_frontend.network.home.SuggestedItem" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/iv_recommend_thumbnail"
-        app:layout_constraintStart_toEndOf="@id/iv_recommend_thumbnail"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="2dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        tools:text="봉사 제목"
-        android:textSize="20sp"
-        android:textColor="@color/text_color"
-        android:textStyle="bold" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:elevation="40dp"
+        android:background="@drawable/rectangle_shadow_rad40">
 
-    <ImageView
-        android:id="@+id/iv_recommend_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_schedule"
-        app:tint="@color/sharehands_green_medium"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_title"
-        app:layout_constraintStart_toStartOf="@id/tv_recommend_title"
-        android:layout_marginTop="8dp"
-        />
+        <ImageView
+            android:id="@+id/iv_recommend_thumbnail"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:background="@drawable/rectangle_service_mgt"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="32dp"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true" />
 
-    <TextView
-        android:id="@+id/tv_recommend_start_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_recommend_date"
-        app:layout_constraintTop_toTopOf="@id/iv_recommend_date"
-        tools:text="2022. 01. 01"
-        android:textColor="@color/text_color"
-        android:textSize="14sp"
-        android:layout_marginStart="8dp"/>
+        <TextView
+            android:id="@+id/tv_recommend_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_recommend_thumbnail"
+            app:layout_constraintStart_toEndOf="@id/iv_recommend_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="봉사 제목"
+            android:text="@{suggestion.title}"
+            android:textSize="20sp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_recommend_start_date"
-        app:layout_constraintTop_toTopOf="@id/tv_recommend_start_date"
-        app:layout_constraintBottom_toBottomOf="@id/tv_recommend_start_date"
-        android:layout_marginStart="8dp"
-        android:text="~"
-        android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_recommend_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_schedule"
+            app:tint="@color/sharehands_green_medium"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_title"
+            app:layout_constraintStart_toStartOf="@id/tv_recommend_title"
+            android:layout_marginTop="8dp"
+            />
 
-    <TextView
-        android:id="@+id/tv_recommend_end_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_start_date"
-        app:layout_constraintStart_toStartOf="@id/tv_recommend_start_date"
-        tools:text="2022. 01. 10"
-        android:textColor="@color/text_color"
-        android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/tv_recommend_start_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iv_recommend_date"
+            app:layout_constraintTop_toTopOf="@id/iv_recommend_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:maxLines="2"
+            tools:text="2022. 01. 01"
+            android:text="@{suggestion.period}"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"/>
 
-    <ImageView
-        android:id="@+id/iv_recommend_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_clock"
-        app:tint="@color/sharehands_green_medium"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_end_date"
-        app:layout_constraintStart_toStartOf="@id/tv_recommend_title"
-        android:layout_marginTop="6dp"
-        />
 
-    <TextView
-        android:id="@+id/tv_recommend_weekday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/iv_recommend_time"
-        app:layout_constraintStart_toStartOf="@id/tv_recommend_start_date"
-        android:textSize="14sp"
-        android:textColor="@color/text_color"
-        tools:text="금요일"
-        />
+        <ImageView
+            android:id="@+id/iv_recommend_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clock"
+            app:tint="@color/sharehands_green_medium"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_start_date"
+            app:layout_constraintStart_toStartOf="@id/tv_recommend_title"
+            android:layout_marginTop="6dp"
+            />
 
-    <TextView
-        android:id="@+id/tv_start_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_weekday"
-        app:layout_constraintStart_toStartOf="@id/tv_recommend_weekday"
-        tools:text="15:00"
-        android:textColor="@color/text_color"
-        android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/tv_recommend_weekday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_recommend_time"
+            app:layout_constraintStart_toStartOf="@id/tv_recommend_start_date"
+            android:textSize="14sp"
+            android:textColor="@color/text_color"
+            tools:text="금요일"
+            android:text="@{suggestion.weekday}"
+            />
 
-    <TextView
-        android:id="@+id/tv_sep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_start_time"
-        app:layout_constraintTop_toTopOf="@id/tv_start_time"
-        app:layout_constraintBottom_toBottomOf="@id/tv_start_time"
-        android:layout_marginStart="2dp"
-        android:text="~"
-        android:textColor="@color/text_color"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_recommend_weekday"
+            app:layout_constraintStart_toStartOf="@id/tv_recommend_weekday"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:maxLines="2"
+            android:text="@{suggestion.time}"
+            tools:text="15:00"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"/>
 
-    <TextView
-        android:id="@+id/tv_end_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_recommend_weekday"
-        app:layout_constraintStart_toEndOf="@id/tv_sep"
-        android:layout_marginStart="2dp"
-        tools:text="15:00"
-        android:textColor="@color/text_color"
-        android:textSize="14sp"/>
 
-    <ImageView
-        android:id="@+id/iv_recommend_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_location"
-        app:tint="@color/sharehands_green_medium"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_time"
-        app:layout_constraintStart_toStartOf="@id/iv_recommend_time"
-        android:layout_marginTop="6dp"/>
+        <ImageView
+            android:id="@+id/iv_recommend_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            app:tint="@color/sharehands_green_medium"
+            app:layout_constraintTop_toBottomOf="@id/tv_start_time"
+            app:layout_constraintStart_toStartOf="@id/iv_recommend_time"
+            android:layout_marginTop="6dp"/>
 
-    <TextView
-        android:id="@+id/tv_recommend_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_recommend_location"
-        app:layout_constraintTop_toTopOf="@id/iv_recommend_location"
-        app:layout_constraintBottom_toBottomOf="@id/iv_recommend_location"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="8dp"
-        tools:text="한국외국어대학교"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="14sp"
-        android:textColor="@color/text_color"/>
+        <TextView
+            android:id="@+id/tv_recommend_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iv_recommend_location"
+            app:layout_constraintTop_toTopOf="@id/iv_recommend_location"
+            app:layout_constraintBottom_toBottomOf="@id/iv_recommend_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            tools:text="한국외국어대학교"
+            android:text="@{suggestion.location}"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:textColor="@color/text_color"/>
 
-    <View
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_recommend_location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="12dp"/>
+        <View
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_recommend_location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="12dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

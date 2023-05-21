@@ -2,6 +2,7 @@ package com.sharehands.sharehands_frontend.network
 
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
+import com.sharehands.sharehands_frontend.network.home.HomeData
 import com.sharehands.sharehands_frontend.network.mypage.*
 import com.sharehands.sharehands_frontend.network.schedule.DailyServices
 import com.sharehands.sharehands_frontend.network.schedule.MonthlyServices
@@ -49,7 +50,10 @@ interface ApiService {
     ): Call<PostUserResponse>
 
     // 2. Home
-
+    @GET("/main-page")
+    fun getMainPage(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<HomeData>
 
     // 3. Schedule(not yet...)
     // 오늘의 봉사 호출
