@@ -3,6 +3,7 @@ package com.sharehands.sharehands_frontend.adapter.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sharehands.sharehands_frontend.R
@@ -15,7 +16,26 @@ class UserRankingRVAdapter(private val context: MainActivity, private val list: 
         inner class UserRankingViewHolder(private val binding: ItemUserRankingBinding)
             : RecyclerView.ViewHolder(binding.root) {
                 fun bind(context: Context, current: RankingItem) {
-                    binding.executePendingBindings()
+                    when (current.ranking.toInt()) {
+                        1 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_first)
+                        }
+                        2 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_second)
+                        }
+                        3 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_third)
+                        }
+                        else -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_etc)
+                        }
+                    }
+                    binding.tvRankingNum.text = current.ranking.toString()
+                    binding.tvNickname.text = current.nickname
+                    binding.tvUserLevelNum.text = current.level.toString()
+                    binding.tvCount.text = "${current.count.toString()}회"
+
+
                 }
             }
 
