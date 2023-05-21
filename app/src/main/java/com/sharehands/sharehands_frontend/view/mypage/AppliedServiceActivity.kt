@@ -81,7 +81,7 @@ class AppliedServiceActivity: AppCompatActivity() {
                         Log.d("pageLen", "${viewModel.appliedResult.value?.serviceList!!.size}")
                         Log.d("pageLen after", "${pageLen}")
                         val result = viewModel.appliedServices
-                        val total = viewModel.appliedNum.value
+                        val total = viewModel.appliedResult.value!!.serviceCounter.toString()
                         binding.tvTotalApplied.text = "총 ${total}개의 봉사에 지원했습니다."
                         Handler().postDelayed({
                             if (::adapter.isInitialized) {

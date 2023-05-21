@@ -20,6 +20,7 @@ import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.mypage.ParticipatedServiceActivity
 import com.sharehands.sharehands_frontend.view.mypage.ScrapedServiceActivity
 import com.sharehands.sharehands_frontend.view.search.ReviewWriteActivity
+import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
 import com.sharehands.sharehands_frontend.viewmodel.mypage.ServiceMgtViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,6 +59,13 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
 
                     val view = (context as ScrapedServiceActivity).findViewById<CoordinatorLayout>(R.id.coordinator_layout_scrap)
                     val total = (context as ScrapedServiceActivity).findViewById<TextView>(R.id.tv_total_scraped)
+
+                    itemView.setOnClickListener {
+                        val detailIntent = Intent(context, ServiceDetailActivity::class.java)
+                        Log.d("serviceId", "${current.serviceId.toInt()}")
+                        detailIntent.putExtra("serviceId", current.serviceId.toInt())
+                        context.startActivity(detailIntent)
+                    }
 
                     cancelBtn.setOnClickListener {
                         // 스크랩 취소 api

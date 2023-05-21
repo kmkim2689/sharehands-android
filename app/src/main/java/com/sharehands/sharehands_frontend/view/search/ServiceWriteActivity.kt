@@ -69,10 +69,9 @@ class ServiceWriteActivity: AppCompatActivity() {
     private val CAMERA_REQUEST_CODE = 101
     private val GALLERY_REQUEST_CODE = 201
     private var imageUri: Uri? = null
-    lateinit var photoURI: Uri
-    lateinit var file: String
+    private lateinit var photoURI: Uri
+    private lateinit var file: String
     private var imageUriString: String = ""
-    lateinit var currentPhotoPath: String
     private lateinit var viewModel: ServiceUploadViewModel
     // 이미지 url을 담는 리스트
     private var imageArrayList = ArrayList<String>()

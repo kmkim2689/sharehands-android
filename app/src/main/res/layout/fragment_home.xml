@@ -75,6 +75,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/ic_alert_num"
+                    app:layout_constraintTop_toTopOf="@id/iv_alert"
+                    app:layout_constraintEnd_toEndOf="@id/iv_alert"
+                    tools:text="1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="10sp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="-2dp"
+                    android:gravity="center_vertical|center_horizontal" />
+
                 <ImageView
                     android:id="@+id/iv_user"
                     android:layout_width="36dp"

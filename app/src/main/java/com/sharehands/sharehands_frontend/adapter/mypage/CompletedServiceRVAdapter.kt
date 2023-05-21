@@ -12,6 +12,7 @@ import com.sharehands.sharehands_frontend.network.mypage.RecruitedService
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.mypage.ParticipatedServiceActivity
 import com.sharehands.sharehands_frontend.view.search.ReviewWriteActivity
+import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
 import com.sharehands.sharehands_frontend.viewmodel.mypage.ServiceMgtViewModel
 
 class CompletedServiceRVAdapter(private val context: ParticipatedServiceActivity, private val viewModel: ServiceMgtViewModel,
@@ -46,8 +47,16 @@ class CompletedServiceRVAdapter(private val context: ParticipatedServiceActivity
 
                     reviewBtn.setOnClickListener {
                         val intent = Intent(context, ReviewWriteActivity::class.java)
-                        (context as ParticipatedServiceActivity).finish()
+                        Log.d("current serviceId", "${current.serviceId.toInt()}")
+                        intent.putExtra("serviceId", current.serviceId.toInt())
                         context.startActivity(intent)
+                    }
+
+                    itemView.setOnClickListener {
+                        val detailIntent = Intent(context as ParticipatedServiceActivity, ServiceDetailActivity::class.java)
+                        Log.d("serviceId", "${current.serviceId.toInt()}")
+                        detailIntent.putExtra("serviceId", current.serviceId.toInt())
+                        (context as ParticipatedServiceActivity).startActivity(detailIntent)
                     }
                 }
             }
