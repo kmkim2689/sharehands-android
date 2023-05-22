@@ -4,4 +4,6 @@
     <dimen name="dot_padding">8dp</dimen>
     <dimen name="pageMargin">52dp</dimen>
     <dimen name="pageWidth">280dp</dimen>
+    <dimen name="recommendMargin">120dp</dimen>
+    <dimen name="recommendWidth">300dp</dimen>
 </resources>

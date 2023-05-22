@@ -150,10 +150,11 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="24dp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     app:layout_constraintTop_toBottomOf="@id/tv_recommend_info" />
 
                 <TextView
@@ -177,7 +178,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_hot_service"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>
 
@@ -202,6 +203,8 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_ranking_service"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="36dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>

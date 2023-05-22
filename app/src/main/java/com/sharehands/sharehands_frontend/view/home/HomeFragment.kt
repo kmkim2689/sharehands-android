@@ -2,16 +2,16 @@ package com.sharehands.sharehands_frontend.view.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.home.PopularRVAdapter
+import com.sharehands.sharehands_frontend.adapter.home.SuggestionVPAdapter
 import com.sharehands.sharehands_frontend.adapter.home.UserRankingRVAdapter
 import com.sharehands.sharehands_frontend.databinding.FragmentHomeBinding
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
@@ -19,9 +19,6 @@ import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.mypage.SuggestedServiceActivity
 import com.sharehands.sharehands_frontend.view.mypage.UserInfoActivity
 import com.sharehands.sharehands_frontend.viewmodel.home.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -47,8 +44,10 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val token = SharedPreferencesManager.getInstance(requireContext()).getString("token", "null")
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val token =
+            SharedPreferencesManager.getInstance(requireContext()).getString("token", "null")
 
 
         if (token != "null") {
@@ -70,10 +69,32 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            viewModel.suggestedItems.observe(viewLifecycleOwner) {
+                if (viewModel.suggestedItems.value!!.isNotEmpty()) {
+                    val viewPagerSuggestion = binding.viewpagerRecommend
+                    val suggestionVPAdapter = SuggestionVPAdapter(
+                        requireActivity(),
+                        viewModel.suggestedItems.value!!
+                    )
+
+                    viewPagerSuggestion.adapter = suggestionVPAdapter
+
+                    val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.recommendMargin)
+                    val pagerWidth = resources.getDimensionPixelOffset(R.dimen.recommendWidth)
+                    val screenWidth = resources.displayMetrics.widthPixels
+                    val offsetPx = screenWidth - pageMarginPx - pagerWidth
+                    viewPagerSuggestion.setPageTransformer { page, position ->
+                        page.translationX = -page.translationX * position
+                    }
+
+                }
+            }
+
             viewModel.userRankings.observe(viewLifecycleOwner) {
                 if (viewModel.userRankings.value!!.isNotEmpty()) {
                     val userRecyclerView = binding.rvRankingService
-                    val userRankingRVAdapter = UserRankingRVAdapter(context as MainActivity,
+                    val userRankingRVAdapter = UserRankingRVAdapter(
+                        context as MainActivity,
                         viewModel.userRankings.value!!
                     )
                     userRecyclerView.adapter = userRankingRVAdapter
@@ -91,9 +112,11 @@ class HomeFragment : Fragment() {
             viewModel.serviceRankings.observe(viewLifecycleOwner) {
                 if (viewModel.serviceRankings.value!!.isNotEmpty()) {
                     val popularRecyclerView = binding.rvHotService
-                    val popularRVAdapter = PopularRVAdapter(context as MainActivity, viewModel.serviceRankings.value!!)
+                    val popularRVAdapter =
+                        PopularRVAdapter(context as MainActivity, viewModel.serviceRankings.value!!)
                     popularRecyclerView.adapter = popularRVAdapter
-                    popularRecyclerView.layoutManager = layoutManager
+                    popularRecyclerView.layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 }
             }
 
@@ -103,16 +126,15 @@ class HomeFragment : Fragment() {
             }
 
             binding.ivAlert.setOnClickListener {
-                val suggestionIntent = Intent(requireContext(), SuggestedServiceActivity::class.java)
+                val suggestionIntent =
+                    Intent(requireContext(), SuggestedServiceActivity::class.java)
                 startActivity(suggestionIntent)
             }
 
         }
 
 
-
-
     }
-
-
 }
+
+

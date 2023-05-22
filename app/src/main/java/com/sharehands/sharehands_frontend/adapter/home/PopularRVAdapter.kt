@@ -17,13 +17,35 @@ class PopularRVAdapter(private val context: MainActivity, private val list: List
         inner class PopularViewHolder(private val binding: ItemServiceRankingBinding)
             : RecyclerView.ViewHolder(binding.root) {
                 fun bind(context: Context, current: PopularItem) {
+
+                    when (current.ranking.toInt()) {
+                        1 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_first)
+                        }
+                        2 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_second)
+                        }
+                        3 -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_third)
+                        }
+                        else -> {
+                            binding.ivRanking.setImageResource(R.drawable.ic_rank_etc)
+                        }
+                    }
+
+                    binding.tvRankingNum.text = current.ranking.toString()
+                    binding.tvServiceName.text = current.title
+                    binding.tvLikes.text = current.likes.toString()
+                    binding.tvScraps.text = current.scraps.toString()
+                    binding.tvViews.text = current.views.toString()
+
                     itemView.setOnClickListener {
                         val serviceId = current.serviceId
                         val intent = Intent(context as MainActivity, ServiceDetailActivity::class.java)
                         intent.putExtra("serviceId", serviceId.toInt())
                         context.startActivity(intent)
                     }
-                    binding.executePendingBindings()
+
                 }
             }
 
