@@ -49,9 +49,7 @@ class HomeFragment : Fragment() {
         val token =
             SharedPreferencesManager.getInstance(requireContext()).getString("token", "null")
 
-
         if (token != "null") {
-
             viewModel.getMainPage(token)
 
             viewModel.profileUrl.observe(viewLifecycleOwner) {
@@ -59,7 +57,6 @@ class HomeFragment : Fragment() {
                     Glide.with(requireContext())
                         .load(viewModel.profileUrl.value.toString())
                         .into(binding.ivUser)
-
                 }
             }
 
@@ -86,7 +83,6 @@ class HomeFragment : Fragment() {
                     viewPagerSuggestion.setPageTransformer { page, position ->
                         page.translationX = -page.translationX * position
                     }
-
                 }
             }
 
@@ -99,7 +95,6 @@ class HomeFragment : Fragment() {
                     )
                     userRecyclerView.adapter = userRankingRVAdapter
                     userRecyclerView.layoutManager = layoutManager
-
                 }
             }
 

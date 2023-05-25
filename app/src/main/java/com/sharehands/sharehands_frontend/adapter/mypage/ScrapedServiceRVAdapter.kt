@@ -95,12 +95,12 @@ class ScrapedServiceRVAdapter(private val context: ScrapedServiceActivity, priva
                 }
             }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrapedServiceRVAdapter.ScrapedServiceViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrapedServiceViewHolder {
         val binding = ItemServiceScrapBinding.inflate(LayoutInflater.from(context), parent, false)
         return ScrapedServiceViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ScrapedServiceRVAdapter.ScrapedServiceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ScrapedServiceViewHolder, position: Int) {
         servicesList!![position]?.let { holder.bind(context, it, viewModel) }
     }
 

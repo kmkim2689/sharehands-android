@@ -94,6 +94,7 @@ class SocialLoginActivity: AppCompatActivity() {
                                                     SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                         .saveString("token", result?.accessToken.toString())
                                                     startActivity(loggedInIntent)
+                                                    finish()
                                                 }
                                             } else if (result?.accessToken == null && result?.email != null) {
                                                 SharedPreferencesManager.getInstance(this@SocialLoginActivity)
@@ -164,6 +165,7 @@ class SocialLoginActivity: AppCompatActivity() {
                                                         SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                             .saveString("token", result?.accessToken.toString())
                                                         startActivity(loggedInIntent)
+                                                        finish()
                                                     }
                                                 } else if (result?.accessToken == null && result?.email != null) {
                                                     Log.d("카카오 로그인으로 회원가입", "약관 동의로 이동")
@@ -233,6 +235,7 @@ class SocialLoginActivity: AppCompatActivity() {
                                                                         SharedPreferencesManager.getInstance(this@SocialLoginActivity)
                                                                             .saveString("token", result?.accessToken.toString())
                                                                         startActivity(loggedInIntent)
+                                                                        finish()
                                                                     }
                                                                 } else if (result?.accessToken == null && result?.email != null) {
                                                                     Log.d("구글 로그인으로 회원가입 진행", "약관 동의로 이동")

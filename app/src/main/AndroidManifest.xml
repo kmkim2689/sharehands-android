@@ -25,6 +25,15 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="b03a4ceae5d55bdc92ecfbe00ddaf2c1" />
 
+        <!-- 메시지에서 나올 아이콘과 색상을 설정 -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/sharehands_ic" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/sharehands_green_weak" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -34,6 +43,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
+        <service
+            android:name=".service.MessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
 
         <activity android:name=".view.SplashActivity"
             android:theme="@style/Theme.ShareHands_frontend.SplashScreen"

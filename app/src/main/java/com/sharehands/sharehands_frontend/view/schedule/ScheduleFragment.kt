@@ -18,8 +18,15 @@ import com.sharehands.sharehands_frontend.databinding.FragmentScheduleBinding
 import com.sharehands.sharehands_frontend.model.schedule.CheckListItem
 import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.schedule.TodayServices
+import com.sharehands.sharehands_frontend.repository.Equipment
+import com.sharehands.sharehands_frontend.repository.MemoItem
+import com.sharehands.sharehands_frontend.repository.ScheduleDatabase
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +35,11 @@ import java.util.Calendar
 
 class ScheduleFragment : Fragment() {
     lateinit var binding: FragmentScheduleBinding
+    private lateinit var equipmentRVAdapter: BelongingsRVAdapter
+    private lateinit var equipmentItems: MutableList<Equipment>
+    private lateinit var memoItems: MutableList<MemoItem>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,6 +56,8 @@ class ScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val scheduleDatabase = ScheduleDatabase.getInstance(requireContext())
+
         val token = SharedPreferencesManager.getInstance(context as MainActivity).getString("token", "null")
 //        val recyclerView = binding.rvServiceToday
         val tvNone = binding.tvTodayNone
@@ -51,10 +65,21 @@ class ScheduleFragment : Fragment() {
 
 
 
-        val rvItems = binding.rvCheckList
-        val initialItems = SharedPreferencesManager.getInstance(requireContext()).getArray("items", mutableListOf())
-        val itemAdapter = BelongingsRVAdapter(requireContext() as MainActivity, initialItems)
-        rvItems.adapter = itemAdapter
+        val equipmentRecyclerView = binding.rvCheckList
+        val memoRecyclerView = binding.rvMemo
+        CoroutineScope(Dispatchers.Main).launch {
+            if (scheduleDatabase != null) {
+                getItems(scheduleDatabase)
+                val equipmentAdapter = BelongingsRVAdapter(requireContext() as MainActivity, equipmentItems)
+                equipmentRecyclerView.adapter = equipmentAdapter
+                equipmentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                equipmentRVAdapter = equipmentAdapter
+            }
+
+        }
+
+
+
 
         Log.d("schedule fragment", "onViewCreated")
 
@@ -137,9 +162,26 @@ class ScheduleFragment : Fragment() {
                 setTitle("준비물 추가")
                 setView(builderItem.root)
                 setPositiveButton("추가") { dialogInterface: DialogInterface, num: Int ->
-                    SharedPreferencesManager.getInstance(requireContext())
-                        .addArray("items", CheckListItem(editText.text.toString(), false))
-                    itemAdapter.notifyDataSetChanged()
+                    if (scheduleDatabase != null) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            getNewItems(scheduleDatabase, editText.text.toString())
+                            // 어댑터에 반영하기. 만약 초기화된 경우
+                            if (::equipmentRVAdapter.isInitialized) {
+                                CoroutineScope(Dispatchers.Main).launch {
+
+                                    val equipmentAdapter = BelongingsRVAdapter(requireContext() as MainActivity, equipmentItems)
+                                    equipmentRecyclerView.adapter = equipmentAdapter
+                                    equipmentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                                    equipmentRVAdapter = equipmentAdapter
+                                }
+
+                            }
+                        }
+
+
+
+
+                    }
                 }
                 setNegativeButton("취소") { dialogInterface: DialogInterface, num: Int ->
                     dialogInterface.dismiss()
@@ -151,6 +193,21 @@ class ScheduleFragment : Fragment() {
 
 
 
+    }
+
+    suspend fun getItems(scheduleDatabase: ScheduleDatabase) {
+        withContext(Dispatchers.IO) {
+            equipmentItems = scheduleDatabase?.equipmentDao()?.getAllEquipments()!!
+            memoItems = scheduleDatabase?.memoItemDao()?.getAllMemos()!!
+        }
+    }
+
+    suspend fun getNewItems(scheduleDatabase: ScheduleDatabase, text: String) {
+        withContext(Dispatchers.IO) {
+            scheduleDatabase.equipmentDao().addEquipment(Equipment(null, false, text))
+            equipmentItems = scheduleDatabase?.equipmentDao()?.getAllEquipments()!!
+
+        }
     }
 
 

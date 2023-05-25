@@ -3,6 +3,7 @@ package com.sharehands.sharehands_frontend.network
 import com.sharehands.sharehands_frontend.model.signin.LoginResponse
 import com.sharehands.sharehands_frontend.model.signin.PostUserResponse
 import com.sharehands.sharehands_frontend.network.home.HomeData
+import com.sharehands.sharehands_frontend.network.home.RegisterToken
 import com.sharehands.sharehands_frontend.network.mypage.*
 import com.sharehands.sharehands_frontend.network.schedule.DailyServices
 import com.sharehands.sharehands_frontend.network.schedule.MonthlyServices
@@ -359,5 +360,11 @@ interface ApiService {
     @POST("/my-page/withdraw")
     fun withdraw(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String
+    ): Call<Void>
+
+    @POST("/registerToken")
+    fun sendRegToken(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Body registerToken: RegisterToken
     ): Call<Void>
 }
