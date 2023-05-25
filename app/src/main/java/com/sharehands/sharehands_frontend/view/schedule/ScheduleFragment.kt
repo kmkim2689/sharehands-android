@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.schedule.BelongingsRVAdapter
+import com.sharehands.sharehands_frontend.adapter.schedule.MemoRVAdapter
 import com.sharehands.sharehands_frontend.adapter.schedule.TodayServiceVPAdapter
 import com.sharehands.sharehands_frontend.databinding.DialogAddItemBinding
+import com.sharehands.sharehands_frontend.databinding.DialogAddMemoBinding
 import com.sharehands.sharehands_frontend.databinding.FragmentScheduleBinding
 import com.sharehands.sharehands_frontend.model.schedule.CheckListItem
 import com.sharehands.sharehands_frontend.network.RetrofitClient
@@ -36,6 +38,7 @@ import java.util.Calendar
 class ScheduleFragment : Fragment() {
     lateinit var binding: FragmentScheduleBinding
     private lateinit var equipmentRVAdapter: BelongingsRVAdapter
+    private lateinit var memoRVAdapter: MemoRVAdapter
     private lateinit var equipmentItems: MutableList<Equipment>
     private lateinit var memoItems: MutableList<MemoItem>
 
@@ -70,10 +73,20 @@ class ScheduleFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             if (scheduleDatabase != null) {
                 getItems(scheduleDatabase)
+                if (equipmentItems.isEmpty()) {
+                    binding.tvNoEquipments.visibility = View.VISIBLE
+                }
+                if (memoItems.isEmpty()) {
+                    binding.tvNoMemos.visibility = View.VISIBLE
+                }
                 val equipmentAdapter = BelongingsRVAdapter(requireContext() as MainActivity, equipmentItems)
+                val memoAdapter = MemoRVAdapter(requireContext() as MainActivity, memoItems)
                 equipmentRecyclerView.adapter = equipmentAdapter
                 equipmentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                memoRecyclerView.adapter = memoAdapter
+                memoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 equipmentRVAdapter = equipmentAdapter
+                memoRVAdapter = memoAdapter
             }
 
         }
@@ -159,7 +172,7 @@ class ScheduleFragment : Fragment() {
             val editText = builderItem.dialogEdit
 
             with(builder) {
-                setTitle("준비물 추가")
+                setTitle("준비물 추가하기")
                 setView(builderItem.root)
                 setPositiveButton("추가") { dialogInterface: DialogInterface, num: Int ->
                     if (scheduleDatabase != null) {
@@ -173,13 +186,47 @@ class ScheduleFragment : Fragment() {
                                     equipmentRecyclerView.adapter = equipmentAdapter
                                     equipmentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                                     equipmentRVAdapter = equipmentAdapter
+                                    binding.tvNoEquipments.visibility = View.GONE
                                 }
 
                             }
                         }
 
+                    }
+                }
+                setNegativeButton("취소") { dialogInterface: DialogInterface, num: Int ->
+                    dialogInterface.dismiss()
+                }
+            }
 
+            builder.show()
+        }
 
+        binding.tvAddMemo.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            val builderItem = DialogAddMemoBinding.inflate(layoutInflater)
+            val editText = builderItem.dialogEditMemo
+
+            with(builder) {
+                setTitle("메모 추가하기")
+                setView(builderItem.root)
+                setPositiveButton("추가") { dialogInterface: DialogInterface, num: Int ->
+                    if (scheduleDatabase != null) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            getNewMemos(scheduleDatabase, editText.text.toString())
+                            // 만약 초기화된 경우 어댑터에 반영하기.
+                            if (::memoRVAdapter.isInitialized) {
+                                CoroutineScope(Dispatchers.Main).launch {
+
+                                    val memoAdapter = MemoRVAdapter(requireContext() as MainActivity, memoItems)
+                                    memoRecyclerView.adapter = memoAdapter
+                                    memoRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                                    memoRVAdapter = memoAdapter
+                                    binding.tvNoMemos.visibility = View.GONE
+                                }
+
+                            }
+                        }
 
                     }
                 }
@@ -195,18 +242,25 @@ class ScheduleFragment : Fragment() {
 
     }
 
-    suspend fun getItems(scheduleDatabase: ScheduleDatabase) {
+    private suspend fun getItems(scheduleDatabase: ScheduleDatabase) {
         withContext(Dispatchers.IO) {
-            equipmentItems = scheduleDatabase?.equipmentDao()?.getAllEquipments()!!
-            memoItems = scheduleDatabase?.memoItemDao()?.getAllMemos()!!
+            equipmentItems = scheduleDatabase.equipmentDao().getAllEquipments()!!
+            memoItems = scheduleDatabase.memoItemDao().getAllMemos()!!
         }
     }
 
-    suspend fun getNewItems(scheduleDatabase: ScheduleDatabase, text: String) {
+    private suspend fun getNewItems(scheduleDatabase: ScheduleDatabase, text: String) {
         withContext(Dispatchers.IO) {
             scheduleDatabase.equipmentDao().addEquipment(Equipment(null, false, text))
-            equipmentItems = scheduleDatabase?.equipmentDao()?.getAllEquipments()!!
+            equipmentItems = scheduleDatabase.equipmentDao().getAllEquipments()!!
 
+        }
+    }
+
+    private suspend fun getNewMemos(scheduleDatabase: ScheduleDatabase, text: String) {
+        withContext(Dispatchers.IO) {
+            scheduleDatabase.memoItemDao().addMemo(MemoItem(null, text))
+            memoItems = scheduleDatabase.memoItemDao().getAllMemos()!!
         }
     }
 

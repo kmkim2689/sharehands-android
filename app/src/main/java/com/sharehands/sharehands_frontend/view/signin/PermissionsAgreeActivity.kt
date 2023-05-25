@@ -27,7 +27,7 @@ class PermissionsAgreeActivity: AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_permissions_agree)
 
         requestCameraPermission()
-        requestLocationPermission()
+//        requestLocationPermission()
 
         binding.btnBack.setOnClickListener {
             finish()
@@ -52,14 +52,14 @@ class PermissionsAgreeActivity: AppCompatActivity() {
                     // Location permission denied, show message or handle accordingly
                 }
             }
-
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Location permission granted, do something
-                } else {
-                    // Location permission denied, show message or handle accordingly
-                }
-            }
+//
+//            LOCATION_PERMISSION_REQUEST_CODE -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // Location permission granted, do something
+//                } else {
+//                    // Location permission denied, show message or handle accordingly
+//                }
+//            }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }

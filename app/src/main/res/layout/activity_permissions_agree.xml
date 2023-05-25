@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/sharehands_green_weak">
+        android:background="@color/item_color">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -18,6 +18,7 @@
             android:layout_marginTop="12dp"
             android:padding="16dp"
             android:src="@drawable/ic_arrow_back"
+            app:tint="@color/text_color"
             app:layout_constraintBottom_toTopOf="@id/tv_agree_subtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +30,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="80dp"
             android:text="당신의 따뜻한 마음을 응원합니다!"
-            android:textColor="@color/sharehands_black"
+            android:textColor="@color/text_color"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_agree_title"
@@ -43,7 +44,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:text="권한 설정"
-            android:textColor="@color/sharehands_black"
+            android:textColor="@color/text_color"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_check_info"

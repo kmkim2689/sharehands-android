@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/sharehands_green_weak">
+        android:background="@color/item_color">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -23,6 +23,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:padding="16dp"
+            app:tint="@color/text_color"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +48,7 @@
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="80dp"
                     android:text="당신을 알려주세요!"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/tv_info_title"
@@ -60,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="추가 정보 입력"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="32sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:text="이름"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -100,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="2~15자의 한글 가능"
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
@@ -110,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="닉네임"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="2~15글자의 한글, 영어, 숫자 가능"
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_nickname" />
 
@@ -147,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="이메일"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -173,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="로그인하신 카카오/구글 계정의 이메일입니다."
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/tv_email_content" />
 
@@ -183,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="전화번호"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -215,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="11자의 숫자로 입력해주세요."
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_phone_content" />
 
@@ -225,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="생년월일"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -255,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="예시 : 19981123"
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/edit_day_of_birthday" />
 
@@ -265,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="주소"
-                    android:textColor="@color/sharehands_black"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -314,7 +315,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="80dp"
                     android:text="입력하신 주소는 관심 지역으로 설정됩니다."
-                    android:textColor="@color/black"
+                    android:textColor="@color/icon_unfilled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
                     app:layout_constraintTop_toBottomOf="@id/layout_location" />

@@ -11,6 +11,9 @@ interface EquipmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEquipment(equipment: Equipment)
 
+    @Update
+    fun updateChecked(equipment: Equipment)
+
     @Delete
     fun deleteEquipment(equipment: Equipment)
 }
@@ -22,6 +25,9 @@ interface MemoItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMemo(memoItem: MemoItem)
+
+    @Update
+    fun updateMemo(memoItem: MemoItem)
 
     @Delete
     fun deleteMemo(memoItem: MemoItem)

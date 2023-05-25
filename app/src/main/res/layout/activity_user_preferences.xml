@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/constraint_layout"
-        android:background="@color/sharehands_green_weak">
+        android:background="@color/item_color">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -20,6 +20,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:padding="16dp"
+            app:tint="@color/text_color"
             android:src="@drawable/ic_arrow_back"
             android:textColor="@color/sharehands_black"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="80dp"
             android:text="나에게 맞는 봉사를 추천받아보세요!"
-            android:textColor="@color/sharehands_black"
+            android:textColor="@color/text_color"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="관심 분야 선택"
-            android:textColor="@color/sharehands_black"
+            android:textColor="@color/text_color"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
             android:text="관심 분야를 선택해주세요. (복수 선택 가능)"
-            android:textColor="@color/sharehands_black"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tv_info_subtitle"

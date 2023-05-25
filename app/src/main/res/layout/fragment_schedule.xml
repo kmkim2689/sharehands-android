@@ -253,26 +253,58 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_check_list" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_check_list"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_equipments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rectangle_shadow_stroke"
                     android:padding="16dp"
                     android:paddingBottom="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_check_list" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_check_list">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_check_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_no_equipments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="추가한 준비물이 없습니다."
+                        android:textColor="@color/icon_unfilled"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <ImageView
                     android:id="@+id/iv_memo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="22dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="28dp"
                     android:src="@drawable/ic_memo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_check_list"
+                    app:layout_constraintTop_toBottomOf="@id/layout_equipments"
                     app:tint="@color/text_color" />
 
                 <TextView
@@ -303,18 +335,52 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_memo" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_memo"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_add_memo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rectangle_shadow_stroke"
                     android:padding="16dp"
                     android:paddingBottom="20dp"
-                    android:layout_marginBottom="80dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_memo" />
+                    android:layout_marginBottom="36dp"
+                    >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_memo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_no_memos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="추가한 메모가 없습니다."
+                        android:textColor="@color/icon_unfilled"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
