@@ -97,4 +97,7 @@ dependencies {
     // room db
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    // dot indicator
+    implementation "com.tbuonomo:dotsindicator:4.2"
 }

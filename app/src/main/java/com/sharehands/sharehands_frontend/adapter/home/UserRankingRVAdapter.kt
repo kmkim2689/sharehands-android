@@ -15,11 +15,17 @@ import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.DialogProfile
 import com.sharehands.sharehands_frontend.databinding.DialogProfileBinding
 import com.sharehands.sharehands_frontend.databinding.ItemUserRankingBinding
+import com.sharehands.sharehands_frontend.network.RetrofitClient
 import com.sharehands.sharehands_frontend.network.home.RankingItem
 import com.sharehands.sharehands_frontend.network.search.UserProfile
+import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.BlockActivity
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.search.RecruitActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class UserRankingRVAdapter(private val context: MainActivity, private val list: List<RankingItem>)
     : RecyclerView.Adapter<UserRankingRVAdapter.UserRankingViewHolder>() {
@@ -45,8 +51,30 @@ class UserRankingRVAdapter(private val context: MainActivity, private val list: 
             binding.tvUserLevelNum.text = current.level.toString()
             binding.tvCount.text = "${current.count.toString()}회"
 
+            val token = SharedPreferencesManager.getInstance(context as MainActivity).getString("token", "null")
+
             itemView.setOnClickListener {
-                val profileDialog = DialogProfile(context as MainActivity, current.userId)
+                if (token != "null") {
+                    RetrofitClient.createRetorfitClient().getUserProfile(token, current.userId)
+                        .enqueue(object : Callback<UserProfile> {
+                            override fun onResponse(
+                                call: Call<UserProfile>,
+                                response: Response<UserProfile>
+                            ) {
+                                val result = response.body()
+                                if (response.isSuccessful && result != null) {
+                                    val profileDialog = DialogProfile(context as MainActivity, current.userId)
+                                    profileDialog.show(result)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+
+                            }
+                        })
+
+
+                }
 
 
             }

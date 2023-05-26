@@ -2,6 +2,8 @@ package com.sharehands.sharehands_frontend.view.mypage
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -31,6 +33,41 @@ class UserInfoActivity: AppCompatActivity() {
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this).get(MyPageDetailViewModel::class.java)
         binding.viewModel = viewModel
+
+        binding.editPhoneContent.addTextChangedListener(object : TextWatcher {
+            private var isFormatting: Boolean = false
+            private var deletingHyphen: Boolean = false
+            private var hyphenStart: Int = 0
+            private var editing: Boolean = false
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                deletingHyphen = count == 1 && after == 0 && s[start] == '-'
+                hyphenStart = start
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if (editing) {
+                    return
+                }
+
+                editing = true
+
+                if (deletingHyphen) {
+                    if (hyphenStart > 0) {
+                        s.delete(hyphenStart - 1, hyphenStart)
+                    }
+                }
+
+                if (s.length == 3 || s.length == 8) {
+                    s.append('-')
+                }
+
+                editing = false
+            }
+        })
 
         var checked = arrayListOf<Int>(0, 0, 0, 0, 0, 0, 0, 0, 0)
         val chkEdu = binding.checkboxEducation

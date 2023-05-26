@@ -153,18 +153,38 @@ class UserInfoWriteActivity: AppCompatActivity() {
         // 2. edittext의 inputType을 phone로 설정
         // 3. addTextChangedListener 적용.
         phone.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                // 전화번호 형식 적용
-                if (s != null && s.length >= 3) {
-                    if (s.length == 4 || s.length == 9) {
-                        phone.setText("${s.substring(0, s.length - 1)}-${s.substring(s.length - 1)}")
-                        phone.setSelection(phone.length())
-                    }
-                }
+            private var isFormatting: Boolean = false
+            private var deletingHyphen: Boolean = false
+            private var hyphenStart: Int = 0
+            private var editing: Boolean = false
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                deletingHyphen = count == 1 && after == 0 && s[start] == '-'
+                hyphenStart = start
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if (editing) {
+                    return
+                }
+
+                editing = true
+
+                if (deletingHyphen) {
+                    if (hyphenStart > 0) {
+                        s.delete(hyphenStart - 1, hyphenStart)
+                    }
+                }
+
+                if (s.length == 3 || s.length == 8) {
+                    s.append('-')
+                }
+
+                editing = false
+            }
         })
 
         focusEffect(name, 2, 15)

@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayoutMediator
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.home.PopularRVAdapter
 import com.sharehands.sharehands_frontend.adapter.home.SuggestionVPAdapter
@@ -75,6 +77,8 @@ class HomeFragment : Fragment() {
                     )
 
                     viewPagerSuggestion.adapter = suggestionVPAdapter
+
+                    binding.viewpagerIndicator.setViewPager2(viewPagerSuggestion)
 
                     val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.recommendMargin)
                     val pagerWidth = resources.getDimensionPixelOffset(R.dimen.recommendWidth)
