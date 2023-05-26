@@ -221,6 +221,14 @@
                 android:padding="4dp"
                 android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/iv_apply_expired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_expired"
+                android:padding="4dp"
+                android:visibility="gone"/>
+
         </FrameLayout>
 
 

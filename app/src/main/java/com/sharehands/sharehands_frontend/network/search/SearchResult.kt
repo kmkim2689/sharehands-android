@@ -18,5 +18,7 @@ data class ServiceList(
     @SerializedName ("maxNum") val maxNum: String,
     @SerializedName ("date") val date: String,
     @SerializedName ("dow") val dow: String,
-    @SerializedName("isAuthor") val isAuthor: Boolean
+    @SerializedName ("isAuthor") val isAuthor: Boolean,
+    @SerializedName ("isExpired") val isExpired: Boolean,
+    @SerializedName ("isFull") val isFull: Boolean
 )

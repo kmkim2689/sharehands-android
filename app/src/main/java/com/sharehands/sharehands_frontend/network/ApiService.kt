@@ -178,7 +178,6 @@ interface ApiService {
     @POST("/manage/like")
     fun postLike(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        // 이거 Long임?
         @Query("workId") workId: Long
     ): Call<Void>
 
@@ -186,7 +185,6 @@ interface ApiService {
     @POST("/manage/unlike")
     fun cancelLike(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        // 이거 Long임?
         @Query("workId") workId: Long
     ): Call<Void>
 
@@ -194,7 +192,6 @@ interface ApiService {
     @POST("/manage/scrap")
     fun postScrap(
         @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
-        // 이거 Long임?
         @Query("workId") workId: Long
     ): Call<Void>
 

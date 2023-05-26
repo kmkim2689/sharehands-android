@@ -46,6 +46,21 @@
             android:layout_marginEnd="0dp"
             android:orientation="vertical"/>
 
+        <Constraint
+            android:id="@+id/layout_mgt_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:paddingTop="8dp"
+            android:orientation="vertical"/>
+
+        <Constraint
+            android:id="@+id/background_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -66,5 +81,25 @@
             android:layout_marginTop="56dp"
             android:layout_marginEnd="0dp"
             android:orientation="vertical"/>
+
+        <Constraint
+            android:id="@+id/layout_mgt_service"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:paddingTop="8dp"
+            android:orientation="vertical"/>
+
+        <Constraint
+            android:id="@+id/background_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            android:layout_marginTop="-120dp"
+            motion:transitionEasing="cubic(0.4,0.41,0.8,0.78)"
+            android:alpha="0"/>
+
+
     </ConstraintSet>
 </MotionScene>

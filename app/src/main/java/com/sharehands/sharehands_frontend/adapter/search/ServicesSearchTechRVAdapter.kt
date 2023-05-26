@@ -34,6 +34,7 @@ class ServicesSearchTechRVAdapter(private val context: MainActivity?, private va
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
             val btnCancel = binding.ivApplyCancel
+            val btnExpired = binding.ivApplyExpired
             // TODO int로 보내야하는가?
             val serviceId = current.workId.toInt()
             // 스낵바 띄울 액티비티
@@ -58,15 +59,30 @@ class ServicesSearchTechRVAdapter(private val context: MainActivity?, private va
             binding.tvPreviewPeople.text = "${current.maxNum}명"
             binding.tvPreviewDay.text = current.dow
 
+            val isExpired = current.isExpired
+            val isFull = current.isFull
             val isApplied = current.userApplied
+            val isAuthor = current.isAuthor
             Log.d("isApplied", "${isApplied}")
 
-            if (isApplied) {
+            if (isExpired || isFull) {
+                btnExpired.visibility = View.VISIBLE
                 btnApply.visibility = View.GONE
-                btnCancel.visibility = View.VISIBLE
-            } else {
-                btnApply.visibility = View.VISIBLE
                 btnCancel.visibility = View.GONE
+            } else {
+                btnExpired.visibility = View.GONE
+                if (isAuthor) {
+                    btnApply.visibility = View.GONE
+                    btnCancel.visibility = View.GONE
+                } else {
+                    if (isApplied) {
+                        btnApply.visibility = View.GONE
+                        btnCancel.visibility = View.VISIBLE
+                    } else {
+                        btnApply.visibility = View.VISIBLE
+                        btnCancel.visibility = View.GONE
+                    }
+                }
             }
 
 //            // TODO 봉사활동 클릭 이벤트 설정하기

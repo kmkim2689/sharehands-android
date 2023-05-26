@@ -65,5 +65,9 @@ data class ServiceContent(
     @SerializedName("userRate")
     val userRate: Double?,
     @SerializedName("workTitle")
-    val workTitle: String?
+    val workTitle: String?,
+    @SerializedName ("isExpired")
+    val isExpired: Boolean,
+    @SerializedName ("isFull")
+    val isFull: Boolean
 )

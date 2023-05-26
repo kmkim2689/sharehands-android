@@ -197,23 +197,55 @@ class ServiceDetailActivity:AppCompatActivity() {
 
         viewModel.isAuthor.observe(this) {
             if (viewModel.isAuthor.value == true) {
-                binding.btnApplyCancel.visibility = View.GONE
-                binding.btnApply.visibility = View.GONE
-                binding.btnRecruit.visibility = View.VISIBLE
                 binding.tvReportTitle.visibility = View.GONE
                 binding.viewSeparator4.visibility = View.GONE
-            } else {
-                if (viewModel.contents.value?.didApply == true) {
-                    Log.d("didapply", "${viewModel.contents.value?.didApply}")
-                    binding.btnApplyCancel.visibility = View.VISIBLE
-                    binding.btnApply.visibility = View.INVISIBLE
+                binding.btnRecruitCloseClient.visibility = View.GONE
+                binding.btnApplyCancel.visibility = View.GONE
+                binding.btnApply.visibility = View.GONE
+                if (viewModel.contents.value!!.isExpired || viewModel.contents.value!!.isFull) {
+                    binding.btnRecruitCloseAuthor.visibility = View.VISIBLE
                     binding.btnRecruit.visibility = View.GONE
                 } else {
-                    Log.d("didapply", "${viewModel.contents.value?.didApply}")
-                    binding.btnApplyCancel.visibility = View.INVISIBLE
-                    binding.btnApply.visibility = View.VISIBLE
-                    binding.btnRecruit.visibility = View.GONE
+                    binding.btnRecruitCloseAuthor.visibility = View.GONE
+                    binding.btnRecruit.visibility = View.VISIBLE
                 }
+
+            } else {
+                binding.btnRecruitCloseAuthor.visibility = View.GONE
+                binding.btnRecruit.visibility = View.GONE
+                if (viewModel.contents.value!!.isFull) {
+                    if (viewModel.contents.value!!.isExpired) {
+                        binding.btnRecruitCloseClient.visibility = View.VISIBLE
+                        binding.btnApplyCancel.visibility = View.GONE
+                        binding.btnApply.visibility = View.GONE
+                    } else {
+                        if (viewModel.contents.value?.didApply == true) {
+                            Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                            binding.btnApplyCancel.visibility = View.VISIBLE
+                            binding.btnApply.visibility = View.GONE
+                            binding.btnRecruitCloseClient.visibility = View.GONE
+                        } else {
+                            Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                            binding.btnApplyCancel.visibility = View.GONE
+                            binding.btnApply.visibility = View.GONE
+                            binding.btnRecruitCloseClient.visibility = View.VISIBLE
+                        }
+                    }
+
+                } else {
+                    if (viewModel.contents.value?.didApply == true) {
+                        Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                        binding.btnApplyCancel.visibility = View.VISIBLE
+                        binding.btnApply.visibility = View.GONE
+                        binding.btnRecruitCloseClient.visibility = View.GONE
+                    } else {
+                        Log.d("didapply", "${viewModel.contents.value?.didApply}")
+                        binding.btnApplyCancel.visibility = View.GONE
+                        binding.btnApply.visibility = View.VISIBLE
+                        binding.btnRecruitCloseClient.visibility = View.GONE
+                    }
+                }
+
             }
         }
 
@@ -339,6 +371,12 @@ class ServiceDetailActivity:AppCompatActivity() {
         }
 
         binding.btnRecruit.setOnClickListener {
+            val recruitIntent = Intent(this, RecruitActivity::class.java)
+            recruitIntent.putExtra("serviceId", serviceId)
+            startActivity(recruitIntent)
+        }
+
+        binding.btnRecruitCloseAuthor.setOnClickListener {
             val recruitIntent = Intent(this, RecruitActivity::class.java)
             recruitIntent.putExtra("serviceId", serviceId)
             startActivity(recruitIntent)

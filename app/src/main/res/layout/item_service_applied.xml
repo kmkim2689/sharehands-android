@@ -84,6 +84,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_location"
+            app:tint="@color/sharehands_green_medium"
             android:layout_gravity="start"
             android:layout_weight="0.5"
             />

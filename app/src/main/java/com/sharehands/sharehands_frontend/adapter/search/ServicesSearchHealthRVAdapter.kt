@@ -34,6 +34,7 @@ class ServicesSearchHealthRVAdapter(private val context: MainActivity?, private 
                 .getString("token", "null")
             val btnApply = binding.ivApplyQuick
             val btnCancel = binding.ivApplyCancel
+            val btnExpired = binding.ivApplyExpired
             // TODO int로 보내야하는가?
             val serviceId = current.workId.toInt()
             // 스낵바 띄울 액티비티
@@ -58,22 +59,29 @@ class ServicesSearchHealthRVAdapter(private val context: MainActivity?, private 
             binding.tvPreviewPeople.text = "${current.maxNum}명"
             binding.tvPreviewDay.text = current.dow
 
+            val isExpired = current.isExpired
+            val isFull = current.isFull
             val isApplied = current.userApplied
+            val isAuthor = current.isAuthor
             Log.d("isApplied", "${isApplied}")
 
-
-
-            val isAuthor = current.isAuthor
-            if (isAuthor) {
+            if (isExpired || isFull) {
+                btnExpired.visibility = View.VISIBLE
                 btnApply.visibility = View.GONE
                 btnCancel.visibility = View.GONE
             } else {
-                if (isApplied) {
+                btnExpired.visibility = View.GONE
+                if (isAuthor) {
                     btnApply.visibility = View.GONE
-                    btnCancel.visibility = View.VISIBLE
-                } else {
-                    btnApply.visibility = View.VISIBLE
                     btnCancel.visibility = View.GONE
+                } else {
+                    if (isApplied) {
+                        btnApply.visibility = View.GONE
+                        btnCancel.visibility = View.VISIBLE
+                    } else {
+                        btnApply.visibility = View.VISIBLE
+                        btnCancel.visibility = View.GONE
+                    }
                 }
             }
 
