@@ -72,6 +72,7 @@ class MessagingService: FirebaseMessagingService() {
     }
 
     private fun sendNotification(title: String, messageBody: String, requestId: Int) {
+        Log.d("알림 전송", "진입")
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val requestCode = 0
@@ -102,14 +103,14 @@ class MessagingService: FirebaseMessagingService() {
                 NotificationManager.IMPORTANCE_DEFAULT,
             )
             notificationManager.createNotificationChannel(channel)
+            Log.d("알림 전송", "생성")
         }
 
         notificationManager.notify(requestId, notificationBuilder.build())
+        Log.d("알림 전송", "전송")
     }
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
     }
-
-
 }

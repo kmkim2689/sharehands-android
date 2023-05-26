@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/constraint_layout"
-        android:background="@color/item_color">
+        android:background="@color/sign_in_color">
 
         <ImageView
             android:id="@+id/btn_back"

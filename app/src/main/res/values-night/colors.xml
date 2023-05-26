@@ -19,4 +19,5 @@
     <color name="sharehands_red">#FF0000</color>
     <color name="kakao_yellow">#FFFF00</color>
     <color name="spinner_color">#FF000000</color>
+    <color name="sign_in_color">#FF000000</color>
 </resources>

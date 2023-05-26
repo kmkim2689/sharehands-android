@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/item_color">
+        android:background="@color/sign_in_color">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -125,7 +125,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="28dp"
-            android:visibility="invisible"
             android:background="@drawable/rectangle_shadow"
             app:layout_constraintBottom_toTopOf="@id/layout_btn_next"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +137,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="24dp"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_alert"
                 app:tint="@color/text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="위치 (선택)"
+                android:text="알림 (선택)"
                 android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -165,7 +164,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
-                android:text="현재 위치를 기반으로 봉사활동을 추천하기 위하여 요구됩니다."
+                android:text="봉사활동 제안, 신청, 수락에 대한 알림과 이벤트 공지를 위하여 요구됩니다."
                 android:textColor="#B1B1B1"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

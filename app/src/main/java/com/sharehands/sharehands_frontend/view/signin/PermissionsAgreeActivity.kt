@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -13,12 +14,10 @@ import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.databinding.ActivityPermissionsAgreeBinding
 
 class PermissionsAgreeActivity: AppCompatActivity() {
-    // 여기 안의 변수들은 전역적으로 사용할 것임.
+    // 전역적으로 사용
     companion object {
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 100
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 200
-        private val REQUEST_CODES = arrayOf(CAMERA_PERMISSION_REQUEST_CODE, LOCATION_PERMISSION_REQUEST_CODE)
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION)
+        private const val MULTIPLE_PERMISSION_REQUEST_CODE = 100
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.POST_NOTIFICATIONS)
     }
     lateinit var binding: ActivityPermissionsAgreeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +25,7 @@ class PermissionsAgreeActivity: AppCompatActivity() {
         setContentView(R.layout.activity_permissions_agree)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_permissions_agree)
 
-        requestCameraPermission()
-//        requestLocationPermission()
+        checkPermissions()
 
         binding.btnBack.setOnClickListener {
             finish()
@@ -39,44 +37,35 @@ class PermissionsAgreeActivity: AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            CAMERA_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Location permission granted, do something
-                } else {
-                    // Location permission denied, show message or handle accordingly
+            MULTIPLE_PERMISSION_REQUEST_CODE -> {
+                if(grantResults.isNotEmpty()) {
+                    for((i, permission) in permissions.withIndex()) {
+                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+
+                        }
+                    }
                 }
             }
-//
-//            LOCATION_PERMISSION_REQUEST_CODE -> {
-//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    // Location permission granted, do something
-//                } else {
-//                    // Location permission denied, show message or handle accordingly
-//                }
-//            }
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
-    private fun requestCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
-        } else {
-            // Permission already granted, do something
-        }
-    }
+    private fun checkPermissions() {
+        var rejectedPermissionList = ArrayList<String>()
 
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
-            // Permission already granted, do something
+        for(permission in REQUIRED_PERMISSIONS){
+            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                rejectedPermissionList.add(permission)
+            }
+        }
+
+        if(rejectedPermissionList.isNotEmpty()){
+            val array = arrayOfNulls<String>(rejectedPermissionList.size)
+            ActivityCompat.requestPermissions(this, rejectedPermissionList.toArray(array), MULTIPLE_PERMISSION_REQUEST_CODE)
+
         }
     }
 }

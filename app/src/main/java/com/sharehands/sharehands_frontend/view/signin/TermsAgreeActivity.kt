@@ -21,6 +21,10 @@ class TermsAgreeActivity: AppCompatActivity() {
         setContentView(R.layout.activity_terms_agree)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_terms_agree)
 
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         // UI 작업
         val titleText1 = binding.tvAgreeSubtitle
         val titleText2 = binding.tvAgreeTitle
@@ -205,5 +209,6 @@ class TermsAgreeActivity: AppCompatActivity() {
                 visibility = View.VISIBLE
             }
         }
+
     }
 }

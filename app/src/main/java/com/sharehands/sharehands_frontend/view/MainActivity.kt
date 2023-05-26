@@ -63,20 +63,20 @@ class MainActivity : AppCompatActivity() {
             // Log and toast
             val msg = "FCM Registration token: $token"
             Log.d(TAG, msg)
-//            val accessToken = SharedPreferencesManager.getInstance(this).getString("token", "null")
-//            if (accessToken != "null") {
-//                RetrofitClient.createRetorfitClient().sendRegToken(accessToken, RegisterToken(token))
-//                    .enqueue(object : Callback<Void> {
-//                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                            Log.d("알림 토큰 보내기 성공", "${response.code()}")
-//                        }
-//
-//                        override fun onFailure(call: Call<Void>, t: Throwable) {
-//                            Log.d("알림 토큰 보내기 실패", "${t.message}")
-//                        }
-//
-//                    })
-//            }
+            val accessToken = SharedPreferencesManager.getInstance(this).getString("token", "null")
+            if (accessToken != "null") {
+                RetrofitClient.createRetorfitClient().sendRegToken(accessToken, RegisterToken(token))
+                    .enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            Log.d("알림 토큰 보내기 성공", "${response.code()}")
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Log.d("알림 토큰 보내기 실패", "${t.message}")
+                        }
+
+                    })
+            }
 
 //            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         }
