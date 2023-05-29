@@ -27,6 +27,14 @@ class ServiceDetailViewModel:ViewModel() {
     val isAuthor: LiveData<Boolean>
         get() = _isAuthor
 
+    private var _isExpired = MutableLiveData<Boolean>()
+    val isExpired: LiveData<Boolean>
+        get() = _isExpired
+
+    private var _isFull = MutableLiveData<Boolean>()
+    val isFull: LiveData<Boolean>
+        get() = _isFull
+
     private var _isApplied = MutableLiveData<Boolean>()
     val isApplied: LiveData<Boolean>
         get() = _isApplied
@@ -87,10 +95,12 @@ class ServiceDetailViewModel:ViewModel() {
                             _isApplied.value = result.didApply!!
                             _isAuthor.value = result.author!!
                             val photoList = result.photoList
-                            _isSuccessful.value = true
                             _isLiked.value = result.didLike!!
                             _isScraped.value = result.didScrap!!
                             _photoList.value = result.photoList!!
+                            _isExpired.value = result.isExpired
+                            _isFull.value = result.isFull
+                            _isSuccessful.value = true
                         } else {
                             Log.d("봉사활동 상세 데이터 불러오기 실패", response.code().toString())
                             _isSuccessful.value = false

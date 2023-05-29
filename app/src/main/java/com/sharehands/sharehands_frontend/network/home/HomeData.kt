@@ -36,5 +36,5 @@ data class PopularItem(
     @SerializedName("likes") val likes: Long,
     @SerializedName("scraps") val scraps: Long,
     @SerializedName("serviceId") val serviceId: Long,
-    @SerializedName("total") val total: Long
+    @SerializedName("total") val total: Double
 )

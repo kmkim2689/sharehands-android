@@ -195,14 +195,17 @@ class ServiceDetailActivity:AppCompatActivity() {
             profile.show(viewModel.profile.value!!)
         }
 
-        viewModel.isAuthor.observe(this) {
+        viewModel.isFull.observe(this) {
+            Log.d("isAuthor", "${viewModel.isAuthor.value}")
+            Log.d("isExpired", "${viewModel.isExpired.value}")
+            Log.d("isFull", "${viewModel.isFull.value}")
             if (viewModel.isAuthor.value == true) {
                 binding.tvReportTitle.visibility = View.GONE
                 binding.viewSeparator4.visibility = View.GONE
                 binding.btnRecruitCloseClient.visibility = View.GONE
                 binding.btnApplyCancel.visibility = View.GONE
                 binding.btnApply.visibility = View.GONE
-                if (viewModel.contents.value!!.isExpired || viewModel.contents.value!!.isFull) {
+                if (viewModel.isExpired.value == true || viewModel.isFull.value == true) {
                     binding.btnRecruitCloseAuthor.visibility = View.VISIBLE
                     binding.btnRecruit.visibility = View.GONE
                 } else {
@@ -213,8 +216,29 @@ class ServiceDetailActivity:AppCompatActivity() {
             } else {
                 binding.btnRecruitCloseAuthor.visibility = View.GONE
                 binding.btnRecruit.visibility = View.GONE
-                if (viewModel.contents.value!!.isFull) {
-                    if (viewModel.contents.value!!.isExpired) {
+                if (viewModel.isFull.value == true) {
+                    if (viewModel.isExpired.value == true) {
+                        Log.d("expired", "and full")
+                        binding.btnRecruitCloseClient.visibility = View.VISIBLE
+                        binding.btnApplyCancel.visibility = View.GONE
+                        binding.btnApply.visibility = View.GONE
+                    } else {
+                        if (viewModel.contents.value?.didApply == true) {
+                            Log.d("didapply - isfull", "${viewModel.contents.value?.didApply}")
+                            binding.btnApplyCancel.visibility = View.VISIBLE
+                            binding.btnApply.visibility = View.GONE
+                            binding.btnRecruitCloseClient.visibility = View.GONE
+                        } else {
+                            Log.d("didapply - isfull", "${viewModel.contents.value?.didApply}")
+                            binding.btnApplyCancel.visibility = View.GONE
+                            binding.btnApply.visibility = View.GONE
+                            binding.btnRecruitCloseClient.visibility = View.VISIBLE
+                        }
+                    }
+
+                } else {
+                    if (viewModel.isExpired.value == true) {
+                        Log.d("expired", "and full")
                         binding.btnRecruitCloseClient.visibility = View.VISIBLE
                         binding.btnApplyCancel.visibility = View.GONE
                         binding.btnApply.visibility = View.GONE
@@ -227,23 +251,11 @@ class ServiceDetailActivity:AppCompatActivity() {
                         } else {
                             Log.d("didapply", "${viewModel.contents.value?.didApply}")
                             binding.btnApplyCancel.visibility = View.GONE
-                            binding.btnApply.visibility = View.GONE
-                            binding.btnRecruitCloseClient.visibility = View.VISIBLE
+                            binding.btnApply.visibility = View.VISIBLE
+                            binding.btnRecruitCloseClient.visibility = View.GONE
                         }
                     }
 
-                } else {
-                    if (viewModel.contents.value?.didApply == true) {
-                        Log.d("didapply", "${viewModel.contents.value?.didApply}")
-                        binding.btnApplyCancel.visibility = View.VISIBLE
-                        binding.btnApply.visibility = View.GONE
-                        binding.btnRecruitCloseClient.visibility = View.GONE
-                    } else {
-                        Log.d("didapply", "${viewModel.contents.value?.didApply}")
-                        binding.btnApplyCancel.visibility = View.GONE
-                        binding.btnApply.visibility = View.VISIBLE
-                        binding.btnRecruitCloseClient.visibility = View.GONE
-                    }
                 }
 
             }
