@@ -3,7 +3,7 @@
     <style name="Theme.ShareHands_frontend" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/sharehands_green_strong</item>
-        <item name="colorPrimaryVariant">@color/sharehands_green_medium</item>
+        <item name="colorPrimaryVariant">@color/sharehands_green_weak</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/sharehands_green_medium</item>
@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
