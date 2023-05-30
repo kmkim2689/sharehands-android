@@ -40,8 +40,10 @@ class ApplicantsRVAdapter(private val context: RecruitActivity, private val appl
 
                     if (current.isPermission == true) {
                         binding.btnPermitReview.visibility = View.GONE
+                        binding.btnReject.visibility = View.GONE
                     } else {
                         binding.btnPermitReview.visibility = View.VISIBLE
+                        binding.btnReject.visibility = View.VISIBLE
                     }
 
                     binding.btnPermitReview.setOnClickListener {
@@ -56,6 +58,10 @@ class ApplicantsRVAdapter(private val context: RecruitActivity, private val appl
                                 snackbarSugFail.show()
                             }
                         }
+                    }
+
+                    binding.btnReject.setOnClickListener {
+
                     }
 
                     itemView.setOnClickListener {

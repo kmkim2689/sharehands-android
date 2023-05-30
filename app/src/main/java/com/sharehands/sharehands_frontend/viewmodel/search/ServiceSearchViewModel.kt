@@ -99,16 +99,19 @@ class ServiceSearchViewModel: ViewModel() {
                                 if (result != null) {
                                     _searchResult.value = result
                                     _serviceSum.value = result.workCounter.toInt()
-                                    Log.d("service cnt once", "${_searchResult.value!!.serviceList.size}")
-                                    Log.d("service scroll once", "${_searchResult.value!!.serviceList.last().workId}")
+                                    if (searchResult?.value?.serviceList!!.isNotEmpty()) {
+                                        Log.d("service cnt once", "${_searchResult.value!!.serviceList.size}")
+                                        Log.d("service scroll once", "${_searchResult?.value?.serviceList?.last()?.workId}")
 
-                                    for (elem in result.serviceList) {
-                                        _servicesList.value!!.add(elem)
+                                        for (elem in result.serviceList) {
+                                            _servicesList.value!!.add(elem)
+                                        }
+                                        Log.d("service count ${page}", "${result.serviceList.size}")
+
+                                        Log.d("봉사활동 목록 GET 성공", "${result}")
+                                        Log.d("봉사활동 전체 목록", "${servicesList.value}")
+
                                     }
-                                    Log.d("service count ${page}", "${result.serviceList.size}")
-
-                                    Log.d("봉사활동 목록 GET 성공", "${result}")
-                                    Log.d("봉사활동 전체 목록", "${servicesList.value}")
                                     _isSuccessful.value = true
                                 } else {
                                     Log.d("봉사활동 목록 GET 실패", "데이터 비어있음")
@@ -152,7 +155,7 @@ class ServiceSearchViewModel: ViewModel() {
                             val result = response.body()
                             if (result != null) {
                                 Log.d("service cnt scrolled", "${_searchResult.value!!.serviceList.size}")
-                                Log.d("service scroll last", "${_searchResult.value!!.serviceList.last().workId}")
+                                Log.d("service scroll last", "${_searchResult?.value?.serviceList?.last()?.workId}")
                                 _serviceSum.value = result.workCounter.toInt()
                                 for (elem in result.serviceList) {
                                     _servicesList.value!!.add(elem)

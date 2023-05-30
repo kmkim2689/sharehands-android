@@ -95,8 +95,7 @@ class ServiceSearchHealthViewModel: ViewModel() {
                                 if (result != null) {
                                     _searchResult.value = result
                                     _serviceSum.value = result.workCounter.toInt()
-                                    try {
-
+                                    if (searchResult?.value?.serviceList!!.isNotEmpty()) {
                                         Log.d("service cnt once", "${_searchResult.value!!.serviceList.size}")
                                         Log.d("service scroll once", "${_searchResult.value!!.serviceList.last().workId}")
 
@@ -107,10 +106,9 @@ class ServiceSearchHealthViewModel: ViewModel() {
 
                                         Log.d("봉사활동 목록 GET 성공", "${result}")
                                         Log.d("봉사활동 전체 목록", "${servicesList.value}")
-                                        _isSuccessful.value = true
-                                    } catch (e: java.util.NoSuchElementException) {
-                                        _isSuccessful.value = false
                                     }
+
+                                    _isSuccessful.value = true
 
                                 } else {
                                     Log.d("봉사활동 목록 GET 실패", "데이터 비어있음")
