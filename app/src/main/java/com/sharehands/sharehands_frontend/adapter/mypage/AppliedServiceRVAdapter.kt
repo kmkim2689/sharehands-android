@@ -35,6 +35,10 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                     .getString("token", "null")
                 val btnApply = binding.ivApplyQuick
                 val btnCancel = binding.ivApplyCancel
+                val btnExpired = binding.ivApplyExpired
+
+                val isExpired = current.isExpired
+
                 // TODO int로 보내야하는가?
                 val serviceId = current.serviceId.toInt()
                 // 스낵바 띄울 액티비티
@@ -66,7 +70,17 @@ class AppliedServiceRVAdapter(private val context: AppliedServiceActivity, priva
                 Log.d("isApplied", "${isApplied}")
 
                 btnApply.visibility = View.GONE
-                btnCancel.visibility = View.VISIBLE
+
+                Log.d("isExpired", "$isExpired")
+
+                if (isExpired) {
+                    btnCancel.visibility = View.GONE
+                    btnExpired.visibility = View.VISIBLE
+                } else {
+                    btnCancel.visibility = View.VISIBLE
+                    btnExpired.visibility = View.GONE
+                }
+
 
 
                 btnCancel.setOnClickListener {

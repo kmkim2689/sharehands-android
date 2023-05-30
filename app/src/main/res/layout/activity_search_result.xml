@@ -78,7 +78,7 @@
                             android:layout_marginStart="24dp"
                             android:inputType="text"
                             android:textSize="16sp"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/sharehands_black"
                             android:background="@null"
                             android:layout_weight="20"
                             android:onTextChanged="@{(s, start, before, count) -> viewModel.onSearchKeywordChanged(s, start, before, count)}"

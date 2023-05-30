@@ -16,6 +16,10 @@ import retrofit2.Retrofit
 class ServiceMgtViewModel: ViewModel() {
     var _isInitialized = MutableLiveData<Boolean>(true)
 
+    private var _isExpired = MutableLiveData<Boolean>()
+    val isExpired: LiveData<Boolean>
+        get() = _isExpired
+
     private var _recruitedNum = MutableLiveData<String>()
     val recruitedNum: LiveData<String>
         get() = _recruitedNum

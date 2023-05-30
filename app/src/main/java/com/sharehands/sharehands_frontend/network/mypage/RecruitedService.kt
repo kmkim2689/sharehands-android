@@ -33,4 +33,6 @@ data class RecruitedService(
     val maxNum: Long,
     @SerializedName("dow")
     val dow: String,
+    @SerializedName("isExpired")
+    val isExpired: Boolean
 )

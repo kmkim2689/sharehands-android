@@ -67,6 +67,11 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                 val isApplied = current.userApplied
                 Log.d("isApplied", "${isApplied}")
 
+                val isExpired = current.isExpired
+                if (isExpired) {
+                    deleteBtn.visibility = View.GONE
+                }
+
 
                 deleteBtn.setOnClickListener {
                     viewModel.deleteService(token, serviceId)

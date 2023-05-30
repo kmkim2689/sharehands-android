@@ -36,6 +36,7 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchViewModel::class.java)
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
+        binding.nestedScrollView.isFillViewport = true
         return binding.root
     }
 
