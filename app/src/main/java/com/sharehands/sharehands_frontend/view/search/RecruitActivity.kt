@@ -50,7 +50,7 @@ class RecruitActivity: AppCompatActivity() {
                 binding.rvRecommendedApplicants.adapter = recommendAdapter
                 binding.rvRecommendedApplicants.layoutManager = recommendLayoutManager
 
-                binding.tvCurrentNum.text = result.value?.participatedNum.toString()
+                binding.tvCurrentNumApplied.text = result.value?.participatedNum.toString()
                 binding.tvMaxNum.text = result.value?.recruitNum.toString()
                 binding.tvCurrentRecommended.text = result.value?.suggestionNum.toString()
             }

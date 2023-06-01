@@ -209,6 +209,22 @@ interface ApiService {
         @Query("workId") workId: Long
     ): Call<ApplicantsData>
 
+
+    // 신청자 정보 호출하기
+    @GET("/user-info")
+    fun viewUserDetail(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long
+    ): Call<MyPageDetail>
+
+    // 거절하기
+    @POST("/manage/reject")
+    fun rejectUser(
+        @Header("ACCESS_TOKEN") ACCESS_TOKEN: String,
+        @Query("userId") userId: Long,
+        @Query("workId") workId: Long
+    ): Call<Void>
+
     // 제안하기
     @POST("/service/inviteUser")
     fun suggest(

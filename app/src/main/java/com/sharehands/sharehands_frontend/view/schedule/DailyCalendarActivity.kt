@@ -24,6 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class DailyCalendarActivity: AppCompatActivity() {
 
@@ -43,6 +44,7 @@ class DailyCalendarActivity: AppCompatActivity() {
         weeklyCalendar.setSelectedDate(Calendar.getInstance())
 
         val idList = ArrayList<Int>()
+        var scheduleIds = HashMap<Int, Long>()
 
         weeklyCalendar.addDecorators(WeekdayDecorate(), SundayDecorate(), SaturdayDecorate(), TodayDecorator(this))
         weeklyCalendar.setTitleFormatter {
@@ -121,7 +123,6 @@ class DailyCalendarActivity: AppCompatActivity() {
 
             viewModel.getDailyServices(token, changedYear, changedMonth, changedDay)
             viewModel.dailyList.observe(this) {
-
                 val schedules = ArrayList<Schedule>()
                 timeTable.removeAll()
                 for (elem in viewModel.dailyList.value!!) {
@@ -142,31 +143,25 @@ class DailyCalendarActivity: AppCompatActivity() {
                     timeTable.add(schedules)
                 }
             }
-
         }
 
         // 클릭 이벤트
         timeTable.setOnStickerSelectEventListener { idx, schedules ->
-            Log.d("schedules", "${schedules.toString()}")
-            Log.d("schedules idx elem", "${idx}")
+            Log.d("schedules", "$schedules")
+            Log.d("schedules idx elem", "$idx")
             // 특정 인덱스의 스티커가 선택되었을 때... 여기서 인덱스란 schedules ArrayList를 이름.
 
-            if (!isFinishing) {
-                val intent =
-                    Intent(this, ServiceDetailActivity::class.java)
-                // TODO 서비스 아이디 넘겨주는 것 바꿔놓기
-//                    intent.putExtra("serviceId", idList[idx])
-                startActivity(intent)
-            }
-
-
-
+//            val intent =
+//                Intent(this, ServiceDetailActivity::class.java)
+//            Log.d("schedule service id", "${scheduleIds[idx]}")
+//            if (scheduleIds[idx] != null) {
+//                intent.putExtra("serviceId", scheduleIds[idx]?.toInt())
+//                startActivity(intent)
+//            }
         }
 
         binding.btnBack.setOnClickListener {
             finish()
         }
-
     }
-
 }

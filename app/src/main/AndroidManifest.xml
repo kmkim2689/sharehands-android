@@ -105,6 +105,7 @@
         <activity android:name=".view.BlockActivity"/>
         <activity android:name=".view.ReportReviewActivity"/>
         <activity android:name=".view.ReportServiceActivity"/>
+        <activity android:name=".view.search.ApplicantInfoActivity"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

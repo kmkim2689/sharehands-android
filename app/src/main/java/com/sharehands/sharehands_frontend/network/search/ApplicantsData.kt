@@ -4,7 +4,7 @@ package com.sharehands.sharehands_frontend.network.search
 import com.google.gson.annotations.SerializedName
 
 data class ApplicantsData(
-    @SerializedName ("participatedList") val participatedList: List<Participated?>?,
+    @SerializedName ("participatedList") val participatedList: ArrayList<Participated?>?,
     @SerializedName ("participatedNum") val participatedNum: Int?,
     @SerializedName ("recruitNum") val recruitNum: Int?,
     @SerializedName ("suggestionList") val suggestionList: List<Suggestion?>?,

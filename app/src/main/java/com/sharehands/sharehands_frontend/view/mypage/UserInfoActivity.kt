@@ -196,8 +196,6 @@ class UserInfoActivity: AppCompatActivity() {
                 Log.d("progress", "${progressBar.progress}")
             }
             progressBar.max = 50
-
-
         }
         viewModel.result.observe(this, observer)
 
