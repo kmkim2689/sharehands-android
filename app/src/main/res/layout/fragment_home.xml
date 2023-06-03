@@ -61,11 +61,13 @@
                     android:id="@+id/iv_alert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="8dp"
                     android:src="@drawable/ic_outline_alert"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <TextView
                     android:id="@+id/tv_alarm"
@@ -79,8 +81,8 @@
                     android:textStyle="bold"
                     android:textSize="10sp"
                     android:text="@{viewModel.invitationNum}"
-                    android:layout_marginTop="-6dp"
-                    android:layout_marginEnd="-6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center_vertical|center_horizontal" />
 
                 <ImageView

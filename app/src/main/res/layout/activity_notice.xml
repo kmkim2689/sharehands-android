@@ -21,15 +21,17 @@
             <Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:elevation="0dp">
+                app:elevation="0dp"
+                android:contentInsetStart="8dp">
 
                 <ImageView
                     android:id="@+id/iv_go_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:src="@drawable/ic_back_dir"
-                    app:tint="@color/sharehands_black" />
+                    app:tint="@color/sharehands_black"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <TextView
                     android:layout_width="wrap_content"

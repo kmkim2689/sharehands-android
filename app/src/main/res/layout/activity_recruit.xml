@@ -21,7 +21,8 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:contentInsetStart="8dp">
 
                 <ImageView
                     android:id="@+id/iv_go_back"
@@ -29,7 +30,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_back_dir"
                     app:tint="@color/sharehands_black"
-                    android:padding="12dp"/>
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="20dp"/>
 
                 <TextView
                     android:id="@+id/tv_recruit_applicants"

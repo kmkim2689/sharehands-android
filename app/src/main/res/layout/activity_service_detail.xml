@@ -69,6 +69,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="24dp"
+                        android:background="?android:attr/selectableItemBackground"
                         android:src="@drawable/ic_back_black" />
 
 
@@ -553,6 +554,7 @@
                     app:layout_constraintStart_toStartOf="@id/tv_service_sort"
                     android:layout_marginTop="24dp"
                     android:textSize="24sp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="리뷰"
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
@@ -590,6 +592,7 @@
                     app:layout_constraintStart_toStartOf="@id/tv_service_sort"
                     android:layout_marginTop="24dp"
                     android:textSize="24sp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="게시물 신고하기"
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
@@ -641,6 +644,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_like_filled"
                     app:tint="#FF0000"
+                    android:background="?android:attr/selectableItemBackground"
                     android:visibility="gone"
                     android:padding="10dp"/>
 
@@ -650,6 +654,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_like_unfilled"
                     android:visibility="visible"
+                    android:background="?android:attr/selectableItemBackground"
                     android:padding="10dp"/>
 
             </FrameLayout>
@@ -666,6 +671,7 @@
                     android:src="@drawable/ic_scrap_filled"
                     app:tint="#FFD500"
                     android:visibility="gone"
+                    android:background="?android:attr/selectableItemBackground"
                     android:padding="10dp"/>
 
                 <ImageView
@@ -674,6 +680,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_scrap_unfilled"
                     android:visibility="visible"
+                    android:background="?android:attr/selectableItemBackground"
                     android:padding="10dp"/>
 
             </FrameLayout>

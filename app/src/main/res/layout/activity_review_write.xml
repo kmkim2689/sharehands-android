@@ -27,16 +27,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="0dp"
-                app:elevation="0dp">
+                app:elevation="0dp"
+                app:contentInsetStart="8dp">
 
                 <ImageView
                     android:id="@+id/iv_go_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:padding="12dp"
+                    android:padding="20dp"
                     android:src="@drawable/ic_back_dir"
-                    app:tint="@color/sharehands_black" />
+                    app:tint="@color/sharehands_black"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <TextView
                     android:id="@+id/tv_write_review"

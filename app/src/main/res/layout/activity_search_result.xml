@@ -39,6 +39,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_back_dir"
                         android:padding="10dp"
+                        android:background="?android:attr/selectableItemBackground"
                         app:tint="@color/sharehands_black"/>
 
                     <TextView

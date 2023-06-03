@@ -147,6 +147,7 @@
                     android:text="오늘 해야 할 봉사"
                     android:textColor="@color/text_color"
                     android:textSize="16dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/iv_service_today"
                     app:layout_constraintStart_toEndOf="@id/iv_service_today"
@@ -161,6 +162,7 @@
                     android:drawableEnd="@drawable/ic_forward_dir"
                     android:padding="12dp"
                     android:text="캘린더 보기  "
+                    android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@id/tv_service_today"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_service_today" />
@@ -249,6 +251,7 @@
                     android:drawableEnd="@drawable/ic_forward_dir"
                     android:padding="12dp"
                     android:text="준비물 추가  "
+                    android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@id/tv_check_list"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_check_list" />
@@ -331,6 +334,7 @@
                     android:drawableEnd="@drawable/ic_forward_dir"
                     android:padding="12dp"
                     android:text="메모 추가  "
+                    android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="@id/tv_memo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_memo" />
