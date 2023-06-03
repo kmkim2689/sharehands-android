@@ -338,6 +338,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                 if (closedArray[0] != 1) {
                     radioPhoneClose.isChecked = false
                     radioPhoneOpen.isChecked = true
+                    showSnackbar("최소 1개의 연락처를 공개해야 합니다.")
                     Log.d("라디오 비공개수", "${closedArray}")
                 }
 
@@ -369,6 +370,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                 if (closedArray[1] != 1) {
                     radioEmailClose.isChecked = false
                     radioEmailOpen.isChecked = true
+                    showSnackbar("최소 1개의 연락처를 공개해야 합니다.")
                     Log.d("라디오 비공개수", "${closedArray}")
                 }
 
@@ -398,6 +400,7 @@ class ServiceWriteActivity: AppCompatActivity() {
                 if (closedArray[2] != 1) {
                     radioEtcClose.isChecked = false
                     radioEtcOpen.isChecked = true
+                    showSnackbar("최소 1개의 연락처를 공개해야 합니다.")
                     Log.d("라디오 비공개수", "${closedArray}")
                 }
 
