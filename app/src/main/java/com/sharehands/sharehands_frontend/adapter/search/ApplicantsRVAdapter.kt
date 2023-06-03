@@ -27,7 +27,7 @@ import retrofit2.Response
 class ApplicantsRVAdapter(private val context: RecruitActivity, private val applicantsList: java.util.ArrayList<Participated?>?,
                           private val token: String,
                           private val serviceId: Int,
-                          private val viewModel: RecruitViewModel)
+                          private val viewModel: RecruitViewModel, private val isExpired: Boolean)
     :RecyclerView.Adapter<ApplicantsRVAdapter.ApplicantsViewHolder>() {
         inner class ApplicantsViewHolder(private val binding: ItemUserAppliedBinding)
             :RecyclerView.ViewHolder(binding.root) {
@@ -46,9 +46,16 @@ class ApplicantsRVAdapter(private val context: RecruitActivity, private val appl
                         binding.btnPermitReview.visibility = View.GONE
                         binding.btnReject.visibility = View.GONE
                     } else {
-                        binding.btnPermitReview.visibility = View.VISIBLE
-                        binding.btnReject.visibility = View.VISIBLE
+                        if (isExpired) {
+                            binding.btnReject.visibility = View.GONE
+                            binding.btnPermitReview.visibility = View.VISIBLE
+                        } else {
+                            binding.btnReject.visibility = View.VISIBLE
+                            binding.btnPermitReview.visibility = View.GONE
+                        }
                     }
+
+
 
                     binding.btnPermitReview.setOnClickListener {
                         viewModel.allowReview(token, current.userId!!.toLong(), serviceId.toLong())
