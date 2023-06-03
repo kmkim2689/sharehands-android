@@ -77,7 +77,7 @@ class ScrapedServiceActivity: AppCompatActivity() {
                         Log.d("pageLen after", "${pageLen}")
                         val result = viewModel.scrapedServices
                         val total = viewModel.scrapedNum.value
-                        binding.tvTotalScraped.text = "총 ${total}개의 봉사를 스크랩했습니다."
+                        binding.tvTotalScraped.text = "총 ${total}개의 봉사를 스크랩하였습니다."
                         Handler().postDelayed({
                             if (::adapter.isInitialized) {
                                 adapter.notifyDataSetChanged()
@@ -93,7 +93,7 @@ class ScrapedServiceActivity: AppCompatActivity() {
                     } else {
                         isLoading = false
                         binding.progressScraped.visibility = View.GONE
-                        binding.tvTotalScraped.text = "총 0개의 봉사를 스크랩했습니다."
+                        binding.tvTotalScraped.text = "총 0개의 봉사를 스크랩하였습니다."
                     }
 
                 }
