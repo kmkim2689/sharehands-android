@@ -98,6 +98,7 @@ class AppliedServiceActivity: AppCompatActivity() {
                     } else {
                         isLoading = false
                         binding.progressApplied.visibility = View.GONE
+                        binding.tvTotalApplied.text = "총 0개의 봉사에 지원했습니다."
                     }
 
                 }

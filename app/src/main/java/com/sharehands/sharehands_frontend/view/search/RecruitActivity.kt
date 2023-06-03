@@ -1,6 +1,8 @@
 package com.sharehands.sharehands_frontend.view.search
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
@@ -34,7 +36,16 @@ class RecruitActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val serviceId = intent.getIntExtra("serviceId", 0)
+        val isExpired = intent.getBooleanExtra("isExpired", true)
+        Log.d("is expired", "$isExpired")
         val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
+
+        if (isExpired) {
+            binding.tvRecommendedApplicants.visibility = View.GONE
+            binding.layoutRecruitStatus.visibility = View.GONE
+            binding.rvRecommendedApplicants.visibility = View.GONE
+        }
+
 
         if (token != "null" && serviceId != 0) {
             viewModel.getApplicantsData(token, serviceId.toLong())
@@ -42,7 +53,7 @@ class RecruitActivity: AppCompatActivity() {
                 val result = viewModel.response
                 val applicantsLayoutManager = LinearLayoutManager(this)
                 val recommendLayoutManager = LinearLayoutManager(this)
-                val applicantsAdapter = ApplicantsRVAdapter(this, result.value?.participatedList, token, serviceId, viewModel)
+                val applicantsAdapter = ApplicantsRVAdapter(this, result.value?.participatedList, token, serviceId, viewModel, isExpired)
                 val recommendAdapter = RecommendRVAdapter(this, result.value?.suggestionList, serviceId.toLong(), viewModel, token)
 
                 binding.rvRecruitedApplicants.adapter = applicantsAdapter

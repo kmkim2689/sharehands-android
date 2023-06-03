@@ -385,12 +385,14 @@ class ServiceDetailActivity:AppCompatActivity() {
         binding.btnRecruit.setOnClickListener {
             val recruitIntent = Intent(this, RecruitActivity::class.java)
             recruitIntent.putExtra("serviceId", serviceId)
+            recruitIntent.putExtra("isExpired", viewModel.isExpired.value)
             startActivity(recruitIntent)
         }
 
         binding.btnRecruitCloseAuthor.setOnClickListener {
             val recruitIntent = Intent(this, RecruitActivity::class.java)
             recruitIntent.putExtra("serviceId", serviceId)
+            recruitIntent.putExtra("isExpired", viewModel.isExpired.value)
             startActivity(recruitIntent)
         }
 

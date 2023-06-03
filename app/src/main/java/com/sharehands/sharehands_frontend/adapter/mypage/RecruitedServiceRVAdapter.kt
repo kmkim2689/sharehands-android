@@ -22,6 +22,7 @@ import com.sharehands.sharehands_frontend.network.search.ServiceList
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
 import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.view.mypage.RecruitedServiceActivity
+import com.sharehands.sharehands_frontend.view.search.RecruitActivity
 import com.sharehands.sharehands_frontend.view.search.ServiceDetailActivity
 import com.sharehands.sharehands_frontend.viewmodel.mypage.ServiceMgtViewModel
 import com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel
@@ -95,6 +96,14 @@ class RecruitedServiceRVAdapter(private val context: RecruitedServiceActivity, p
                             Snackbar.make(view, "네트워크 상 오류가 발생하였습니다. 다시 시도해주세요", 1000).show()
                         }
                     }
+                }
+
+                recruitBtn.setOnClickListener {
+                    Log.d("클릭한 봉사활동 expired 여부", "$isExpired")
+                    val recruitIntent = Intent(itemView.context, RecruitActivity::class.java)
+                    recruitIntent.putExtra("isExpired", isExpired)
+                    recruitIntent.putExtra("serviceId", serviceId)
+                    itemView.context.startActivity(recruitIntent)
                 }
 
                 itemView.setOnClickListener {

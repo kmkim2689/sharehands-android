@@ -99,6 +99,7 @@ class RecruitedServiceActivity: AppCompatActivity() {
                     } else {
                         isLoading = false
                         binding.progressRecruited.visibility = View.GONE
+                        binding.tvTotalRecruited.text = "총 0개의 봉사를 모집했습니다."
                     }
 
                 }
