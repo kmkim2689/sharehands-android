@@ -34,8 +34,7 @@
                     android:layout_marginStart="16dp"
                     android:padding="20dp"
                     android:src="@drawable/ic_back_dir"
-                    app:tint="@color/sharehands_black"
-                    android:background="?android:attr/selectableItemBackground"/>
+                    app:tint="@color/sharehands_black" />
 
                 <TextView
                     android:id="@+id/tv_review_title"

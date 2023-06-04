@@ -42,7 +42,7 @@ class RecruitActivity: AppCompatActivity() {
 
         if (isExpired) {
             binding.tvRecommendedApplicants.visibility = View.GONE
-            binding.layoutRecruitStatus.visibility = View.GONE
+            binding.layoutRecommendStatus.visibility = View.GONE
             binding.rvRecommendedApplicants.visibility = View.GONE
         }
 

@@ -30,8 +30,11 @@ class ReviewDetailActivity: AppCompatActivity() {
         setContentView(R.layout.activity_review_detail)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_review_detail)
 
-        val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
-        val viewModel = ViewModelProvider(this).get(ReviewDetailViewModel::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         val serviceId = intent.getIntExtra("serviceId", 0)
         Log.d("serviceId", "${serviceId}")
 
@@ -45,6 +48,8 @@ class ReviewDetailActivity: AppCompatActivity() {
             finish()
         }
 
+        val token = SharedPreferencesManager.getInstance(this).getString("token", "null")
+        val viewModel = ViewModelProvider(this).get(ReviewDetailViewModel::class.java)
         getReviews(token, serviceId, 0, viewModel)
 
         val recyclerView = binding.rvReviews
@@ -97,12 +102,6 @@ class ReviewDetailActivity: AppCompatActivity() {
 
             }
         })
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     fun getReviews(token: String, serviceId: Int, last: Int, viewModel: ReviewDetailViewModel) {
