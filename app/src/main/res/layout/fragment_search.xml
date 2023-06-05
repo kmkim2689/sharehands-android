@@ -8,11 +8,9 @@
             type="com.sharehands.sharehands_frontend.viewmodel.search.ServiceSearchViewModel" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".view.search.SearchFragment"
@@ -30,82 +28,85 @@
                 app:elevation="32dp"
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <TextView
-                        android:id="@+id/tv_search_service"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/layout_search"
-                        android:text="봉사 찾기"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:layout_marginTop="20dp"
-                        />
-
-                    <LinearLayout
-                        android:id="@+id/layout_search"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="68dp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_search_service"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/rectangle_search_shadow"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent">
 
-                        <EditText
-                            android:id="@+id/edit_search"
+
+                        <TextView
+                            android:id="@+id/tv_search_service"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:hint="@string/search_description"
-                            android:onTextChanged="@{(s, start, before, count) -> viewModel.onSearchKeywordChanged(s, start, before, count)}"
-                            android:textColorHint="@color/icon_unfilled"
-                            android:textColor="@color/sharehands_black"
-                            android:layout_marginStart="24dp"
-                            android:textSize="16sp"
-                            android:maxLines="1"
-                            android:inputType="text"
-                            android:background="@null"
-                            android:layout_weight="9"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/layout_search"
+                            android:text="봉사 찾기"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:layout_marginTop="20dp"
                             />
 
-                        <ImageView
-                            android:id="@+id/iv_search_service"
-                            android:layout_width="60dp"
-                            android:layout_height="match_parent"
-                            android:padding="16dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_search_service"/>
+                        <LinearLayout
+                            android:id="@+id/layout_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="68dp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_search_service"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/rectangle_search_shadow"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <EditText
+                                android:id="@+id/edit_search"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:hint="@string/search_description"
+                                android:onTextChanged="@{(s, start, before, count) -> viewModel.onSearchKeywordChanged(s, start, before, count)}"
+                                android:textColorHint="@color/icon_unfilled"
+                                android:textColor="@color/sharehands_black"
+                                android:layout_marginStart="24dp"
+                                android:textSize="16sp"
+                                android:maxLines="1"
+                                android:inputType="text"
+                                android:background="@null"
+                                android:layout_weight="9"
+                                />
+
+                            <ImageView
+                                android:id="@+id/iv_search_service"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:padding="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_search_service"/>
+
+                        </LinearLayout>
 
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nested_scroll_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/layout_service_tab"
@@ -114,7 +115,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         app:tabMode="scrollable"
@@ -136,6 +137,7 @@
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewpager_service"
+                        android:nestedScrollingEnabled="false"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:layout_constraintTop_toBottomOf="@id/layout_service_tab"
@@ -145,33 +147,34 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.core.widget.NestedScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal">
 
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_write_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add"
+                        android:background="@color/sharehands_green_strong"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"/>
 
-        </LinearLayout>
+                </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
+            </RelativeLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_write_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
-                android:background="@color/sharehands_green_strong"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"/>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        </LinearLayout>
-
-    </RelativeLayout>
 
 
 </layout>
