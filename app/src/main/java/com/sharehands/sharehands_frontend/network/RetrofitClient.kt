@@ -1,15 +1,19 @@
 package com.sharehands.sharehands_frontend.network
 
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 
 object RetrofitClient {
     // TODO : Set Base URL after Decided
 // 정식aws   "http://52.79.137.238:8080"
 // local db    "http://127.0.0.1:8080"
     private const val BASE_URL = "https://www.sharehands.site"
+
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -26,4 +30,7 @@ object RetrofitClient {
 
     // TODO : 클라이언트를 사용하는 클래스에서, 다음과 같이 사용
     // private val retrofitClient = RetrofitClient.createRetrofitClient()
+
+
 }
+

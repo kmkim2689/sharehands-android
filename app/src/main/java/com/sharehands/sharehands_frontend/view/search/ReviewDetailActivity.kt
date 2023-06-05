@@ -6,6 +6,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.sharehands.sharehands_frontend.R
 import com.sharehands.sharehands_frontend.adapter.search.ReviewDetailRVAdapter
+import com.sharehands.sharehands_frontend.adapter.search.ServicesSearchRVAdapter
 import com.sharehands.sharehands_frontend.databinding.ActivityReviewDetailBinding
+import com.sharehands.sharehands_frontend.network.search.ReviewDetailItem
+import com.sharehands.sharehands_frontend.network.search.ServiceList
 import com.sharehands.sharehands_frontend.repository.SharedPreferencesManager
+import com.sharehands.sharehands_frontend.view.MainActivity
 import com.sharehands.sharehands_frontend.viewmodel.search.ReviewDetailViewModel
 
 class ReviewDetailActivity: AppCompatActivity() {
@@ -38,6 +43,9 @@ class ReviewDetailActivity: AppCompatActivity() {
         val serviceId = intent.getIntExtra("serviceId", 0)
         Log.d("serviceId", "${serviceId}")
 
+        val recyclerView = binding.rvReviews
+        recyclerView.removeAllViewsInLayout()
+
         binding.btnWriteService.setOnClickListener {
             val intent = Intent(this, ReviewWriteActivity::class.java)
             intent.putExtra("serviceId", serviceId)
@@ -52,11 +60,25 @@ class ReviewDetailActivity: AppCompatActivity() {
         val viewModel = ViewModelProvider(this).get(ReviewDetailViewModel::class.java)
         getReviews(token, serviceId, 0, viewModel)
 
-        val recyclerView = binding.rvReviews
-        adapter = ReviewDetailRVAdapter(this, viewModel.reviewList.value, token, serviceId, viewModel)
+        viewModel._reviewList.value = arrayListOf()
+        adapter = ReviewDetailRVAdapter(this, viewModel._reviewList.value, token, serviceId, viewModel)
         layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
+        viewModel.isInitialSuccessful.observe(this@ReviewDetailActivity) {
+            if (viewModel.isInitialSuccessful.value == true) {
+                adapter = ReviewDetailRVAdapter(this, viewModel.reviewList.value, token, serviceId, viewModel)
+                layoutManager = LinearLayoutManager(this)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = layoutManager
+                pageLen = viewModel.response.value!!.size
+                page++
+            }
+        }
+
+
+
+
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -65,22 +87,8 @@ class ReviewDetailActivity: AppCompatActivity() {
                     if (dy > 50) {
                         val total = adapter.itemCount
 //                    Log.d("total", "${total}")
-                        if (page == 1) {
-                            viewModel.isInitialSuccessful.observe(this@ReviewDetailActivity) {
-                                if (viewModel.isInitialSuccessful.value == true) {
-                                    if (!isLoading) {
-                                        pageLen = viewModel.response.value!!.size
-                                        page++
-                                        Log.d("review len", "${viewModel.response.value!!.size.toInt()}")
-                                        Log.d("review last id", "${viewModel.response.value!!.last().reviewId.toInt()}")
-                                        getReviews(token, serviceId, viewModel.response.value!!.last().reviewId.toInt(), viewModel)
-                                        Log.d("page after cnt", "${page}")
-                                    }
-                                }
-
-
-                            }
-                        } else {
+                        if (page != 1) {
+                            Log.d("page not 1", "$page")
                             viewModel.isAdditionalSuccessful.observe(this@ReviewDetailActivity) {
                                 if (viewModel.isAdditionalSuccessful.value == true) {
                                     if (!isLoading) {

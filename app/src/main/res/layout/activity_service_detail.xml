@@ -646,6 +646,7 @@
             android:nestedScrollingEnabled="false">
 
             <FrameLayout
+                android:id="@+id/frame_like"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp">
@@ -672,6 +673,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_scrap"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp">
@@ -698,18 +700,19 @@
             </FrameLayout>
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center">
 
                 <TextView
                     android:id="@+id/btn_apply"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_button_green"
                     android:elevation="20dp"
                     android:text="지원하기"
-                    android:layout_marginEnd="20dp"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
@@ -719,13 +722,12 @@
 
                 <TextView
                     android:id="@+id/btn_apply_cancel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_button_green"
                     android:elevation="20dp"
                     android:text="지원완료"
                     android:textSize="16sp"
-                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -735,12 +737,11 @@
 
                 <TextView
                     android:id="@+id/btn_recruit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_button_green"
                     android:elevation="20dp"
                     android:text="모집하기"
-                    android:layout_marginEnd="20dp"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
@@ -750,13 +751,12 @@
 
                 <TextView
                     android:id="@+id/btn_recruit_close_client"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_button_green"
                     android:elevation="20dp"
                     android:text="모집마감"
                     android:textSize="16sp"
-                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -766,13 +766,12 @@
 
                 <TextView
                     android:id="@+id/btn_recruit_close_author"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_button_green"
                     android:elevation="20dp"
                     android:text="모집완료"
                     android:textSize="16sp"
-                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:textColor="@color/white"

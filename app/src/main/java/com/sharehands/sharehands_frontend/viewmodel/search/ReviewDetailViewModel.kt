@@ -23,7 +23,7 @@ class ReviewDetailViewModel: ViewModel() {
         get() = _result
 
     // 누적
-    private var _reviewList = MutableLiveData<ArrayList<ReviewDetailItem>>(arrayListOf())
+    var _reviewList = MutableLiveData<ArrayList<ReviewDetailItem>>(arrayListOf())
     val reviewList: LiveData<ArrayList<ReviewDetailItem>>
         get() = _reviewList
 

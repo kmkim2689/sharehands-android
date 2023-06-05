@@ -105,7 +105,6 @@ class ServiceDetailActivity:AppCompatActivity() {
             finish()
         }
 
-
         if (token != "null" && serviceId != 0) {
             val progressDialog = ProgressDialog(this, "콘텐츠 로드 중")
             progressDialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
@@ -205,6 +204,8 @@ class ServiceDetailActivity:AppCompatActivity() {
                 binding.btnRecruitCloseClient.visibility = View.GONE
                 binding.btnApplyCancel.visibility = View.GONE
                 binding.btnApply.visibility = View.GONE
+                binding.frameLike.visibility = View.GONE
+                binding.frameScrap.visibility = View.GONE
                 if (viewModel.isExpired.value == true || viewModel.isFull.value == true) {
                     binding.btnRecruitCloseAuthor.visibility = View.VISIBLE
                     binding.btnRecruit.visibility = View.GONE

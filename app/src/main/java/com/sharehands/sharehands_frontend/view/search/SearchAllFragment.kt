@@ -67,7 +67,6 @@ open class SearchAllFragment: Fragment() {
         Log.d("on", "viewcreated")
 
         val orderSpinner = binding.spinnerServiceCategory
-
         // Fragment 왔다갔다 했을 때 오류뜨는 이슈 및 중복해서 나타나는 해결 방법 : context를 미리 선언해놓고 사용한다.
         val context = requireContext()
 
@@ -112,7 +111,6 @@ open class SearchAllFragment: Fragment() {
                 if (dy > 50) {
                     val total = adapter.itemCount
 //                    Log.d("total", "${total}")
-
                     if (page == 1) {
                         viewModel.isSuccessful.observe(viewLifecycleOwner) {
                             if (!isLoading) {
@@ -216,10 +214,6 @@ open class SearchAllFragment: Fragment() {
             getServices(token, context)
             binding.refreshLayout.isRefreshing = false
         }
-
-
-
-
     }
 
     override fun onResume() {
