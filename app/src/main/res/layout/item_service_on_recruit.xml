@@ -203,7 +203,7 @@
             android:id="@+id/iv_goto_recruit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_goto_recruit"
+            android:src="@drawable/btn_manage"
             android:padding="2dp"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="@id/iv_service_recruit_user"

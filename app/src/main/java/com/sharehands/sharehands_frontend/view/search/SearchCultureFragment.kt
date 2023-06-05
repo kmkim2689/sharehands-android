@@ -46,7 +46,6 @@ class SearchCultureFragment: Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_culture, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(ServiceSearchCultureViewModel::class.java)
-//            ViewModelProvider(requireActivity()).get(ServiceSearchEduViewModel::class.java)
         binding.lifecycleOwner = MainActivity()
         binding.viewModel = viewModel
 
