@@ -53,6 +53,13 @@
 
 <br>
 
+## Basic Info
+* [Wireframe(Figma)](https://www.figma.com/file/a2EkIepnKM7q9fR2uTjMqJ/ShareHands-UI?type=design&node-id=282%3A3093&mode=design&t=1TDvkd4Een7BZkwM-1)
+* [Specification(pdf)](https://github.com/kmkim2689/sharehands-android/files/12745349/A4.pdf)
+* [DFD(pdf)](https://github.com/kmkim2689/sharehands-android/files/12745398/ShareHands-DFD.pdf)
+
+<br>
+
 ## Development Environment
 * Android Studio
 * Spring Boot
