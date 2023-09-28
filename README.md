@@ -5,9 +5,22 @@
 <br>
 
 <image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/f17b991f-ecb8-439f-a471-5310ab262e18" width="180px" height="380px" />
-<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/f17b991f-ecb8-439f-a471-5310ab262e18" width="180px" height="380px" />
-<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/f17b991f-ecb8-439f-a471-5310ab262e18" width="180px" height="380px" />
-<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/f17b991f-ecb8-439f-a471-5310ab262e18" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/409c7973-43ca-42bc-b77f-71e348ebf67b" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/68360fa8-2129-4e7b-8581-9a56952c7ff0" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/e84d3887-c5f3-4685-bdb4-c500dd916f6e" width="180px" height="380px" />
+<br>
+<br>
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/496aa820-404f-4332-abbb-871ee12301bf" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/88ba7d4a-302e-4770-aee5-c1f83210b2a8" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/72dd5c79-90f0-4c32-ad38-09ceea0db6d8" width="180px" height="380px" />
+&nbsp;
+<image alt="sharehands-home" src="https://github.com/TeamZipdabang-UMC/Zipdabang-Frontend/assets/101035437/3f459b41-b8bc-41ce-bbfc-09d0a84af374" width="180px" height="380px" />
+
 
 <br>
 
@@ -75,7 +88,7 @@
 
 <br>
 
-## Functions
+## Demonstration
 
 * [Function Explanation Page](https://cooperative-floor-0d8.notion.site/524d9b4c0f25488d910f3ef8066b03d0?pvs=4)
 
